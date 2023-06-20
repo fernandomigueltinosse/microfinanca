@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recibo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="883755f1-6de3-4767-ab72-173bda985ade">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<parameter name="pg_id" class="java.lang.Integer"/>
+	<parameter name="cli_nome" class="java.lang.String"/>
+	<parameter name="pg_valor_pago" class="java.lang.Double"/>
+	<parameter name="numero_prestacao" class="java.lang.Integer"/>
+	<parameter name="data_pagamento" class="java.util.Date"/>
+	<parameter name="nuit" class="java.lang.Integer"/>
+	<parameter name="telefone" class="java.lang.Integer"/>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select * from pagamentos]]>
+	</queryString>
+	<field name="pag_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="pag_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="pag_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="pag_valor_pago" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="pag_valor_pago"/>
+		<property name="com.jaspersoft.studio.field.label" value="pag_valor_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="numero_prestacao" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numero_prestacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_prestacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="pag_fk_emprestimo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="pag_fk_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.label" value="pag_fk_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="pag_data_registro" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="pag_data_registro"/>
+		<property name="com.jaspersoft.studio.field.label" value="pag_data_registro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="340" y="49" width="205" height="30" uuid="f8bc457c-9737-45ff-9ac6-ffb2aba8aca5"/>
+				<textElement>
+					<font size="19"/>
+				</textElement>
+				<text><![CDATA[Recibo]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="441" y="79" width="100" height="20" uuid="ad52e534-3c11-4abc-8147-9ee5a375c42f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="79" width="100" height="20" uuid="134f9e83-a7a2-4011-a901-3be459514c34"/>
+				<text><![CDATA[Data da impressão:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="45" width="50" height="20" uuid="cc6c93ae-e899-4cef-9250-232cdd5bee32"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="85" width="120" height="20" uuid="0133e0bb-ec39-4c71-bf3f-63f78e06c52e"/>
+				<textFieldExpression><![CDATA[$P{nuit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="86" width="50" height="18" uuid="fb58ca0a-ad7e-40ec-a1a9-f3db7b268d1f"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nuit        :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="66" width="50" height="18" uuid="8c227cfa-ee6b-41d8-bbb5-c37e8c2dc566"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="65" width="120" height="20" uuid="ac1e60d1-6dfe-468b-977c-e29b4ad64439"/>
+				<textFieldExpression><![CDATA[$P{telefone}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="104" width="535" height="1" uuid="8c0a0201-9819-44cb-a027-4db2d23c1258"/>
+			</line>
+			<textField>
+				<reportElement x="64" y="45" width="100" height="17" uuid="e14f76d5-13af-442c-8d95-b06d725594a8"/>
+				<textFieldExpression><![CDATA[$P{nomeEmpresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="44" width="100" height="19" uuid="d39ef1e1-05a0-4617-8fe1-2d89c092a688"/>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="44" width="100" height="19" uuid="0f194a9e-df72-4a91-a3bd-44afbdd4a5a9"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="46" width="100" height="18" uuid="21a9f4c2-a299-4ac1-b040-1f3a4bfc344e"/>
+				<text><![CDATA[Valor pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="47" width="100" height="16" uuid="6987d9a8-9247-4b18-86dc-b34be1c8a1e3"/>
+				<text><![CDATA[Prestações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="47" width="100" height="22" uuid="27d97d0c-3a02-4863-a95b-ea620e2d8e5d"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="70" width="535" height="1" uuid="f9a9694a-0b4f-433d-80cf-51cb8adaf5b4"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="166" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="30" uuid="d6a8f388-99bc-4b7c-a5da-a19ba2c94a7e"/>
+				<textFieldExpression><![CDATA[$P{pg_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="30" uuid="96ff3f90-1f5c-4864-8cc6-11be1f07036d"/>
+				<textFieldExpression><![CDATA[$P{cli_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="30" uuid="08d7047b-d790-4bd6-95eb-fb7c8d3fba51"/>
+				<textFieldExpression><![CDATA[$P{pg_valor_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="30" uuid="7ae5a2a8-9034-4013-80cd-0facd21268d1"/>
+				<textFieldExpression><![CDATA[$P{numero_prestacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="444" y="0" width="111" height="30" uuid="cc3f2ba3-c819-455d-89d5-50b73e8263d0"/>
+				<textFieldExpression><![CDATA[$P{data_pagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
