@@ -109,7 +109,28 @@ public class frmPagamentos extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     private void imprimirRecibo(Pagamentos pg, Emprestimo ep) throws JRException {
+        EmpresaDao empresaDao = DaoFactory.createEmpresa();
 
+        Empresa empresa = empresaDao.findAll();
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nomeEmpresa", empresa.getE_nome());
+        parametros.put("nuit", empresa.getE_nuit());
+        parametros.put("telefone", empresa.getE_telefone());
+
+        parametros.put("pg_id", pg.getPg_id());
+        parametros.put("pg_valor_pago", pg.getPg_valor_pago());
+        parametros.put("numero_prestacao", pg.getNumero_prestacao());
+        parametros.put("data_pagamento", pg.getData_pagamento());
+        parametros.put("cli_nome", ep.getCliente().getCli_nome());
+        parametros.put("idEmprestimo", ep.getCd_id());
+        JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
+        JasperReport report = JasperCompileManager.compileReport(path);
+        JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
+        JasperViewer.viewReport(print, false);
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
@@ -145,26 +166,7 @@ public class frmPagamentos extends javax.swing.JFrame {
         txtValorApagar.setText(String.valueOf(montante / prestacoes));
     }
 
-    private void imprimirRecibo(Pagamentos pg, Emprestimo ep) throws JRException {
-        EmpresaDao empresaDao = DaoFactory.createEmpresa();
-
-        Empresa empresa = empresaDao.findAll();
-
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("nomeEmpresa", empresa.getE_nome());
-        parametros.put("nuit", empresa.getE_nuit());
-        parametros.put("telefone", empresa.getE_telefone());
-
-        parametros.put("pg_id", pg.getPg_id());
-        parametros.put("pg_valor_pago", pg.getPg_valor_pago());
-        parametros.put("numero_prestacao", pg.getNumero_prestacao());
-        parametros.put("data_pagamento", pg.getData_pagamento());
-        parametros.put("cli_nome", ep.getCliente().getCli_nome());
-        JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(path);
-        JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
-        JasperViewer.viewReport(print, false);
-    }
+   
 
     private void imprimir() throws JRException {
         EmpresaDao empresaDao = DaoFactory.createEmpresa();

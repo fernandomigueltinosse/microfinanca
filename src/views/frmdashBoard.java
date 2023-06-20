@@ -88,6 +88,7 @@ public class frmdashBoard extends javax.swing.JFrame {
         Documentos = new javax.swing.JMenuItem();
         balanco = new javax.swing.JMenuItem();
         pagamentos = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -227,6 +228,11 @@ public class frmdashBoard extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("janelas");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         clientes.setText("Clientes");
         clientes.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +281,14 @@ public class frmdashBoard extends javax.swing.JFrame {
             }
         });
         jMenu2.add(pagamentos);
+
+        jMenuItem2.setText("Multas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
 
@@ -419,6 +433,14 @@ public class frmdashBoard extends javax.swing.JFrame {
         new frmLogin().setVisible(true);
     }//GEN-LAST:event_sairActionPerformed
 
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+       
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new frmMultas().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -471,6 +493,7 @@ public class frmdashBoard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

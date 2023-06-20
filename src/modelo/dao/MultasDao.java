@@ -4,10 +4,16 @@
  */
 package modelo.dao;
 
+import java.util.List;
+import modelo.entities.Multas;
+
 /**
  *
  * @author pc2
  */
 public interface MultasDao {
-    
+    void insert(Multas obj);
+    void delete(Integer id);
+    List<Multas> filter(String text);
+    List<Multas> findAllMultas();
 }

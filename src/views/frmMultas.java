@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DaoFactory;
 import modelo.dao.EmprestimoDao;
+import modelo.dao.MultasDao;
 import modelo.entities.Emprestimo;
+import modelo.entities.Multas;
 
 /**
  *
@@ -17,20 +19,23 @@ import modelo.entities.Emprestimo;
 public class frmMultas extends javax.swing.JFrame {
 
     EmprestimoDao creditoDao = DaoFactory.createCreditoDao();
-    
+    MultasDao multasDao = DaoFactory.createMultas();
+
     public frmMultas() {
         initComponents();
         findAllCredito();
+        findAllMultas();
     }
 
-   private void findAllCredito() {
+    private void findAllCredito() {
 
         List<Emprestimo> list = creditoDao.findAllCredito();
         DefaultTableModel model = (DefaultTableModel) tblCredito.getModel();
         model.setNumRows(0);
         creditoModel(list, model);
     }
-     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
+
+    private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
         for (Emprestimo creditos : List) {
             model.addRow(new Object[]{
                 creditos.getCd_id(),
@@ -43,20 +48,66 @@ public class frmMultas extends javax.swing.JFrame {
                 creditos.getPrazo_de_pagamento(),});
         }
     }
-     
-     private void findByName() {
+
+    private void findByName() {
         List<Emprestimo> List = creditoDao.findByName(txtsearchCredito.getText());
         DefaultTableModel model = (DefaultTableModel) tblCredito.getModel();
         model.setNumRows(0);
         creditoModel(List, model);
     }
-     
-     private void preencherCampo(){
+
+    private void preencherCampo() {
         int linha = tblCredito.getSelectedRow();
         String id = (tblCredito.getModel().getValueAt(linha, 0).toString());
         txtIdEmprestimo.setText(id);
-     }
+    }
+
+    private void insert() {
+        Multas m = new Multas();
+        m.setMulta(Double.valueOf(txtMultas.getText()));
+        Emprestimo e = new Emprestimo();
+        e.setCd_id(Integer.valueOf(txtIdEmprestimo.getText()));
+        m.setEmprestimo(e);
+        multasDao.insert(m);
+    }
+
+    private void delete() {
+        multasDao.delete(Integer.valueOf(txtId.getText()));
+    }
+
+    private void filter() {
+
+        List<Multas> list = multasDao.filter(txtSearchMultas.getText());
+        DefaultTableModel model = (DefaultTableModel) tblMultas.getModel();
+        model.setNumRows(0);
+        for(Multas m :list){
+            model.addRow(new Object[]{
+                m.getM_id(),
+                m.getMulta(),
+                m.getEmprestimo().getCd_id(),
+            });
+        }
+    }
     
+    private void findAllMultas() {
+
+        List<Multas> list = multasDao.findAllMultas();
+        DefaultTableModel model = (DefaultTableModel) tblMultas.getModel();
+        model.setNumRows(0);
+        for(Multas m :list){
+            model.addRow(new Object[]{
+                m.getM_id(),
+                m.getMulta(),
+                m.getEmprestimo().getCd_id(),
+            });
+        }
+    }
+    private void preencherCampoMultas() {
+        int linha = tblMultas.getSelectedRow();
+        String id = (tblMultas.getModel().getValueAt(linha, 0).toString());
+        txtId.setText(id);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,7 +125,9 @@ public class frmMultas extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCredito1 = new javax.swing.JTable();
+        tblMultas = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        txtSearchMultas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Multas");
@@ -117,11 +170,21 @@ public class frmMultas extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
         jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-delete-24.png"))); // NOI18N
         jButton2.setText("Apagar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        tblCredito1.setModel(new javax.swing.table.DefaultTableModel(
+        tblMultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -129,15 +192,24 @@ public class frmMultas extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "id", "Nome", "Multa"
+                "Id", "Multas", "Id emprestimo"
             }
         ));
-        tblCredito1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblMultas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCredito1MouseClicked(evt);
+                tblMultasMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblCredito1);
+        jScrollPane2.setViewportView(tblMultas);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
+        jLabel5.setText("Procurar");
+
+        txtSearchMultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchMultasKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,7 +239,11 @@ public class frmMultas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtsearchCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSearchMultas, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(224, 224, 224)
                         .addComponent(jButton1)
@@ -195,8 +271,12 @@ public class frmMultas extends javax.swing.JFrame {
                     .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtIdEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtSearchMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -216,9 +296,23 @@ public class frmMultas extends javax.swing.JFrame {
         preencherCampo();
     }//GEN-LAST:event_tblCreditoMouseClicked
 
-    private void tblCredito1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCredito1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblCredito1MouseClicked
+    private void tblMultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMultasMouseClicked
+        preencherCampoMultas();
+    }//GEN-LAST:event_tblMultasMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insert();
+        findAllMultas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        delete();
+        findAllMultas();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtSearchMultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchMultasKeyReleased
+       filter();
+    }//GEN-LAST:event_txtSearchMultasKeyReleased
 
     /**
      * @param args the command line arguments
@@ -263,13 +357,15 @@ public class frmMultas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblCredito;
-    private javax.swing.JTable tblCredito1;
+    private javax.swing.JTable tblMultas;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdEmprestimo;
     private javax.swing.JTextField txtMultas;
+    private javax.swing.JTextField txtSearchMultas;
     private javax.swing.JTextField txtsearchCredito;
     // End of variables declaration//GEN-END:variables
 }

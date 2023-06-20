@@ -10,7 +10,7 @@ package modelo.entities;
  *
  * @author pc2
  */
-public class multas {
+public class Multas {
 
     private Integer m_id;
     private Double multa;

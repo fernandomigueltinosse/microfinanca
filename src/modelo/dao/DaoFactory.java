@@ -10,6 +10,7 @@ import modelo.dao.impl.ClienteDaoJDBC;
 import modelo.dao.impl.DocumentosDaoJDBC;
 import modelo.dao.impl.EmprestimoDaoJDBC;
 import modelo.dao.impl.EmpresaDaoJDBC;
+import modelo.dao.impl.MultasDaoJDBC;
 
 import modelo.dao.impl.UserDaoJDBC;
 import modelo.dao.impl.PagamentoDaoJDBC;
@@ -49,5 +50,8 @@ public class DaoFactory {
     
      public static DocumentosDao createDocumentos(){
         return new DocumentosDaoJDBC(DB.getConnection());
+    }
+      public static MultasDao createMultas(){
+        return new MultasDaoJDBC(DB.getConnection());
     }
 }
