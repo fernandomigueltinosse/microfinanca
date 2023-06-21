@@ -53,6 +53,7 @@ public class frmdashBoard extends javax.swing.JFrame {
             model.addRow(new Object[]{
                 creditos.getCd_id(),
                 creditos.getCliente().getCli_nome(),
+                creditos.getCliente().getCli_telefone(),
                 creditos.getValor_emprestimo(),
                 creditos.getTaxa_juros(),
                 creditos.getTotal_a_pagar(),
@@ -185,13 +186,13 @@ public class frmdashBoard extends javax.swing.JFrame {
 
         tblEmprestimo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome ", "Montante ", "Juros", "Total", "Ciclo de pagamento", "Prazo de pagamento", "Dias remanescentes", "Prestações"
+                "Nº. Processo", "Nome ", "Telefone", "Montante ", "Juros", "Total", "Ciclo de pagamento", "Prazo de pagamento", "Dias remanescentes", "Prestações"
             }
         ));
         jScrollPane1.setViewportView(tblEmprestimo);

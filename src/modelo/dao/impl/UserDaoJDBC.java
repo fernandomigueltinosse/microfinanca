@@ -34,7 +34,12 @@ public class UserDaoJDBC implements UserDao {
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("INSERT INTO user (user_FirstName, user_LastName, user_email, user_password, user_function,username) VALUES (?,?,?,?,?,?)");
-            instatiatePst(pst,obj);
+            pst.setString(1, obj.getUser_fistNome());
+            pst.setString(2, obj.getUser_lastNome());
+            pst.setString(3, obj.getUser_email());
+            pst.setString(4, obj.getUser_password());
+            pst.setString(5, obj.getUser_function());
+            pst.setString(6, obj.getUserName());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -53,7 +58,13 @@ public class UserDaoJDBC implements UserDao {
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("UPDATE user SET user_FirstName=?,user_LastName=?,user_email=?,user_password=?,user_function=?,username=? WHERE user_id=?");
-            instatiatePst(pst, obj);
+            pst.setString(1, obj.getUser_fistNome());
+            pst.setString(2, obj.getUser_lastNome());
+            pst.setString(3, obj.getUser_email());
+            pst.setString(4, obj.getUser_password());
+            pst.setString(5, obj.getUser_function());
+            pst.setString(6, obj.getUserName());
+            pst.setInt(7, obj.getUser_id());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Actualizado com sucesso");
@@ -159,18 +170,6 @@ public class UserDaoJDBC implements UserDao {
         return user;
     }
 
-    private void instatiatePst(PreparedStatement pst,User obj) throws SQLException {
-        pst.setString(1, obj.getUser_fistNome());
-        pst.setString(2, obj.getUser_lastNome());
-        pst.setString(3, obj.getUser_email());
-        pst.setString(4, obj.getUser_password());
-        pst.setString(5, obj.getUser_function());
-        pst.setString(6, obj.getUserName());
-        if(obj.getUser_id()!=null){
-            pst.setInt(7, obj.getUser_id());
-        }
-    }
-
     @Override
     public User login(User obj) {
         PreparedStatement pst = null;
@@ -190,5 +189,24 @@ public class UserDaoJDBC implements UserDao {
             DB.closeStatement(pst);
         }
         return null;
+    }
+
+    @Override
+    public boolean ifUserExist(String user) {
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("SELECT * FROM user WHERE username=?");
+            pst.setString(1, user);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+        }
+        return false;
+
     }
 }

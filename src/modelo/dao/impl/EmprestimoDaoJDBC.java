@@ -138,8 +138,9 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM emprestimo join clientes on cli_id=ep_fk_clientes where ep_id like ?");
+            pst = conn.prepareStatement("SELECT * FROM emprestimo join clientes on cli_id=ep_fk_clientes where ep_id like ? OR cli_nome like ?");
             pst.setString(1, id +"%");
+            pst.setString(2, id +"%");
             rs = pst.executeQuery();
             List<Emprestimo> list = new ArrayList<>();
             while (rs.next()) {
@@ -168,6 +169,7 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         ep.setFrequenciaPagamento(rs.getInt("ep_frequenciaPagamento"));
         Cliente cli = new Cliente();
         cli.setCli_nome(rs.getString("cli_nome"));
+        cli.setCli_telefone(rs.getInt("cli_telefone"));
         ep.setCliente(cli);
         return ep;
 

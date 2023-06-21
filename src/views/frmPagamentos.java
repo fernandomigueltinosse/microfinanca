@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DaoFactory;
 import modelo.dao.EmpresaDao;
@@ -80,7 +81,13 @@ public class frmPagamentos extends javax.swing.JFrame {
     }
 
     private void insert() {
-
+        Emprestimo emp = new Emprestimo();
+        Integer count0 = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
+        emp = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
+        System.out.println("prestacoes "+emp.getPrestacoes());
+        System.out.println("pestacoes paga "+count0);
+        
+        
         try {
             Pagamentos pagamento = new Pagamentos();
             pagamento.setPg_valor_pago(Double.valueOf(txtValorApagar.getText()));
@@ -89,18 +96,15 @@ public class frmPagamentos extends javax.swing.JFrame {
             pagamento.setEmprestimo(ep);
             pagamento.setData_pagamento(new Date());
             pagamentoDao.insert(pagamento);
-
-            System.out.println(pagamento.getPg_id() + " id gerado");
-
+            
             Integer count = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
-            System.out.println(count + " numero de linhas");
-
+            
             pagamento.setNumero_prestacao(count);
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
 
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-            LocalDate dataAtual =ep.getPrazo_de_pagamento();
+            LocalDate dataAtual = ep.getPrazo_de_pagamento();
             LocalDate novaData = dataAtual.plusDays(ep.getFrequenciaPagamento());
             ep.setPrazo_de_pagamento(novaData);
             ep.setCd_id(Integer.valueOf(txtRefEmprestimo.getText()));
@@ -109,9 +113,11 @@ public class frmPagamentos extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+        
     }
-    
-     private void imprimirRecibo(Pagamentos pg, Emprestimo ep) throws JRException {
+
+    private void imprimirRecibo(Pagamentos pg, Emprestimo ep) throws JRException {
         EmpresaDao empresaDao = DaoFactory.createEmpresa();
 
         Empresa empresa = empresaDao.findAll();
@@ -134,9 +140,9 @@ public class frmPagamentos extends javax.swing.JFrame {
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
-        
+
         for (Emprestimo creditos : List) {
-            
+
             model.addRow(new Object[]{
                 creditos.getCd_id(),
                 creditos.getCliente().getCli_nome(),
@@ -145,8 +151,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                 creditos.getTotal_a_pagar(),
                 creditos.getPrestacoes(),
                 creditos.getPrazo_de_pagamento(),
-                creditos.getData_do_emprestimo(),
-            });
+                creditos.getData_do_emprestimo(),});
         }
 
     }
@@ -165,8 +170,6 @@ public class frmPagamentos extends javax.swing.JFrame {
         Integer prestacoes = (Integer) tblCredito.getModel().getValueAt(linha, 5);
         txtValorApagar.setText(String.valueOf(montante / prestacoes));
     }
-
-   
 
     private void imprimir() throws JRException {
         EmpresaDao empresaDao = DaoFactory.createEmpresa();
@@ -188,24 +191,24 @@ public class frmPagamentos extends javax.swing.JFrame {
     private void searchById() {
         DefaultTableModel model = (DefaultTableModel) tblPagamentos.getModel();
         model.setNumRows(0);
-        if(!jTextField1.getText().isEmpty()){
+        if (!jTextField1.getText().isEmpty()) {
             List<Pagamentos> list = pagamentoDao.findByEpId(Integer.valueOf(jTextField1.getText()));
 
-        for (Pagamentos pg : list) {
-            model.addRow(new Object[]{
-                pg.getPg_id(),
-                pg.getEmprestimo().getCliente().getCli_nome(),
-                pg.getPg_valor_pago(),
-                pg.getNumero_prestacao(),
-                pg.getData_pagamento(),
-                pg.getEmprestimo().getCd_id()
+            for (Pagamentos pg : list) {
+                model.addRow(new Object[]{
+                    pg.getPg_id(),
+                    pg.getEmprestimo().getCliente().getCli_nome(),
+                    pg.getPg_valor_pago(),
+                    pg.getNumero_prestacao(),
+                    pg.getData_pagamento(),
+                    pg.getEmprestimo().getCd_id()
 
-            });
-        }
-        }else{
+                });
+            }
+        } else {
             findAllPagamentos();
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -235,6 +238,7 @@ public class frmPagamentos extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         tblCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,7 +248,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Valor do emprestimo", "Juros", "Total", "Prestacoes", "Prazo de pagamento"
+                "Nº. Processo", "Nome", "Valor do emprestimo", "Juros", "Total", "Prestacoes", "Prazo de pagamento"
             }
         ));
         tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -266,7 +270,7 @@ public class frmPagamentos extends javax.swing.JFrame {
 
         txtId.setEnabled(false);
 
-        jLabel4.setText("Ref. Emprestimo");
+        jLabel4.setText("Nº processo");
 
         jLabel5.setText("Valor a pagar");
 

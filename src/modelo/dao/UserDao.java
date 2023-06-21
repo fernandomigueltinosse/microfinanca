@@ -16,6 +16,7 @@ public interface UserDao {
     void update(User obj);
     void delete(User obj);
     User login(User obj);
+    boolean ifUserExist(String user);
     List<User> findAllUser();
     List<User> searchByName(String nome);
     User findUserById(Integer id);

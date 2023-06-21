@@ -117,7 +117,10 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
+        LocalDate datactual = LocalDate.now();
         for (Emprestimo creditos : List) {
+            LocalDate dataAnterior = (creditos.getPrazo_de_pagamento());
+            long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
             model.addRow(new Object[]{
                 creditos.getCd_id(),
                 creditos.getCliente().getCli_nome(),
@@ -126,7 +129,9 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 creditos.getTotal_a_pagar(),
                 creditos.getPrestacoes(),
                 creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),});
+                creditos.getPrazo_de_pagamento(),
+                diff
+            });
         }
     }
 
@@ -184,6 +189,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         txtsearchCredito = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
 
@@ -201,7 +207,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Cod. cliente", "Nome"
+                "Nº. Cliente", "Nome"
             }
         ));
         tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,11 +217,11 @@ public class frmEmprestimo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblClientes);
 
-        jLabel2.setText("Cod. Cliente");
+        jLabel2.setText("Nº. Cliente");
 
         txtIdClinte.setEnabled(false);
 
-        jLabel3.setText("Cod. Credito");
+        jLabel3.setText("Nº. Processo");
 
         txtIdCredito.setEnabled(false);
 
@@ -374,13 +380,13 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Montante aprovado", "Juros", "Total", "Prestações", "Frequencia de pagamento", "Prazo de pagamento", "Dias remanescentes"
+                "Nº. Processo", "Nome", "Montante aprovado", "Juros", "Total", "Prestações", "Frequencia de pagamento", "Prazo de pagamento", "Dias remanescentes"
             }
         ));
         jScrollPane2.setViewportView(tblCredito);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
-        jLabel9.setText("Filtrar por id");
+        jLabel9.setText("Filtrar ");
         jLabel9.setToolTipText("");
 
         txtsearchCredito.addKeyListener(new java.awt.event.KeyAdapter() {

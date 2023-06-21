@@ -196,7 +196,9 @@ public class frmCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
 
-        jLabel2.setText("Id");
+        jLabel2.setText("Nº.  Cliente");
+
+        txtId.setEnabled(false);
 
         jLabel3.setText("Nome");
 
@@ -374,7 +376,7 @@ public class frmCliente extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Endereco", "Telefone", "Documento", "Nº documento", "Data emissao", "Data validade"
+                "Nº. Cliente", "Nome", "Endereco", "Telefone", "Documento", "Nº documento", "Data emissao", "Data validade"
             }
         ));
         tblClients.addMouseListener(new java.awt.event.MouseAdapter() {

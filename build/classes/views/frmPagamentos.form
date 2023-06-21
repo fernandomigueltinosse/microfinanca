@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -127,7 +128,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="4">
-                            <Column editable="true" title="Id" type="java.lang.Object"/>
+                            <Column editable="true" title="N&#xba;. Processo" type="java.lang.Object"/>
                             <Column editable="true" title="Nome" type="java.lang.Object"/>
                             <Column editable="true" title="Valor do emprestimo" type="java.lang.Object"/>
                             <Column editable="true" title="Juros" type="java.lang.Object"/>
@@ -249,7 +250,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Ref. Emprestimo"/>
+                        <Property name="text" type="java.lang.String" value="N&#xba; processo"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtRefEmprestimo">

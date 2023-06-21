@@ -16,21 +16,21 @@ import modelo.entities.User;
  * @author Tomas
  */
 public class frmUser extends javax.swing.JFrame {
-    
+
     UserDao userdao = DaoFactory.createUserDao();
-    
+
     public frmUser() {
         initComponents();
         fillTable();
         ActivateButtons(false, false, false);
     }
-    
+
     private void ActivateButtons(boolean btnAdicionar, boolean btnActualizar, boolean btnApagar) {
         this.btnAdicionar.setEnabled(btnAdicionar);
         this.btnActualizar.setEnabled(btnActualizar);
         this.btnApagar.setEnabled(btnApagar);
     }
-    
+
     private void cleanField() {
         txtEmail.setText("");
         txtFistName.setText("");
@@ -39,15 +39,15 @@ public class frmUser extends javax.swing.JFrame {
         txtsenha.setText("");
         txtUserName.setText("");
     }
-    
+
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
         model.setNumRows(0);
         List<User> list = userdao.findAllUser();
-        User users =new User();
-       users.UserModel(list, model);
+        User users = new User();
+        users.UserModel(list, model);
     }
-    
+
     private void ClickedTable() {
         int linha = tblUser.getSelectedRow();
         int id = Integer.parseInt(tblUser.getModel().getValueAt(linha, 0).toString());
@@ -60,25 +60,25 @@ public class frmUser extends javax.swing.JFrame {
         txtsenha.setText(user.getUser_password());
         txtUserName.setText(user.getUserName());
     }
-    
+
     private void searchByName() {
         DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
         model.setNumRows(0);
         List<User> list = userdao.searchByName(txtSearch.getText());
-       User users =new User();
-       users.UserModel(list, model);
-       
+        User users = new User();
+        users.UserModel(list, model);
+
     }
-    
+
     private void insert() {
         User user = instatiateUser();
         userdao.insert(user);
     }
-    
+
     private void update() {
         User user = instatiateUser();
         userdao.update(user);
-        
+
     }
 
     private void delete() {
@@ -99,11 +99,9 @@ public class frmUser extends javax.swing.JFrame {
             user.setUser_id(Integer.valueOf(txtId.getText()));
         }
         return user;
-        
+
     }
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -138,9 +136,7 @@ public class frmUser extends javax.swing.JFrame {
         setTitle("usuario");
         setResizable(false);
 
-        jLabel2.setText("Id");
-
-        txtId.setEnabled(false);
+        jLabel2.setText("Nº. Usuario");
 
         jLabel3.setText("Primeiro nome");
 
@@ -187,6 +183,12 @@ public class frmUser extends javax.swing.JFrame {
         comoCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Geral" }));
 
         jLabel8.setText("Username");
+
+        txtUserName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUserNameFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -273,7 +275,7 @@ public class frmUser extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Username", "Primeiro nome", "Ultimo nome", "Email", "Senha"
+                "Nº. Usuario", "Username", "Primeiro nome", "Ultimo nome", "Email", "Senha"
             }
         ));
         tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -337,10 +339,15 @@ public class frmUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        insert();
-        cleanField();
-        fillTable();
-        ActivateButtons(false, false, false);
+        if (userdao.ifUserExist(txtUserName.getText())) {
+            JOptionPane.showMessageDialog(null, "Usuario ja existe");
+        } else {
+            insert();
+            cleanField();
+            fillTable();
+            ActivateButtons(false, false, false);
+        }
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -369,6 +376,11 @@ public class frmUser extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         ActivateButtons(true, false, false);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void txtUserNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusLost
+
+
+    }//GEN-LAST:event_txtUserNameFocusLost
 
     /**
      * @param args the command line arguments

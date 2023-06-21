@@ -287,7 +287,7 @@ public class frmDocumentos extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Montante aprovado", "Juros", "Total", "Prestações"
+                "Nº. Processo", "Nome", "Montante aprovado", "Juros", "Total", "Prestações"
             }
         ));
         tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -298,7 +298,7 @@ public class frmDocumentos extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tblCredito);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
-        jLabel6.setText("Filtrar pelo id");
+        jLabel6.setText("Filtrar");
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -310,7 +310,7 @@ public class frmDocumentos extends javax.swing.JFrame {
 
         jLabel2.setText("Titulo do documento");
 
-        jLabel3.setText("Id do emprestimo");
+        jLabel3.setText("Nº. Processo");
 
         jLabel4.setText("Carregar documento");
 
@@ -387,7 +387,7 @@ public class frmDocumentos extends javax.swing.JFrame {
                                 .addComponent(btnActualizar)
                                 .addGap(28, 28, 28)
                                 .addComponent(btnApagar)))
-                        .addGap(0, 86, Short.MAX_VALUE)))
+                        .addGap(0, 113, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -429,7 +429,7 @@ public class frmDocumentos extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Titulo", "Id do emprestimo", "Arquivo"
+                "Nº. Documento", "Titulo", "Nº. Processo", "Arquivo"
             }
         ));
         tblDocumentos.setColumnSelectionAllowed(true);

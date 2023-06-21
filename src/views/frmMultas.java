@@ -131,6 +131,7 @@ public class frmMultas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Multas");
+        setResizable(false);
 
         tblCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,7 +141,7 @@ public class frmMultas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Montante", "Juros"
+                "Nº. Processo", "Nome", "Montante", "Juros"
             }
         ));
         tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,9 +150,6 @@ public class frmMultas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblCredito);
-        if (tblCredito.getColumnModel().getColumnCount() > 0) {
-            tblCredito.getColumnModel().getColumn(3).setHeaderValue("Juros");
-        }
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
         jLabel1.setText("Procurar");
