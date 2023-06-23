@@ -170,7 +170,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Senha"/>
+                <Property name="text" type="java.lang.String" value="Senha*"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtsenha">
@@ -221,7 +221,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cargo"/>
+                <Property name="text" type="java.lang.String" value="Cargo*"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comoCargo">
@@ -239,7 +239,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Username"/>
+                <Property name="text" type="java.lang.String" value="Username*"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtUserName">
@@ -310,7 +310,7 @@
                         <Column editable="true" title="Primeiro nome" type="java.lang.Object"/>
                         <Column editable="true" title="Ultimo nome" type="java.lang.Object"/>
                         <Column editable="true" title="Email" type="java.lang.Object"/>
-                        <Column editable="true" title="Senha" type="java.lang.Object"/>
+                        <Column editable="true" title="Fun&#xe7;&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

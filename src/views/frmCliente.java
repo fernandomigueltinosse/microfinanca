@@ -61,11 +61,11 @@ public class frmCliente extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblClients.getModel();
         model.setNumRows(0);
         List<Cliente> list = clienteDao.findAllCliente();
-        
+
         cli.instatiateModel(list, model);
     }
-    
-     private void searchByName() {
+
+    private void searchByName() {
         DefaultTableModel model = (DefaultTableModel) tblClients.getModel();
         model.setNumRows(0);
         List<Cliente> list = clienteDao.findByName(txtSearch.getText());
@@ -84,40 +84,38 @@ public class frmCliente extends javax.swing.JFrame {
         jDateValidade.setDate(client.getCli_data_validade());
         txtNumero.setText(client.getCli_numero().toString());
         comoDocumento.setSelectedItem(client.getCli_tipo_documento());
-        if(client.getCli_foto()!=null){
-           ImageIcon image = new ImageIcon(client.getCli_foto());
-                Image im = image.getImage();
-                Image myimg = im.getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH);
-                ImageIcon newImage = new ImageIcon(myimg);
-                lblPhoto.setIcon(newImage);
-            }else{
-                lblPhoto.setIcon(null); 
+        if (client.getCli_foto() != null) {
+            ImageIcon image = new ImageIcon(client.getCli_foto());
+            Image im = image.getImage();
+            Image myimg = im.getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon newImage = new ImageIcon(myimg);
+            lblPhoto.setIcon(newImage);
+        } else {
+            lblPhoto.setIcon(null);
         }
 
     }
 
-   
-
     private void insert() {
         Cliente client = instatiateClient();
-        if(Imagepath2.trim().length()!=0){
+        if (Imagepath2.trim().length() != 0) {
             client.setFoto(Imagepath2);
-        }else{
+        } else {
             client.setFoto(null);
         }
-       
+
         clienteDao.insert(client);
     }
 
     private void update() {
         Cliente client = instatiateClient();
-        if(Imagepath2.trim().length()!=0){
+        if (Imagepath2.trim().length() != 0) {
             client.setFoto(Imagepath2);
             clienteDao.update(client);
-        }else{
+        } else {
             clienteDao.update2(client);
         }
-        
+
     }
 
     private void delete() {
@@ -145,17 +143,16 @@ public class frmCliente extends javax.swing.JFrame {
     private void adicionarImagem() throws IOException {
         Cliente client = new Cliente();
         JFileChooser chooser = new JFileChooser();
-             chooser.showOpenDialog(null);
-             File f  = chooser.getSelectedFile();
-             String Imagepath = f.getAbsolutePath();
-             ///this code resize de image 
-             BufferedImage bi = ImageIO.read(new File(Imagepath));
-             Image img = bi.getScaledInstance(152, 130, Image.SCALE_SMOOTH);
-             ImageIcon icon = new ImageIcon(img);
-            client.setFoto(Imagepath);
-            Imagepath2 = Imagepath;
-            lblPhoto.setIcon(icon);
-        
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String Imagepath = f.getAbsolutePath();
+        ///this code resize de image 
+        BufferedImage bi = ImageIO.read(new File(Imagepath));
+        Image img = bi.getScaledInstance(152, 130, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(img);
+        client.setFoto(Imagepath);
+        Imagepath2 = Imagepath;
+        lblPhoto.setIcon(icon);
 
     }
 
@@ -449,17 +446,23 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        insert();
-        cleanField();
-        fillTable();
-        ActivateButtons(false, false, false);
+        if (clienteDao.ifClientExist(txtNome.getText())) {
+            JOptionPane.showMessageDialog(null, "Cliente ja existe");
+        } else {
+            insert();
+            cleanField();
+            fillTable();
+            ActivateButtons(false, false, false);
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        update();
-        cleanField();
-        fillTable();
-        ActivateButtons(false, false, false);
+       
+            update();
+            cleanField();
+            fillTable();
+            ActivateButtons(false, false, false);
+       
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed

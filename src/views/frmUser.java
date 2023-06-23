@@ -72,7 +72,12 @@ public class frmUser extends javax.swing.JFrame {
 
     private void insert() {
         User user = instatiateUser();
-        userdao.insert(user);
+        if (!txtUserName.getText().isEmpty() && !txtsenha.getText().isEmpty()) {
+            userdao.insert(user);
+        } else {
+            JOptionPane.showMessageDialog(null, "preecnha os campos obrigatorios*");
+        }
+
     }
 
     private void update() {
@@ -144,7 +149,7 @@ public class frmUser extends javax.swing.JFrame {
 
         jLabel5.setText("Email");
 
-        jLabel6.setText("Senha");
+        jLabel6.setText("Senha*");
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-new-copy-24.png"))); // NOI18N
         btnNovo.setText("Novo");
@@ -178,11 +183,11 @@ public class frmUser extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Cargo");
+        jLabel7.setText("Cargo*");
 
         comoCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Geral" }));
 
-        jLabel8.setText("Username");
+        jLabel8.setText("Username*");
 
         txtUserName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -275,7 +280,7 @@ public class frmUser extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nº. Usuario", "Username", "Primeiro nome", "Ultimo nome", "Email", "Senha"
+                "Nº. Usuario", "Username", "Primeiro nome", "Ultimo nome", "Email", "Função"
             }
         ));
         tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,10 +356,12 @@ public class frmUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        update();
-        cleanField();
-        fillTable();
-        ActivateButtons(false, false, false);
+       
+            update();
+            cleanField();
+            fillTable();
+            ActivateButtons(false, false, false);
+      
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed

@@ -15,7 +15,7 @@ public interface PagamentoDao {
     void insert(Pagamentos obj);
     void updatePrestcoes(Pagamentos obj);
     List<Pagamentos> finfAll();
-    List<Pagamentos> findByEpId(Integer id);
+    List<Pagamentos> findByEpId(String id);
     Pagamentos findById(Pagamentos obj);
     Integer count(Integer id);
 }

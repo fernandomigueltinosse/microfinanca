@@ -40,7 +40,6 @@ public class PagamentoDaoJDBC implements PagamentoDao {
             InstaciatePST(pst, obj);
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
                 ResultSet rs = pst.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
@@ -80,7 +79,7 @@ public class PagamentoDaoJDBC implements PagamentoDao {
     }
     
       @Override
-    public List<Pagamentos> findByEpId(Integer id) {
+    public List<Pagamentos> findByEpId(String id) {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {

@@ -10,7 +10,9 @@ package modelo.entities;
  */
 public class UserSession {
     public static int codigo;
-    public static String nome;
+    public static String username;
+    public static String primeiroNome;
+    public static String UltimoNome;
     public static String senha;
     public static String funcao;
     

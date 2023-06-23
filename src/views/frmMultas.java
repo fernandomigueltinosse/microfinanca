@@ -6,9 +6,11 @@ package views;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import modelo.dao.ClienteDao;
 import modelo.dao.DaoFactory;
 import modelo.dao.EmprestimoDao;
 import modelo.dao.MultasDao;
+import modelo.entities.Cliente;
 import modelo.entities.Emprestimo;
 import modelo.entities.Multas;
 
@@ -17,57 +19,55 @@ import modelo.entities.Multas;
  * @author pc2
  */
 public class frmMultas extends javax.swing.JFrame {
-
-    EmprestimoDao creditoDao = DaoFactory.createCreditoDao();
+ Cliente cli = new Cliente();
+    ClienteDao clienteDao = DaoFactory.createClienteDao();
     MultasDao multasDao = DaoFactory.createMultas();
 
     public frmMultas() {
         initComponents();
-        findAllCredito();
+        fillTable();
         findAllMultas();
     }
 
-    private void findAllCredito() {
-
-        List<Emprestimo> list = creditoDao.findAllCredito();
-        DefaultTableModel model = (DefaultTableModel) tblCredito.getModel();
+   private void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setNumRows(0);
-        creditoModel(list, model);
-    }
-
-    private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
-        for (Emprestimo creditos : List) {
+        List<Cliente> list = clienteDao.findAllCliente();
+         for (Cliente client : list) {
             model.addRow(new Object[]{
-                creditos.getCd_id(),
-                creditos.getCliente().getCli_nome(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getPrestacoes(),
-                creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),});
+                client.getCli_id(),
+                client.getCli_nome(),
+                client.getCli_endereco(),
+                client.getCli_telefone(),
+                client.getCli_tipo_documento(),
+                client.getCli_numero(),
+                client.getCli_data_emissao(),
+                client.getCli_data_validade()
+            });
         }
     }
 
-    private void findByName() {
-        List<Emprestimo> List = creditoDao.findByName(txtsearchCredito.getText());
-        DefaultTableModel model = (DefaultTableModel) tblCredito.getModel();
+  
+
+   private void searchByName() {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setNumRows(0);
-        creditoModel(List, model);
+        List<Cliente> list = clienteDao.findByName(txtSearchClientes.getText());
+        cli.instatiateModel(list, model);
     }
 
     private void preencherCampo() {
-        int linha = tblCredito.getSelectedRow();
-        String id = (tblCredito.getModel().getValueAt(linha, 0).toString());
-        txtIdEmprestimo.setText(id);
+        int linha = tblClientes.getSelectedRow();
+        String id = (tblClientes.getModel().getValueAt(linha, 0).toString());
+        txtIdClinte.setText(id);
     }
 
     private void insert() {
         Multas m = new Multas();
         m.setMulta(Double.valueOf(txtMultas.getText()));
-        Emprestimo e = new Emprestimo();
-        e.setCd_id(Integer.valueOf(txtIdEmprestimo.getText()));
-        m.setEmprestimo(e);
+        Cliente cliente = new Cliente();
+        cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
+        m.setCliente(cliente);
         multasDao.insert(m);
     }
 
@@ -83,8 +83,8 @@ public class frmMultas extends javax.swing.JFrame {
         for(Multas m :list){
             model.addRow(new Object[]{
                 m.getM_id(),
+                m.getCliente().getCli_nome(),
                 m.getMulta(),
-                m.getEmprestimo().getCd_id(),
             });
         }
     }
@@ -97,8 +97,9 @@ public class frmMultas extends javax.swing.JFrame {
         for(Multas m :list){
             model.addRow(new Object[]{
                 m.getM_id(),
+                m.getCliente().getCli_nome(),
                 m.getMulta(),
-                m.getEmprestimo().getCd_id(),
+                
             });
         }
     }
@@ -113,15 +114,15 @@ public class frmMultas extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCredito = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtsearchCredito = new javax.swing.JTextField();
+        txtSearchClientes = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtMultas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtIdEmprestimo = new javax.swing.JTextField();
+        txtIdClinte = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -133,7 +134,7 @@ public class frmMultas extends javax.swing.JFrame {
         setTitle("Multas");
         setResizable(false);
 
-        tblCredito.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,22 +142,22 @@ public class frmMultas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nº. Processo", "Nome", "Montante", "Juros"
+                "Codigo", "Nome", "Endereço", "Telefone"
             }
         ));
-        tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCreditoMouseClicked(evt);
+                tblClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCredito);
+        jScrollPane1.setViewportView(tblClientes);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
         jLabel1.setText("Procurar");
 
-        txtsearchCredito.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearchClientes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtsearchCreditoKeyReleased(evt);
+                txtSearchClientesKeyReleased(evt);
             }
         });
 
@@ -164,7 +165,7 @@ public class frmMultas extends javax.swing.JFrame {
 
         jLabel3.setText("Multa");
 
-        jLabel4.setText("Id emprestimo");
+        jLabel4.setText("Cod. cliente");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
         jButton1.setText("Cadastrar");
@@ -190,7 +191,7 @@ public class frmMultas extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Id", "Multas", "Id emprestimo"
+                "Cod. multas", "Nome", "Multas"
             }
         ));
         tblMultas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,7 +222,7 @@ public class frmMultas extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(txtIdEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdClinte, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -235,7 +236,7 @@ public class frmMultas extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtsearchCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtSearchClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -258,7 +259,7 @@ public class frmMultas extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtsearchCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearchClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
@@ -268,7 +269,7 @@ public class frmMultas extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtIdEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdClinte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -286,13 +287,13 @@ public class frmMultas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtsearchCreditoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchCreditoKeyReleased
-        findByName();
-    }//GEN-LAST:event_txtsearchCreditoKeyReleased
+    private void txtSearchClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchClientesKeyReleased
+        searchByName();
+    }//GEN-LAST:event_txtSearchClientesKeyReleased
 
-    private void tblCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCreditoMouseClicked
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         preencherCampo();
-    }//GEN-LAST:event_tblCreditoMouseClicked
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     private void tblMultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMultasMouseClicked
         preencherCampoMultas();
@@ -358,12 +359,12 @@ public class frmMultas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblCredito;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblMultas;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtIdEmprestimo;
+    private javax.swing.JTextField txtIdClinte;
     private javax.swing.JTextField txtMultas;
+    private javax.swing.JTextField txtSearchClientes;
     private javax.swing.JTextField txtSearchMultas;
-    private javax.swing.JTextField txtsearchCredito;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,7 @@ public interface ClienteDao {
     void update (Cliente obj);
     void update2 (Cliente obj);
     void delete(Cliente obj);
+    boolean ifClientExist(String text);
     Cliente findById(Integer id);
     List<Cliente> findAllCliente();
     List<Cliente> findByName(String nome);

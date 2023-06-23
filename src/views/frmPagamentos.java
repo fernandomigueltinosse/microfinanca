@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -81,14 +82,11 @@ public class frmPagamentos extends javax.swing.JFrame {
     }
 
     private void insert() {
-        Emprestimo emp = new Emprestimo();
         Integer count0 = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
-        emp = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-        System.out.println("prestacoes "+emp.getPrestacoes());
-        System.out.println("pestacoes paga "+count0);
-        
-        
-        try {
+        Emprestimo emp = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
+        if (emp.getPrestacoes() == count0) {
+            JOptionPane.showMessageDialog(null, "Todas as prestações foram liquidadas");
+        } else {
             Pagamentos pagamento = new Pagamentos();
             pagamento.setPg_valor_pago(Double.valueOf(txtValorApagar.getText()));
             Emprestimo ep = new Emprestimo();
@@ -96,13 +94,10 @@ public class frmPagamentos extends javax.swing.JFrame {
             pagamento.setEmprestimo(ep);
             pagamento.setData_pagamento(new Date());
             pagamentoDao.insert(pagamento);
-            
             Integer count = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
-            
             pagamento.setNumero_prestacao(count);
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
-
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
             LocalDate dataAtual = ep.getPrazo_de_pagamento();
             LocalDate novaData = dataAtual.plusDays(ep.getFrequenciaPagamento());
@@ -110,33 +105,45 @@ public class frmPagamentos extends javax.swing.JFrame {
             ep.setCd_id(Integer.valueOf(txtRefEmprestimo.getText()));
             emprestimoDao.updateData(ep);
             imprimirRecibo(pagamento, ep);
-        } catch (JRException ex) {
-            Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
+
     }
 
-    private void imprimirRecibo(Pagamentos pg, Emprestimo ep) throws JRException {
-        EmpresaDao empresaDao = DaoFactory.createEmpresa();
+    private void imprimirRecibo(Pagamentos pg, Emprestimo ep) {
 
-        Empresa empresa = empresaDao.findAll();
+        final frmAguarde spash = new frmAguarde();
+        spash.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    EmpresaDao empresaDao = DaoFactory.createEmpresa();
 
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("nomeEmpresa", empresa.getE_nome());
-        parametros.put("nuit", empresa.getE_nuit());
-        parametros.put("telefone", empresa.getE_telefone());
+                    Empresa empresa = empresaDao.findAll();
 
-        parametros.put("pg_id", pg.getPg_id());
-        parametros.put("pg_valor_pago", pg.getPg_valor_pago());
-        parametros.put("numero_prestacao", pg.getNumero_prestacao());
-        parametros.put("data_pagamento", pg.getData_pagamento());
-        parametros.put("cli_nome", ep.getCliente().getCli_nome());
-        parametros.put("idEmprestimo", ep.getCd_id());
-        JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(path);
-        JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
-        JasperViewer.viewReport(print, false);
+                    Map<String, Object> parametros = new HashMap<>();
+                    parametros.put("nomeEmpresa", empresa.getE_nome());
+                    parametros.put("nuit", empresa.getE_nuit());
+                    parametros.put("telefone", empresa.getE_telefone());
+
+                    parametros.put("pg_id", pg.getPg_id());
+                    parametros.put("pg_valor_pago", pg.getPg_valor_pago());
+                    parametros.put("numero_prestacao", pg.getNumero_prestacao());
+                    parametros.put("data_pagamento", pg.getData_pagamento());
+                    parametros.put("cli_nome", ep.getCliente().getCli_nome());
+                    parametros.put("idEmprestimo", ep.getCd_id());
+                    JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
+                    JasperReport report = JasperCompileManager.compileReport(path);
+                    JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
+                    JasperViewer.viewReport(print, false);
+                } catch (JRException ex) {
+                    Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                spash.dispose();
+            }
+        };
+        t.start();
+
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
@@ -192,7 +199,7 @@ public class frmPagamentos extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPagamentos.getModel();
         model.setNumRows(0);
         if (!jTextField1.getText().isEmpty()) {
-            List<Pagamentos> list = pagamentoDao.findByEpId(Integer.valueOf(jTextField1.getText()));
+            List<Pagamentos> list = pagamentoDao.findByEpId(jTextField1.getText());
 
             for (Pagamentos pg : list) {
                 model.addRow(new Object[]{

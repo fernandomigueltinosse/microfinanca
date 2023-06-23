@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dao.MultasDao;
+import modelo.entities.Cliente;
 import modelo.entities.Emprestimo;
 
 import modelo.entities.Multas;
@@ -37,9 +38,9 @@ public class MultasDaoJDBC implements MultasDao {
     public void insert(Multas obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("INSERT INTO multas(multas, m_fk_emprestimo) VALUES (?,?)");
+            pst = conn.prepareStatement("INSERT INTO multas(multas, m_fk_cliente) VALUES (?,?)");
             pst.setDouble(1, obj.getMulta());
-            pst.setInt(2, obj.getEmprestimo().getCd_id());
+            pst.setInt(2, obj.getCliente().getCli_id());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
         } catch (SQLException e) {
@@ -69,16 +70,17 @@ public class MultasDaoJDBC implements MultasDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM multas  where m_fk_emprestimo like ?");
+            pst = conn.prepareStatement("SELECT * FROM multas join clientes on m_fk_cliente=cli_id where cli_nome like ?");
             pst.setString(1, text + "%");
             rs = pst.executeQuery();
             List<Multas> list = new ArrayList<>();
             while (rs.next()) {
                 Multas m = new Multas();
                 m.setM_id(rs.getInt("m_id"));
-                Emprestimo ep = new Emprestimo();
-                ep.setCd_id(rs.getInt("m_fk_emprestimo"));
-                m.setEmprestimo(ep);
+                m.setMulta(rs.getDouble("multas"));
+                Cliente ep = new Cliente();
+                ep.setCli_nome(rs.getString("cli_nome"));
+                m.setCliente(ep);
                 list.add(m);
             }
             return list;
@@ -95,16 +97,17 @@ public class MultasDaoJDBC implements MultasDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM multas ");
+            pst = conn.prepareStatement("SELECT * FROM multas join clientes where m_fk_cliente=cli_id  ");
             rs = pst.executeQuery();
             List<Multas> list = new ArrayList<>();
             while (rs.next()) {
                 Multas m = new Multas();
                 m.setM_id(rs.getInt("m_id"));
                 m.setMulta(rs.getDouble("multas"));
-                Emprestimo ep = new Emprestimo();
-                ep.setCd_id(rs.getInt("m_fk_emprestimo"));
-                m.setEmprestimo(ep);
+                Cliente ep = new Cliente();
+                ep.setCli_id(rs.getInt("m_fk_cliente"));
+                ep.setCli_nome(rs.getString("cli_nome"));
+                m.setCliente(ep);
                 list.add(m);
             }
             return list;

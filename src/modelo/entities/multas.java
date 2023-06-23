@@ -16,7 +16,7 @@ public class Multas {
 
     private Integer m_id;
     private Double multa;
-    private Emprestimo emprestimo;
+    private Cliente cliente;
 
     public Integer getM_id() {
         return m_id;
@@ -34,13 +34,15 @@ public class Multas {
         this.multa = multa;
     }
 
-    public Emprestimo getEmprestimo() {
-        return emprestimo;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    
 }
 
     

@@ -127,7 +127,7 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setInt(1, obj.getCli_id());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                JOptionPane.showMessageDialog(null, "Apagado com sucesso");
             } else {
                 throw new DbException("erro inesperado! nenhuma linha foi afectada");
             }
@@ -241,4 +241,24 @@ public class ClienteDaoJDBC implements ClienteDao {
         }
     }
 
-}
+    @Override
+    public boolean ifClientExist(String text) {
+       PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("SELECT * FROM clientes WHERE cli_nome=?");
+            pst.setString(1, text);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+        }
+        return false;
+
+    }
+    }
+
+

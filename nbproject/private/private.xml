@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/entities/Multas.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmEmprestimo.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmDocumentos.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/dao/impl/UserDaoJDBC.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmCliente.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmdashBoard.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/dao/impl/PagamentoDaoJDBC.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmPagamentos.java</file>
         </group>
     </open-files>

@@ -33,7 +33,7 @@
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="txtIdEmprestimo" min="-2" pref="111" max="-2" attributes="0"/>
+              <Component id="txtIdClinte" min="-2" pref="111" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -48,7 +48,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtsearchCredito" min="-2" pref="296" max="-2" attributes="0"/>
+                              <Component id="txtSearchClientes" min="-2" pref="296" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="709" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" min="-2" pref="709" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtsearchCredito" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSearchClientes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="146" max="-2" attributes="0"/>
@@ -87,7 +87,7 @@
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMultas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtIdEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIdClinte" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -114,14 +114,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblCredito">
+        <Component class="javax.swing.JTable" name="tblClientes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="N&#xba;. Processo" type="java.lang.Object"/>
+                <Column editable="true" title="Codigo" type="java.lang.Object"/>
                 <Column editable="true" title="Nome" type="java.lang.Object"/>
-                <Column editable="true" title="Montante" type="java.lang.Object"/>
-                <Column editable="true" title="Juros" type="java.lang.Object"/>
+                <Column editable="true" title="Endere&#xe7;o" type="java.lang.Object"/>
+                <Column editable="true" title="Telefone" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -153,7 +153,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCreditoMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblClientesMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -166,9 +166,9 @@
         <Property name="text" type="java.lang.String" value="Procurar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtsearchCredito">
+    <Component class="javax.swing.JTextField" name="txtSearchClientes">
       <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtsearchCreditoKeyReleased"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchClientesKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -187,10 +187,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Id emprestimo"/>
+        <Property name="text" type="java.lang.String" value="Cod. cliente"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtIdEmprestimo">
+    <Component class="javax.swing.JTextField" name="txtIdClinte">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -225,9 +225,9 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="4">
-                <Column editable="true" title="Id" type="java.lang.Object"/>
+                <Column editable="true" title="Cod. multas" type="java.lang.Object"/>
+                <Column editable="true" title="Nome" type="java.lang.Object"/>
                 <Column editable="true" title="Multas" type="java.lang.Object"/>
-                <Column editable="true" title="Id emprestimo" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

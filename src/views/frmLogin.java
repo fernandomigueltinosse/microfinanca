@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.dao.DaoFactory;
 import modelo.dao.UserDao;
@@ -33,7 +34,9 @@ public class frmLogin extends javax.swing.JFrame {
        if(userdao.login(user) !=null){
             user = userdao.login(user);
             UserSession.codigo=user.getUser_id();
-            UserSession.nome=user.getUserName();
+            UserSession.username=user.getUserName();
+            UserSession.primeiroNome=user.getUser_fistNome();
+            UserSession.UltimoNome=user.getUser_lastNome();
             UserSession.senha=user.getUser_password();
             UserSession.funcao=user.getUser_function();
             new frmdashBoard().setVisible(true);
@@ -41,10 +44,14 @@ public class frmLogin extends javax.swing.JFrame {
        }else{
        JOptionPane.showMessageDialog(null, "Nome de usuário ou senha inválidos.");
        }
-       
-        
-     
    }
+   
+    private void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_ENTER) {
+            validarUsuario();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -79,6 +86,11 @@ public class frmLogin extends javax.swing.JFrame {
         txtUsuario.setPreferredSize(new java.awt.Dimension(64, 30));
 
         txtSenha.setPreferredSize(new java.awt.Dimension(64, 30));
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Usuário");
@@ -149,6 +161,10 @@ public class frmLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      validarUsuario();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        keyPressed(evt);
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     /**
      * @param args the command line arguments
