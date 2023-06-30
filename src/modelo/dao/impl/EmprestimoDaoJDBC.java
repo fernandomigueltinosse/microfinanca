@@ -116,8 +116,32 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM emprestimo join clientes where cli_id=ep_fk_clientes");
+            pst = conn.prepareStatement("SELECT * FROM clientes JOIN emprestimo on emprestimo.ep_fk_clientes=cli_id JOIN empresa");
             
+            rs = pst.executeQuery();
+            List<Emprestimo> list = new ArrayList<>();
+            while (rs.next()) {
+               Emprestimo  ep = fecthData(rs);
+                list.add(ep);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+            DB.closeResultSet(rs);
+        }
+    }
+    
+    
+      @Override
+    public List<Emprestimo> findAllCreditoById(String id) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conn.prepareStatement("SELECT cli_id, cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero,DATE_FORMAT(cli_data_emissao, '%d/%m/%Y') AS cli_data_emissao,DATE_FORMAT(cli_data_validade, '%d/%m/%Y') AS cli_data_validade, cli_foto, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento,DATE_FORMAT(con_data_de_emissao, '%d/%m/%Y') AS con_data_de_emissao,DATE_FORMAT(con_data_de_validade, '%d/%m/%Y') AS con_data_de_validade, con_Ocupacao,DATE_FORMAT(cli_data_registro, '%d/%m/%Y') AS cli_data_registro, cli_local_nascimento,ep_id, ep_montante, ep_juros, ep_prestacoes, ep_frequenciaPagamento, ep_total,DATE_FORMAT(ep_prazo, '%d/%m/%Y') AS ep_prazo,ep_data_emprestimo, ep_fk_clientes FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id where ep_id=?");
+            
+            pst.setString(1, id);
             rs = pst.executeQuery();
             List<Emprestimo> list = new ArrayList<>();
             while (rs.next()) {
@@ -165,12 +189,32 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         ep.setPrestacoes(rs.getInt("ep_prestacoes"));
         ep.setPrazo_de_pagamento(rs.getDate("ep_prazo").toLocalDate());
         ep.setData_do_emprestimo(rs.getDate("ep_data_emprestimo").toLocalDate());
-        
         ep.setFrequenciaPagamento(rs.getInt("ep_frequenciaPagamento"));
-        Cliente cli = new Cliente();
-        cli.setCli_nome(rs.getString("cli_nome"));
-        cli.setCli_telefone(rs.getInt("cli_telefone"));
-        ep.setCliente(cli);
+        
+        Cliente cliente = new Cliente();
+        cliente.setCli_nome(rs.getString("cli_nome"));
+        cliente.setCli_id(rs.getInt("cli_id"));
+        cliente.setCli_endereco(rs.getString("cli_endereco"));
+        cliente.setCli_telefone(rs.getInt("cli_telefone"));
+        cliente.setCli_tipo_documento(rs.getString("cli_tipo_documento"));
+        cliente.setCli_numero(rs.getString("cli_numero"));
+        cliente.setCli_estado_civil(rs.getString("cli_estado_civil"));
+        cliente.setCli_arquivo_identificacao(rs.getString("cli_arquivo_identificacao"));
+        cliente.setCli_quarteirao(rs.getString("cli_quarteirao"));
+        cliente.setCli_casa_numero(rs.getString("cli_casa_numero"));
+        cliente.setCli_data_emissao(rs.getDate("cli_data_emissao"));
+        cliente.setCli_data_validade(rs.getDate("cli_data_validade"));
+        cliente.setCli_ocupacao(rs.getString("cli_ocupacao"));
+        cliente.setCli_local_nascimento(rs.getString("cli_local_nascimento"));
+        
+        cliente.setCli_data_de_nascimento(rs.getDate("cli_data_de_nascimento"));
+        cliente.setCon_data_de_emissao(rs.getDate("con_data_de_emissao"));
+        cliente.setCon_data_de_validade(rs.getDate("con_data_de_validade"));
+        cliente.setCon_Ocupacao(rs.getString("con_Ocupacao"));
+        cliente.setCon_tipo_documento(rs.getString("con_tipo_documento"));
+        cliente.setCli_data_registro(rs.getDate("cli_data_registro"));
+        cliente.setNome_conjugue(rs.getString("nome_conjugue"));
+        ep.setCliente(cliente);
         return ep;
 
     }

@@ -20,5 +20,6 @@ public interface EmprestimoDao {
     Integer findByidFk(Integer id);
     Emprestimo findById(Integer id);
     List<Emprestimo> findAllCredito();
+    List<Emprestimo> findAllCreditoById(String id);
     List<Emprestimo> findByName(String nome);
 }

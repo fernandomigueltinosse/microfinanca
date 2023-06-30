@@ -26,6 +26,19 @@ public class Cliente {
     private Date cli_data_registro;
     private byte[] cli_foto;
     private String foto;
+    private String cli_estado_civil;
+    private String cli_arquivo_identificacao;
+    private String cli_quarteirao;
+    private String cli_casa_numero;
+    private Date   cli_data_de_nascimento;
+    private String cli_ocupacao;
+    private String cli_local_nascimento;
+    private String nome_conjugue;
+    private String con_tipo_documento;
+    private Date con_data_de_emissao;
+    private Date con_data_de_validade;
+    private String con_Ocupacao;
+    
 
    
     
@@ -133,5 +146,105 @@ public class Cliente {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
+    public String getCli_estado_civil() {
+        return cli_estado_civil;
+    }
+
+    public void setCli_estado_civil(String cli_estado_civil) {
+        this.cli_estado_civil = cli_estado_civil;
+    }
+
+    public String getCli_arquivo_identificacao() {
+        return cli_arquivo_identificacao;
+    }
+
+    public void setCli_arquivo_identificacao(String cli_arquivo_identificacao) {
+        this.cli_arquivo_identificacao = cli_arquivo_identificacao;
+    }
+
+    public String getCli_quarteirao() {
+        return cli_quarteirao;
+    }
+
+    public void setCli_quarteirao(String cli_quarteirao) {
+        this.cli_quarteirao = cli_quarteirao;
+    }
+
+    public String getCli_casa_numero() {
+        return cli_casa_numero;
+    }
+
+    public void setCli_casa_numero(String cli_casa_numero) {
+        this.cli_casa_numero = cli_casa_numero;
+    }
+
+    public Date getCli_data_de_nascimento() {
+        return cli_data_de_nascimento;
+    }
+
+    public void setCli_data_de_nascimento(Date cli_data_de_nascimento) {
+        this.cli_data_de_nascimento = cli_data_de_nascimento;
+    }
+
+    public String getCli_ocupacao() {
+        return cli_ocupacao;
+    }
+
+    public void setCli_ocupacao(String cli_ocupacao) {
+        this.cli_ocupacao = cli_ocupacao;
+    }
+
+    public String getCli_local_nascimento() {
+        return cli_local_nascimento;
+    }
+
+    public void setCli_local_nascimento(String cli_local_nascimento) {
+        this.cli_local_nascimento = cli_local_nascimento;
+    }
+
+    public String getNome_conjugue() {
+        return nome_conjugue;
+    }
+
+    public void setNome_conjugue(String nome_conjugue) {
+        this.nome_conjugue = nome_conjugue;
+    }
+
+    public String getCon_tipo_documento() {
+        return con_tipo_documento;
+    }
+
+    public void setCon_tipo_documento(String con_tipo_documento) {
+        this.con_tipo_documento = con_tipo_documento;
+    }
+
+    public Date getCon_data_de_emissao() {
+        return con_data_de_emissao;
+    }
+
+    public void setCon_data_de_emissao(Date con_data_de_emissao) {
+        this.con_data_de_emissao = con_data_de_emissao;
+    }
+
+    public Date getCon_data_de_validade() {
+        return con_data_de_validade;
+    }
+
+    public void setCon_data_de_validade(Date con_data_de_validade) {
+        this.con_data_de_validade = con_data_de_validade;
+    }
+
+    public String getCon_Ocupacao() {
+        return con_Ocupacao;
+    }
+
+    public void setCon_Ocupacao(String con_Ocupacao) {
+        this.con_Ocupacao = con_Ocupacao;
+    }
+
+   
+
+    
 
 }

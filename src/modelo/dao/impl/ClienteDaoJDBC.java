@@ -39,9 +39,36 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void insert(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("INSERT INTO clientes(cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_foto, cli_data_registro) VALUES (?,?,?,?,?,?,?,?,?)");
+            pst = conn.prepareStatement("INSERT INTO clientes(cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_foto, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro,cli_local_nascimento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-            instatiatePst(pst, obj);
+            //instatiatePst(pst, obj);
+            pst.setString(1, obj.getCli_nome());
+            pst.setString(2, obj.getCli_endereco());
+            pst.setInt(3, obj.getCli_telefone());
+            pst.setString(4, obj.getCli_tipo_documento());
+            pst.setString(5, obj.getCli_numero());
+            pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
+            pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
+
+            if (obj.getFoto() != null) {
+                InputStream photo = new FileInputStream(new File(obj.getFoto()));
+                pst.setBlob(8, photo);
+            } else {
+                pst.setString(8, "");
+            }
+            pst.setString(9, obj.getCli_estado_civil());
+            pst.setString(10, obj.getCli_arquivo_identificacao());
+            pst.setString(11, obj.getCli_quarteirao());
+            pst.setString(12, obj.getCli_casa_numero());
+            pst.setDate(13, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(14, obj.getCli_ocupacao());
+            pst.setString(15, obj.getNome_conjugue());
+            pst.setString(16, obj.getCon_tipo_documento());
+            pst.setDate(17, new Date(obj.getCon_data_de_emissao().getTime()));
+            pst.setDate(18, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(19, obj.getCon_Ocupacao());
+            pst.setDate(20, new Date(obj.getCli_data_registro().getTime()));
+
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -61,7 +88,7 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void update(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_foto=?,cli_data_registro=? WHERE cli_id=?");
+            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_foto=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=? WHERE cli_id =?");
             pst.setString(1, obj.getCli_nome());
             pst.setString(2, obj.getCli_endereco());
             pst.setInt(3, obj.getCli_telefone());
@@ -72,9 +99,21 @@ public class ClienteDaoJDBC implements ClienteDao {
 
             InputStream photo = new FileInputStream(new File(obj.getFoto()));
             pst.setBlob(8, photo);
-            pst.setDate(9, new Date(obj.getCli_data_registro().getTime()));
-
-            pst.setInt(10, obj.getCli_id());
+            pst.setString(9, obj.getCli_estado_civil());
+            pst.setString(10, obj.getCli_arquivo_identificacao());
+            pst.setString(11, obj.getCli_quarteirao());
+            pst.setString(12, obj.getCli_casa_numero());
+            pst.setDate(13, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(14, obj.getCli_ocupacao());
+            pst.setString(15, obj.getNome_conjugue());
+            JOptionPane.showMessageDialog(null, obj.getNome_conjugue());
+            pst.setString(16, obj.getCon_tipo_documento());
+            pst.setDate(17, new Date(obj.getCon_data_de_emissao().getTime()));
+            pst.setDate(18, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(19, obj.getCon_Ocupacao());
+            pst.setDate(20, new Date(obj.getCli_data_registro().getTime()));
+            pst.setString(21, obj.getCli_local_nascimento());
+            pst.setInt(22, obj.getCli_id());
 
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
@@ -95,16 +134,31 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void update2(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_data_registro=? WHERE cli_id=?");
-             pst.setString(1, obj.getCli_nome());
+            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=? WHERE cli_id =?");
+            pst.setString(1, obj.getCli_nome());
             pst.setString(2, obj.getCli_endereco());
             pst.setInt(3, obj.getCli_telefone());
             pst.setString(4, obj.getCli_tipo_documento());
             pst.setString(5, obj.getCli_numero());
             pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
             pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
-            pst.setDate(8, new Date(obj.getCli_data_registro().getTime()));
-            pst.setInt(9, obj.getCli_id());
+
+          
+            pst.setString(8, obj.getCli_estado_civil());
+            pst.setString(9, obj.getCli_arquivo_identificacao());
+            pst.setString(10, obj.getCli_quarteirao());
+            pst.setString(11, obj.getCli_casa_numero());
+            pst.setDate(12, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(13, obj.getCli_ocupacao());
+            pst.setString(14, obj.getNome_conjugue());
+            pst.setString(15, obj.getCon_tipo_documento());
+            pst.setDate(16, new Date(obj.getCon_data_de_emissao().getTime()));
+            pst.setDate(17, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(18, obj.getCon_Ocupacao());
+            pst.setDate(19, new Date(obj.getCli_data_registro().getTime()));
+            pst.setString(20, obj.getCli_local_nascimento());
+            pst.setInt(21, obj.getCli_id());
+
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Actualizado com sucesso");
@@ -113,7 +167,6 @@ public class ClienteDaoJDBC implements ClienteDao {
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-
         } finally {
             DB.closeStatement(pst);
         }
@@ -164,7 +217,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM clientes");
+            pst = conn.prepareStatement("SELECT * FROM clientes JOIN emprestimo on emprestimo.ep_fk_clientes=cli_id JOIN empresa");
             rs = pst.executeQuery();
             List<Cliente> list = new ArrayList<>();
             while (rs.next()) {
@@ -210,9 +263,22 @@ public class ClienteDaoJDBC implements ClienteDao {
         cliente.setCli_telefone(rs.getInt("cli_telefone"));
         cliente.setCli_tipo_documento(rs.getString("cli_tipo_documento"));
         cliente.setCli_numero(rs.getString("cli_numero"));
+        cliente.setCli_estado_civil(rs.getString("cli_estado_civil"));
+        cliente.setCli_arquivo_identificacao(rs.getString("cli_arquivo_identificacao"));
+        cliente.setCli_quarteirao(rs.getString("cli_quarteirao"));
+        cliente.setCli_casa_numero(rs.getString("cli_casa_numero"));
         cliente.setCli_data_emissao(rs.getDate("cli_data_emissao"));
         cliente.setCli_data_validade(rs.getDate("cli_data_validade"));
+        cliente.setCli_ocupacao(rs.getString("cli_ocupacao"));
+        cliente.setCli_local_nascimento(rs.getString("cli_local_nascimento"));
+        
+        cliente.setCli_data_de_nascimento(rs.getDate("cli_data_de_nascimento"));
+        cliente.setCon_data_de_emissao(rs.getDate("con_data_de_emissao"));
+        cliente.setCon_data_de_validade(rs.getDate("con_data_de_validade"));
+        cliente.setCon_Ocupacao(rs.getString("con_Ocupacao"));
+        cliente.setCon_tipo_documento(rs.getString("con_tipo_documento"));
         cliente.setCli_data_registro(rs.getDate("cli_data_registro"));
+        cliente.setNome_conjugue(rs.getString("nome_conjugue"));
         if (rs.getBytes("cli_foto") != null) {
             byte[] img = rs.getBytes("cli_foto");
             cliente.setCli_foto(img);
@@ -243,7 +309,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 
     @Override
     public boolean ifClientExist(String text) {
-       PreparedStatement pst = null;
+        PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("SELECT * FROM clientes WHERE cli_nome=?");
             pst.setString(1, text);
@@ -259,6 +325,4 @@ public class ClienteDaoJDBC implements ClienteDao {
         return false;
 
     }
-    }
-
-
+}

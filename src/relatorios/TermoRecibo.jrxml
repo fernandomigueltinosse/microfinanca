@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TermoRecibo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b75d719-590f-4eab-b607-2d39f822a205">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM clientes JOIN emprestimo on emprestimo.ep_fk_clientes=cli_id  where ep_id=7]]>
+	</queryString>
+	<field name="cli_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cli_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_endereco" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_endereco"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_endereco"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_telefone" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cli_telefone"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_telefone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_tipo_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_emissao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_emissao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_emissao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_validade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_validade"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_validade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_foto" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="cli_foto"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_foto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_estado_civil" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_estado_civil"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_estado_civil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_arquivo_identificacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_quarteirao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_quarteirao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_quarteirao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_casa_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_casa_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_casa_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_de_nascimento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_de_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_de_nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_ocupacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_ocupacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_ocupacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="nome_conjugue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome_conjugue"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome_conjugue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_tipo_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_data_de_emissao" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="con_data_de_emissao"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_data_de_emissao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_data_de_validade" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="con_data_de_validade"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_data_de_validade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_Ocupacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_Ocupacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_Ocupacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_registro" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_registro"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_registro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_local_nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_local_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_local_nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="ep_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_montante" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_montante"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_montante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_juros" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_juros"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_juros"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_prestacoes" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_prestacoes"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_prestacoes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_frequenciaPagamento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_frequenciaPagamento"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_frequenciaPagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_prazo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="ep_prazo"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_prazo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_data_emprestimo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="ep_data_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_data_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_fk_clientes" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_fk_clientes"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_fk_clientes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="E_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="E_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="E_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="E_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="E_bairro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="E_bairro"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_bairro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="E_nuit" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="E_nuit"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_nuit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="E_telefone" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="E_telefone"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_telefone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="E_cidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="E_cidade"/>
+		<property name="com.jaspersoft.studio.field.label" value="E_cidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<field name="logotipo" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="141" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="7" width="550" height="20" uuid="ec6b348c-4716-430f-94ff-d7d9c1429dae"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMO DE RECIBO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement x="240" y="19" width="160" height="15" uuid="50e3285a-eae1-4f61-9f74-f6ad1c2997ec"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REF. " +$F{ep_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="126" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="10" width="550" height="70" uuid="ddf39680-e5e2-4aab-bad8-781fca505fee"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Matola…..…..de……………………..de 20………
+
+Assinatura do Mutuário
+
+………………………………………..
+]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="67" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

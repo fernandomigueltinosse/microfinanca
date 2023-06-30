@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -136,11 +137,12 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private Emprestimo instatiateCredito() {
+
         Emprestimo credito = new Emprestimo();
         credito.setValor_emprestimo(Double.valueOf(txtMontante.getText()));
         credito.setTaxa_juros(Double.valueOf(txtJuros.getText()));
         credito.setTotal_a_pagar(Double.valueOf(txtTotal.getText()));
-        credito.setPrestacoes(Integer.valueOf(txtPrestacoes.getText()));
+        credito.setPrestacoes(Integer.valueOf(txtPrestacoes.getText()));       
         Instant instant = dataPrazo.getDate().toInstant();
         LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
         credito.setPrazo_de_pagamento(localDate);
@@ -235,7 +237,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
 
         jLabel8.setText("Prazo de pagamento");
 
-        dataPrazo.setDateFormatString("yyyy-MM-dd");
+        dataPrazo.setDateFormatString("dd/MM/yyyy");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-new-copy-24.png"))); // NOI18N
         jButton1.setText("Novo");

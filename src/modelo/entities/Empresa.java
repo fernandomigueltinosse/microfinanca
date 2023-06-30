@@ -15,7 +15,8 @@ public class Empresa {
     private int E_telefone;
     private String E_cidade;
     private String E_bairro;
-
+    private byte[] Elogotipo;
+    private String logotipo;
     public int getE_id() {
         return E_id;
     }
@@ -63,6 +64,23 @@ public class Empresa {
     public void setE_bairro(String E_bairro) {
         this.E_bairro = E_bairro;
     }
-    
+
+    public String getLogotipo() {
+        return logotipo;
+    }
+
+    public void setLogotipo(String logotipo) {
+        this.logotipo = logotipo;
+    }
+
+    public byte[] getElogotipo() {
+        return Elogotipo;
+    }
+
+    public void setElogotipo(byte[] Elogotipo) {
+        this.Elogotipo = Elogotipo;
+    }
+
+   
     
 }

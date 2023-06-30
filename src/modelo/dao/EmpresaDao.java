@@ -14,6 +14,7 @@ import modelo.entities.Empresa;
 public interface EmpresaDao {
     void insert(Empresa obj);
     void update(Empresa obj);
+    void update2(Empresa obj);
     Empresa findAll();
     
     
