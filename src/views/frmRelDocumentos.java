@@ -5,12 +5,14 @@
 package views;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DaoFactory;
 import modelo.dao.EmpresaDao;
@@ -44,26 +46,27 @@ public class frmRelDocumentos extends javax.swing.JFrame {
     }
     
       private void findAllCredito() {
-
+          
         List<Emprestimo> list = creditoDao.findAllCredito();
         DefaultTableModel model = (DefaultTableModel) tblCredito.getModel();
         model.setNumRows(0);
         creditoModel(list, model);
     }
        private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
+           DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate datactual = LocalDate.now();
         for (Emprestimo creditos : List) {
-            LocalDate dataAnterior = (creditos.getPrazo_de_pagamento());
+            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato); 
             long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
             model.addRow(new Object[]{
-                creditos.getCd_id(),
+                  creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getPrestacoes(),
-                creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),
+                creditos.getEp_montante(),
+                creditos.getEp_juros(),
+                creditos.getEp_total(),
+                creditos.getEp_prestacoes(),
+                creditos.getEp_frequenciaPagamento(),
+                creditos.getEp_juros(),
                 diff
             });
         }
@@ -100,10 +103,10 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                     parametros.put("telefone", empresa.getE_telefone());
 
                     List<Emprestimo> list = creditoDao.findAllCreditoById("7");
-                    
+                    System.out.println(list);
                     JasperDesign path = JRXmlLoader.load("src/relatorios/TermoRecibo.jrxml");
                     JasperReport report = JasperCompileManager.compileReport(path);
-                    JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
+                    JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(list));
                     JasperViewer.viewReport(print, false);
                 } catch (JRException ex) {
                     Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);

@@ -7,6 +7,7 @@ package views;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -45,23 +46,22 @@ public class frmdashBoard extends javax.swing.JFrame {
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
-
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate datactual = LocalDate.now();
         for (Emprestimo creditos : List) {
-            LocalDate dataAnterior = (creditos.getPrazo_de_pagamento());
+            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato);
             long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
 
             model.addRow(new Object[]{
-                creditos.getCd_id(),
+                  creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
-                creditos.getCliente().getCli_telefone(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),
-                diff,
-                creditos.getPrestacoes()
+                creditos.getEp_montante(),
+                creditos.getEp_juros(),
+                creditos.getEp_total(),
+                creditos.getEp_prestacoes(),
+                creditos.getEp_frequenciaPagamento(),
+                creditos.getEp_juros(),
+                diff
             });
         }
     }

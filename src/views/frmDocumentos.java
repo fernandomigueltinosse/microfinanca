@@ -55,14 +55,14 @@ public class frmDocumentos extends javax.swing.JFrame {
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
         for (Emprestimo creditos : List) {
             model.addRow(new Object[]{
-                creditos.getCd_id(),
+                 creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getPrestacoes(),
-                creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),});
+                creditos.getEp_montante(),
+                creditos.getEp_juros(),
+                creditos.getEp_total(),
+                creditos.getEp_prestacoes(),
+                creditos.getEp_prazo(),
+                creditos.getEp_data_emprestimo(),});
         }
     }
 

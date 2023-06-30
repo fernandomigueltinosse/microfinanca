@@ -12,78 +12,78 @@ import java.time.LocalDate;
  * @author Tomas
  */
 public class Emprestimo  extends Cliente{
-    private Integer cd_id;
-    private Double valor_emprestimo;
-    private LocalDate data_do_emprestimo;
-    private Double taxa_juros;
-    private Double total_a_pagar;
-    private Integer prestacoes;
-    private LocalDate prazo_de_pagamento;
-    private Integer FrequenciaPagamento;
+    private Integer ep_id;
+    private Double ep_montante ;
+    private String ep_data_emprestimo;
+    private Double ep_juros;
+    private Double ep_total;
+    private Integer ep_prestacoes;
+    private String ep_prazo;
+    private Integer ep_frequenciaPagamento;
     private Cliente cliente;
 
-    public Integer getCd_id() {
-        return cd_id;
+    public Integer getEp_id() {
+        return ep_id;
     }
 
-    public void setCd_id(Integer cd_id) {
-        this.cd_id = cd_id;
+    public void setEp_id(Integer ep_id) {
+        this.ep_id = ep_id;
     }
 
-    public Double getValor_emprestimo() {
-        return valor_emprestimo;
+    public Double getEp_montante() {
+        return ep_montante;
     }
 
-    public void setValor_emprestimo(Double valor_emprestimo) {
-        this.valor_emprestimo = valor_emprestimo;
+    public void setEp_montante(Double ep_montante) {
+        this.ep_montante = ep_montante;
     }
 
-    public LocalDate getData_do_emprestimo() {
-        return data_do_emprestimo;
+    public String getEp_data_emprestimo() {
+        return ep_data_emprestimo;
     }
 
-    public void setData_do_emprestimo(LocalDate data_do_emprestimo) {
-        this.data_do_emprestimo = data_do_emprestimo;
+    public void setEp_data_emprestimo(String ep_data_emprestimo) {
+        this.ep_data_emprestimo = ep_data_emprestimo;
     }
 
-    public Double getTaxa_juros() {
-        return taxa_juros;
+    public Double getEp_juros() {
+        return ep_juros;
     }
 
-    public void setTaxa_juros(Double taxa_juros) {
-        this.taxa_juros = taxa_juros;
+    public void setEp_juros(Double ep_juros) {
+        this.ep_juros = ep_juros;
     }
 
-    public Double getTotal_a_pagar() {
-        return total_a_pagar;
+    public Double getEp_total() {
+        return ep_total;
     }
 
-    public void setTotal_a_pagar(Double total_a_pagar) {
-        this.total_a_pagar = total_a_pagar;
+    public void setEp_total(Double ep_total) {
+        this.ep_total = ep_total;
     }
 
-    public Integer getPrestacoes() {
-        return prestacoes;
+    public Integer getEp_prestacoes() {
+        return ep_prestacoes;
     }
 
-    public void setPrestacoes(Integer prestacoes) {
-        this.prestacoes = prestacoes;
+    public void setEp_prestacoes(Integer ep_prestacoes) {
+        this.ep_prestacoes = ep_prestacoes;
     }
 
-    public LocalDate getPrazo_de_pagamento() {
-        return prazo_de_pagamento;
+    public String getEp_prazo() {
+        return ep_prazo;
     }
 
-    public void setPrazo_de_pagamento(LocalDate prazo_de_pagamento) {
-        this.prazo_de_pagamento = prazo_de_pagamento;
+    public void setEp_prazo(String ep_prazo) {
+        this.ep_prazo = ep_prazo;
     }
 
-    public Integer getFrequenciaPagamento() {
-        return FrequenciaPagamento;
+    public Integer getEp_frequenciaPagamento() {
+        return ep_frequenciaPagamento;
     }
 
-    public void setFrequenciaPagamento(Integer FrequenciaPagamento) {
-        this.FrequenciaPagamento = FrequenciaPagamento;
+    public void setEp_frequenciaPagamento(Integer ep_frequenciaPagamento) {
+        this.ep_frequenciaPagamento = ep_frequenciaPagamento;
     }
 
     public Cliente getCliente() {
@@ -94,7 +94,11 @@ public class Emprestimo  extends Cliente{
         this.cliente = cliente;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Emprestimo{" + "ep_id=" + ep_id + ", ep_montante=" + ep_montante + ", ep_data_emprestimo=" + ep_data_emprestimo + ", ep_juros=" + ep_juros + ", ep_total=" + ep_total + ", ep_prestacoes=" + ep_prestacoes + ", ep_prazo=" + ep_prazo + ", ep_frequenciaPagamento=" + ep_frequenciaPagamento + ", cliente=" + cliente + '}';
+    }
 
+    
    
-}
+    }

@@ -21,22 +21,22 @@ public class Cliente {
     private Integer cli_telefone;
     private String cli_tipo_documento;
     private String cli_numero;
-    private Date cli_data_emissao;
-    private Date cli_data_validade;
-    private Date cli_data_registro;
+    private String cli_data_emissao;
+    private String cli_data_validade;
+    private String cli_data_registro;
     private byte[] cli_foto;
     private String foto;
     private String cli_estado_civil;
     private String cli_arquivo_identificacao;
     private String cli_quarteirao;
     private String cli_casa_numero;
-    private Date   cli_data_de_nascimento;
+    private String   cli_data_de_nascimento;
     private String cli_ocupacao;
     private String cli_local_nascimento;
     private String nome_conjugue;
     private String con_tipo_documento;
-    private Date con_data_de_emissao;
-    private Date con_data_de_validade;
+    private String con_data_de_emissao;
+    private String con_data_de_validade;
     private String con_Ocupacao;
     
 
@@ -107,27 +107,27 @@ public class Cliente {
         this.cli_numero = cli_numero;
     }
 
-    public Date getCli_data_emissao() {
+    public String getCli_data_emissao() {
         return cli_data_emissao;
     }
 
-    public void setCli_data_emissao(Date cli_data_emissao) {
+    public void setCli_data_emissao(String cli_data_emissao) {
         this.cli_data_emissao = cli_data_emissao;
     }
 
-    public Date getCli_data_validade() {
+    public String getCli_data_validade() {
         return cli_data_validade;
     }
 
-    public void setCli_data_validade(Date cli_data_validade) {
+    public void setCli_data_validade(String cli_data_validade) {
         this.cli_data_validade = cli_data_validade;
     }
 
-    public Date getCli_data_registro() {
+    public String getCli_data_registro() {
         return cli_data_registro;
     }
 
-    public void setCli_data_registro(Date cli_data_registro) {
+    public void setCli_data_registro(String cli_data_registro) {
         this.cli_data_registro = cli_data_registro;
     }
 
@@ -179,11 +179,11 @@ public class Cliente {
         this.cli_casa_numero = cli_casa_numero;
     }
 
-    public Date getCli_data_de_nascimento() {
+    public String getCli_data_de_nascimento() {
         return cli_data_de_nascimento;
     }
 
-    public void setCli_data_de_nascimento(Date cli_data_de_nascimento) {
+    public void setCli_data_de_nascimento(String cli_data_de_nascimento) {
         this.cli_data_de_nascimento = cli_data_de_nascimento;
     }
 
@@ -219,19 +219,19 @@ public class Cliente {
         this.con_tipo_documento = con_tipo_documento;
     }
 
-    public Date getCon_data_de_emissao() {
+    public String getCon_data_de_emissao() {
         return con_data_de_emissao;
     }
 
-    public void setCon_data_de_emissao(Date con_data_de_emissao) {
+    public void setCon_data_de_emissao(String con_data_de_emissao) {
         this.con_data_de_emissao = con_data_de_emissao;
     }
 
-    public Date getCon_data_de_validade() {
+    public String getCon_data_de_validade() {
         return con_data_de_validade;
     }
 
-    public void setCon_data_de_validade(Date con_data_de_validade) {
+    public void setCon_data_de_validade(String con_data_de_validade) {
         this.con_data_de_validade = con_data_de_validade;
     }
 
@@ -243,6 +243,12 @@ public class Cliente {
         this.con_Ocupacao = con_Ocupacao;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{" + "cli_id=" + cli_id + ", cli_nome=" + cli_nome + ", cli_endereco=" + cli_endereco + ", cli_telefone=" + cli_telefone + ", cli_tipo_documento=" + cli_tipo_documento + ", cli_numero=" + cli_numero + ", cli_data_emissao=" + cli_data_emissao + ", cli_data_validade=" + cli_data_validade + ", cli_data_registro=" + cli_data_registro + ", cli_foto=" + cli_foto + ", foto=" + foto + ", cli_estado_civil=" + cli_estado_civil + ", cli_arquivo_identificacao=" + cli_arquivo_identificacao + ", cli_quarteirao=" + cli_quarteirao + ", cli_casa_numero=" + cli_casa_numero + ", cli_data_de_nascimento=" + cli_data_de_nascimento + ", cli_ocupacao=" + cli_ocupacao + ", cli_local_nascimento=" + cli_local_nascimento + ", nome_conjugue=" + nome_conjugue + ", con_tipo_documento=" + con_tipo_documento + ", con_data_de_emissao=" + con_data_de_emissao + ", con_data_de_validade=" + con_data_de_validade + ", con_Ocupacao=" + con_Ocupacao + '}';
+    }
+
+   
    
 
     

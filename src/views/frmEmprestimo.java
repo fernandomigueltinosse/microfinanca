@@ -118,36 +118,38 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate datactual = LocalDate.now();
         for (Emprestimo creditos : List) {
-            LocalDate dataAnterior = (creditos.getPrazo_de_pagamento());
+            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato); 
+            
             long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
             model.addRow(new Object[]{
-                creditos.getCd_id(),
+                creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getPrestacoes(),
-                creditos.getFrequenciaPagamento(),
-                creditos.getPrazo_de_pagamento(),
+                creditos.getEp_montante(),
+                creditos.getEp_juros(),
+                creditos.getEp_total(),
+                creditos.getEp_prestacoes(),
+                creditos.getEp_frequenciaPagamento(),
+                creditos.getEp_juros(),
                 diff
             });
         }
     }
 
     private Emprestimo instatiateCredito() {
-
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
         Emprestimo credito = new Emprestimo();
-        credito.setValor_emprestimo(Double.valueOf(txtMontante.getText()));
-        credito.setTaxa_juros(Double.valueOf(txtJuros.getText()));
-        credito.setTotal_a_pagar(Double.valueOf(txtTotal.getText()));
-        credito.setPrestacoes(Integer.valueOf(txtPrestacoes.getText()));       
-        Instant instant = dataPrazo.getDate().toInstant();
-        LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-        credito.setPrazo_de_pagamento(localDate);
-        credito.setData_do_emprestimo(LocalDate.now());
-        credito.setFrequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
+        credito.setEp_montante(Double.valueOf(txtMontante.getText()));
+        credito.setEp_juros(Double.valueOf(txtJuros.getText()));
+        credito.setEp_total(Double.valueOf(txtTotal.getText()));
+        credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));       
+       
+        credito.setEp_prazo(dataPrazo.getDate().toString());
+        credito.setEp_data_emprestimo(sd.format(data));
+        credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
         Cliente cliente = new Cliente();
         cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
         credito.setCliente(cliente);

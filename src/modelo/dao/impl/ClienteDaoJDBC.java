@@ -30,7 +30,7 @@ import modelo.entities.Cliente;
 public class ClienteDaoJDBC implements ClienteDao {
 
     private final Connection conn;
-
+    
     public ClienteDaoJDBC(Connection conn) {
         this.conn = conn;
     }
@@ -47,8 +47,8 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setInt(3, obj.getCli_telefone());
             pst.setString(4, obj.getCli_tipo_documento());
             pst.setString(5, obj.getCli_numero());
-            pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
-            pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
+            pst.setString(6, obj.getCli_data_emissao());
+            pst.setString(7, obj.getCli_data_validade());
 
             if (obj.getFoto() != null) {
                 InputStream photo = new FileInputStream(new File(obj.getFoto()));
@@ -60,14 +60,14 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(10, obj.getCli_arquivo_identificacao());
             pst.setString(11, obj.getCli_quarteirao());
             pst.setString(12, obj.getCli_casa_numero());
-            pst.setDate(13, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(13, obj.getCli_data_de_nascimento());
             pst.setString(14, obj.getCli_ocupacao());
             pst.setString(15, obj.getNome_conjugue());
             pst.setString(16, obj.getCon_tipo_documento());
-            pst.setDate(17, new Date(obj.getCon_data_de_emissao().getTime()));
-            pst.setDate(18, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(17, obj.getCon_data_de_emissao());
+            pst.setString(18, obj.getCon_data_de_validade());
             pst.setString(19, obj.getCon_Ocupacao());
-            pst.setDate(20, new Date(obj.getCli_data_registro().getTime()));
+            pst.setString(20, obj.getCli_data_registro());
 
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
@@ -94,8 +94,8 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setInt(3, obj.getCli_telefone());
             pst.setString(4, obj.getCli_tipo_documento());
             pst.setString(5, obj.getCli_numero());
-            pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
-            pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
+            pst.setString(6, obj.getCli_data_emissao());
+            pst.setString(7, obj.getCli_data_validade());
 
             InputStream photo = new FileInputStream(new File(obj.getFoto()));
             pst.setBlob(8, photo);
@@ -103,15 +103,15 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(10, obj.getCli_arquivo_identificacao());
             pst.setString(11, obj.getCli_quarteirao());
             pst.setString(12, obj.getCli_casa_numero());
-            pst.setDate(13, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(13, obj.getCli_data_de_nascimento());
             pst.setString(14, obj.getCli_ocupacao());
             pst.setString(15, obj.getNome_conjugue());
             JOptionPane.showMessageDialog(null, obj.getNome_conjugue());
             pst.setString(16, obj.getCon_tipo_documento());
-            pst.setDate(17, new Date(obj.getCon_data_de_emissao().getTime()));
-            pst.setDate(18, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(17, obj.getCon_data_de_emissao());
+            pst.setString(18, obj.getCon_data_de_validade());
             pst.setString(19, obj.getCon_Ocupacao());
-            pst.setDate(20, new Date(obj.getCli_data_registro().getTime()));
+            pst.setString(20, obj.getCli_data_registro());
             pst.setString(21, obj.getCli_local_nascimento());
             pst.setInt(22, obj.getCli_id());
 
@@ -140,22 +140,22 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setInt(3, obj.getCli_telefone());
             pst.setString(4, obj.getCli_tipo_documento());
             pst.setString(5, obj.getCli_numero());
-            pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
-            pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
+            pst.setString(6, obj.getCli_data_emissao());
+            pst.setString(7, obj.getCli_data_validade());
 
           
             pst.setString(8, obj.getCli_estado_civil());
             pst.setString(9, obj.getCli_arquivo_identificacao());
             pst.setString(10, obj.getCli_quarteirao());
             pst.setString(11, obj.getCli_casa_numero());
-            pst.setDate(12, new Date(obj.getCli_data_de_nascimento().getTime()));
+            pst.setString(12, obj.getCli_data_de_nascimento());
             pst.setString(13, obj.getCli_ocupacao());
             pst.setString(14, obj.getNome_conjugue());
             pst.setString(15, obj.getCon_tipo_documento());
-            pst.setDate(16, new Date(obj.getCon_data_de_emissao().getTime()));
-            pst.setDate(17, new Date(obj.getCon_data_de_validade().getTime()));
+            pst.setString(16, obj.getCon_data_de_emissao());
+            pst.setString(17, obj.getCon_data_de_validade());
             pst.setString(18, obj.getCon_Ocupacao());
-            pst.setDate(19, new Date(obj.getCli_data_registro().getTime()));
+            pst.setString(19, obj.getCli_data_registro());
             pst.setString(20, obj.getCli_local_nascimento());
             pst.setInt(21, obj.getCli_id());
 
@@ -267,17 +267,17 @@ public class ClienteDaoJDBC implements ClienteDao {
         cliente.setCli_arquivo_identificacao(rs.getString("cli_arquivo_identificacao"));
         cliente.setCli_quarteirao(rs.getString("cli_quarteirao"));
         cliente.setCli_casa_numero(rs.getString("cli_casa_numero"));
-        cliente.setCli_data_emissao(rs.getDate("cli_data_emissao"));
-        cliente.setCli_data_validade(rs.getDate("cli_data_validade"));
+        cliente.setCli_data_emissao(rs.getString("cli_data_emissao"));
+        cliente.setCli_data_validade(rs.getString("cli_data_validade"));
         cliente.setCli_ocupacao(rs.getString("cli_ocupacao"));
         cliente.setCli_local_nascimento(rs.getString("cli_local_nascimento"));
         
-        cliente.setCli_data_de_nascimento(rs.getDate("cli_data_de_nascimento"));
-        cliente.setCon_data_de_emissao(rs.getDate("con_data_de_emissao"));
-        cliente.setCon_data_de_validade(rs.getDate("con_data_de_validade"));
+        cliente.setCli_data_de_nascimento(rs.getString("cli_data_de_nascimento"));
+        cliente.setCon_data_de_emissao(rs.getString("con_data_de_emissao"));
+        cliente.setCon_data_de_validade(rs.getString("con_data_de_validade"));
         cliente.setCon_Ocupacao(rs.getString("con_Ocupacao"));
         cliente.setCon_tipo_documento(rs.getString("con_tipo_documento"));
-        cliente.setCli_data_registro(rs.getDate("cli_data_registro"));
+        cliente.setCli_data_registro(rs.getString("cli_data_registro"));
         cliente.setNome_conjugue(rs.getString("nome_conjugue"));
         if (rs.getBytes("cli_foto") != null) {
             byte[] img = rs.getBytes("cli_foto");
@@ -292,8 +292,8 @@ public class ClienteDaoJDBC implements ClienteDao {
         pst.setInt(3, obj.getCli_telefone());
         pst.setString(4, obj.getCli_tipo_documento());
         pst.setString(5, obj.getCli_numero());
-        pst.setDate(6, new Date(obj.getCli_data_emissao().getTime()));
-        pst.setDate(7, new Date(obj.getCli_data_validade().getTime()));
+        pst.setString(6, obj.getCli_data_emissao());
+        pst.setString(7, obj.getCli_data_validade());
         if (obj.getFoto() != null) {
             InputStream photo = new FileInputStream(new File(obj.getFoto()));
             pst.setBlob(8, photo);
@@ -301,7 +301,7 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(8, "");
         }
 
-        pst.setDate(9, new Date(obj.getCli_data_registro().getTime()));
+        pst.setString(9, obj.getCli_data_registro());
         if (obj.getCli_id() != null) {
             pst.setInt(10, obj.getCli_id());
         }

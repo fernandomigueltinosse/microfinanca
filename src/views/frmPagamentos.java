@@ -61,7 +61,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                 pg.getPg_valor_pago(),
                 pg.getNumero_prestacao(),
                 pg.getData_pagamento(),
-                pg.getEmprestimo().getCd_id()
+                pg.getEmprestimo().getEp_id()
 
             });
         }
@@ -84,13 +84,13 @@ public class frmPagamentos extends javax.swing.JFrame {
     private void insert() {
         Integer count0 = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
         Emprestimo emp = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-        if (emp.getPrestacoes() == count0) {
+        if (emp.getEp_prestacoes() == count0) {
             JOptionPane.showMessageDialog(null, "Todas as prestações foram liquidadas");
         } else {
             Pagamentos pagamento = new Pagamentos();
             pagamento.setPg_valor_pago(Double.valueOf(txtValorApagar.getText()));
             Emprestimo ep = new Emprestimo();
-            ep.setCd_id(Integer.valueOf(txtRefEmprestimo.getText()));
+            ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             pagamento.setEmprestimo(ep);
             pagamento.setData_pagamento(new Date());
             pagamentoDao.insert(pagamento);
@@ -99,10 +99,10 @@ public class frmPagamentos extends javax.swing.JFrame {
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-            LocalDate dataAtual = ep.getPrazo_de_pagamento();
-            LocalDate novaData = dataAtual.plusDays(ep.getFrequenciaPagamento());
-            ep.setPrazo_de_pagamento(novaData);
-            ep.setCd_id(Integer.valueOf(txtRefEmprestimo.getText()));
+            LocalDate dataAtual = LocalDate.parse(ep.getEp_prazo());
+            LocalDate novaData = dataAtual.plusDays(ep.getEp_frequenciaPagamento());
+            ep.setEp_prazo(novaData.toString());
+            ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             emprestimoDao.updateData(ep);
             imprimirRecibo(pagamento, ep);
         }
@@ -131,7 +131,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                     parametros.put("numero_prestacao", pg.getNumero_prestacao());
                     parametros.put("data_pagamento", pg.getData_pagamento());
                     parametros.put("cli_nome", ep.getCliente().getCli_nome());
-                    parametros.put("idEmprestimo", ep.getCd_id());
+                    parametros.put("idEmprestimo", ep.getEp_id());
                     JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
@@ -151,14 +151,14 @@ public class frmPagamentos extends javax.swing.JFrame {
         for (Emprestimo creditos : List) {
 
             model.addRow(new Object[]{
-                creditos.getCd_id(),
+                creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
-                creditos.getValor_emprestimo(),
-                creditos.getTaxa_juros(),
-                creditos.getTotal_a_pagar(),
-                creditos.getPrestacoes(),
-                creditos.getPrazo_de_pagamento(),
-                creditos.getData_do_emprestimo(),});
+                creditos.getEp_montante(),
+                creditos.getEp_juros(),
+                creditos.getEp_total(),
+                creditos.getEp_prestacoes(),
+                creditos.getEp_prazo(),
+                creditos.getEp_data_emprestimo(),});
         }
 
     }
@@ -208,7 +208,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                     pg.getPg_valor_pago(),
                     pg.getNumero_prestacao(),
                     pg.getData_pagamento(),
-                    pg.getEmprestimo().getCd_id()
+                    pg.getEmprestimo().getEp_id()
 
                 });
             }

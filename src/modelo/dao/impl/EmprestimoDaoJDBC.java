@@ -76,7 +76,7 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         try {
             pst = conn.prepareStatement("DELETE from emprestimo where ep_id=?");
 
-            pst.setInt(1, obj.getCd_id());
+            pst.setInt(1, obj.getEp_id());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -139,7 +139,7 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT cli_id, cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero,DATE_FORMAT(cli_data_emissao, '%d/%m/%Y') AS cli_data_emissao,DATE_FORMAT(cli_data_validade, '%d/%m/%Y') AS cli_data_validade, cli_foto, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento,DATE_FORMAT(con_data_de_emissao, '%d/%m/%Y') AS con_data_de_emissao,DATE_FORMAT(con_data_de_validade, '%d/%m/%Y') AS con_data_de_validade, con_Ocupacao,DATE_FORMAT(cli_data_registro, '%d/%m/%Y') AS cli_data_registro, cli_local_nascimento,ep_id, ep_montante, ep_juros, ep_prestacoes, ep_frequenciaPagamento, ep_total,DATE_FORMAT(ep_prazo, '%d/%m/%Y') AS ep_prazo,ep_data_emprestimo, ep_fk_clientes FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id where ep_id=?");
+            pst = conn.prepareStatement("SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro, cli_local_nascimento  FROM clientes WHERE cli_id=?");
             
             pst.setString(1, id);
             rs = pst.executeQuery();
@@ -182,14 +182,14 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
 
     private Emprestimo fecthData(ResultSet rs) throws SQLException {
         Emprestimo ep = new Emprestimo();
-        ep.setCd_id(rs.getInt("ep_id"));
-        ep.setValor_emprestimo(rs.getDouble("ep_montante"));
-        ep.setTotal_a_pagar(rs.getDouble("ep_total"));
-        ep.setTaxa_juros(rs.getDouble("ep_juros"));
-        ep.setPrestacoes(rs.getInt("ep_prestacoes"));
-        ep.setPrazo_de_pagamento(rs.getDate("ep_prazo").toLocalDate());
-        ep.setData_do_emprestimo(rs.getDate("ep_data_emprestimo").toLocalDate());
-        ep.setFrequenciaPagamento(rs.getInt("ep_frequenciaPagamento"));
+        ep.setEp_id(rs.getInt("ep_id"));
+        ep.setEp_montante(rs.getDouble("ep_montante"));
+        ep.setEp_total(rs.getDouble("ep_total"));
+        ep.setEp_juros(rs.getDouble("ep_juros"));
+        ep.setEp_prestacoes(rs.getInt("ep_prestacoes"));
+        ep.setEp_prazo(rs.getString("ep_prazo"));
+        ep.setEp_data_emprestimo(rs.getString("ep_data_emprestimo"));
+        ep.setEp_frequenciaPagamento(rs.getInt("ep_frequenciaPagamento"));
         
         Cliente cliente = new Cliente();
         cliente.setCli_nome(rs.getString("cli_nome"));
@@ -202,17 +202,17 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         cliente.setCli_arquivo_identificacao(rs.getString("cli_arquivo_identificacao"));
         cliente.setCli_quarteirao(rs.getString("cli_quarteirao"));
         cliente.setCli_casa_numero(rs.getString("cli_casa_numero"));
-        cliente.setCli_data_emissao(rs.getDate("cli_data_emissao"));
-        cliente.setCli_data_validade(rs.getDate("cli_data_validade"));
+        cliente.setCli_data_emissao(rs.getString("cli_data_emissao"));
+        cliente.setCli_data_validade(rs.getString("cli_data_validade"));
         cliente.setCli_ocupacao(rs.getString("cli_ocupacao"));
         cliente.setCli_local_nascimento(rs.getString("cli_local_nascimento"));
         
-        cliente.setCli_data_de_nascimento(rs.getDate("cli_data_de_nascimento"));
-        cliente.setCon_data_de_emissao(rs.getDate("con_data_de_emissao"));
-        cliente.setCon_data_de_validade(rs.getDate("con_data_de_validade"));
+        cliente.setCli_data_de_nascimento(rs.getString("cli_data_de_nascimento"));
+        cliente.setCon_data_de_emissao(rs.getString("con_data_de_emissao"));
+        cliente.setCon_data_de_validade(rs.getString("con_data_de_validade"));
         cliente.setCon_Ocupacao(rs.getString("con_Ocupacao"));
         cliente.setCon_tipo_documento(rs.getString("con_tipo_documento"));
-        cliente.setCli_data_registro(rs.getDate("cli_data_registro"));
+        cliente.setCli_data_registro(rs.getString("cli_data_registro"));
         cliente.setNome_conjugue(rs.getString("nome_conjugue"));
         ep.setCliente(cliente);
         return ep;
@@ -220,16 +220,16 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
     }
 
     private void InstaciatePST(PreparedStatement pst, Emprestimo obj) throws SQLException {
-        pst.setDouble(1, obj.getValor_emprestimo());
-        pst.setDouble(2, obj.getTaxa_juros());
-        pst.setDouble(3, obj.getTotal_a_pagar());
-        pst.setInt(4, obj.getPrestacoes());
-        pst.setObject(5, obj.getPrazo_de_pagamento());
-        pst.setObject(6, obj.getData_do_emprestimo());
+        pst.setDouble(1, obj.getEp_montante());
+        pst.setDouble(2, obj.getEp_juros());
+        pst.setDouble(3, obj.getEp_total());
+        pst.setInt(4, obj.getEp_prestacoes());
+        pst.setObject(5, obj.getEp_prazo());
+        pst.setObject(6, obj.getEp_data_emprestimo());
         pst.setInt(7, obj.getCliente().getCli_id());
-        pst.setInt(8, obj.getFrequenciaPagamento());
-        if (obj.getCd_id() != null) {
-            pst.setInt(9, obj.getCd_id());
+        pst.setInt(8, obj.getEp_frequenciaPagamento());
+        if (obj.getEp_id() != null) {
+            pst.setInt(9, obj.getEp_id());
         }
     }
 
@@ -238,8 +238,8 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("UPDATE  emprestimo SET ep_prazo=? WHERE ep_id=?");
-            pst.setObject(1, obj.getPrazo_de_pagamento());
-            pst.setInt(2, obj.getCd_id());
+            pst.setObject(1, obj.getEp_prazo());
+            pst.setInt(2, obj.getEp_id());
             pst.executeUpdate();
             
         } catch (SQLException e) {

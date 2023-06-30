@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.ClienteDao;
 import modelo.dao.DaoFactory;
@@ -29,7 +30,6 @@ import modelo.entities.Cliente;
 public class frmCliente extends javax.swing.JFrame {
 
     ClienteDao clienteDao = DaoFactory.createClienteDao();
-    SimpleDateFormat data = new SimpleDateFormat("dd/Mm/yyyy");
     Cliente cli = new Cliente();
     String Imagepath2 = "";
 
@@ -90,16 +90,18 @@ public class frmCliente extends javax.swing.JFrame {
         txtNome.setText(client.getCli_nome());
         txtEndereco.setText(client.getCli_endereco());
         txtTelefone.setText(String.valueOf(client.getCli_telefone()));
-        DataEmissaoConjugue.setDate(client.getCon_data_de_emissao());
-        DataValidadeConjugue.setDate(client.getCon_data_de_validade());
+        ((JTextField)DataEmissaoConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_emissao());
+        ((JTextField)DataValidadeConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_validade());
         txtNumero.setText(client.getCli_numero());
         comoDocumento.setSelectedItem(client.getCli_tipo_documento());
         txtQuarteirao.setText(client.getCli_quarteirao());
         txtCasa.setText(client.getCli_casa_numero());
-        txtCliDataEmissao.setDate(client.getCli_data_emissao());
-        txtCliDataValidade.setDate(client.getCli_data_validade());
+        
+        ((JTextField)txtCliDataEmissao.getDateEditor().getUiComponent()).setText(client.getCli_data_emissao());
+        ((JTextField)txtCliDataValidade.getDateEditor().getUiComponent()).setText(client.getCli_data_validade());
         txtArquivoIdentificacao.setText(client.getCli_arquivo_identificacao());
-        txtDataNascimento.setDate(client.getCli_data_de_nascimento());
+        
+        ((JTextField)txtDataNascimento.getDateEditor().getUiComponent()).setText(client.getCli_data_de_nascimento());
         txtEstadoCivil.setText(client.getCli_estado_civil());
         TxtOcupacao.setText(client.getCli_ocupacao());
         txtNomeConjugue.setText(client.getNome_conjugue());
@@ -147,6 +149,8 @@ public class frmCliente extends javax.swing.JFrame {
     }
 
     private Cliente instatiateClient() {
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataNow = new Date();
         Cliente client = new Cliente();
         if (!txtId.getText().isEmpty()) {
             client.setCli_id(Integer.valueOf(txtId.getText()));
@@ -156,20 +160,20 @@ public class frmCliente extends javax.swing.JFrame {
         client.setCli_tipo_documento(comoDocumento.getSelectedItem().toString());
         client.setCli_telefone(Integer.valueOf(txtTelefone.getText()));
         client.setCli_numero((txtNumero.getText()));
-        client.setCli_data_emissao(txtCliDataEmissao.getDate());
-        client.setCli_data_validade(txtCliDataValidade.getDate());
-        client.setCli_data_registro(new Date());
+        client.setCli_data_emissao(sd.format(txtCliDataEmissao.getDate()));
+        client.setCli_data_validade(sd.format(txtCliDataValidade.getDate()));
+        client.setCli_data_registro(sd.format(dataNow));
         client.setCli_estado_civil(txtEstadoCivil.getText());
         client.setCli_arquivo_identificacao(txtArquivoIdentificacao.getText());
         client.setCli_quarteirao(txtQuarteirao.getText());
         client.setCli_casa_numero(txtCasa.getText());
-        client.setCli_data_de_nascimento(txtDataNascimento.getDate());
+        client.setCli_data_de_nascimento(sd.format(txtDataNascimento.getDate()));
         client.setCli_ocupacao(TxtOcupacao.getText());
         client.setCli_local_nascimento(txtLocalNascimento.getText());
         client.setNome_conjugue(txtNomeConjugue.getText());
         client.setCon_tipo_documento(comboTipoDocumento.getSelectedItem().toString());
-        client.setCon_data_de_emissao(DataEmissaoConjugue.getDate());
-        client.setCon_data_de_validade(DataValidadeConjugue.getDate());
+        client.setCon_data_de_emissao(sd.format(DataEmissaoConjugue.getDate()));
+        client.setCon_data_de_validade(sd.format(DataValidadeConjugue.getDate()));
         client.setCon_Ocupacao(OcupacaoConjugue.getText());
         return client;
     }
@@ -393,6 +397,8 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel16.setText("Estado Civil");
 
         jLabel17.setText("Data de nascimento");
+
+        txtDataNascimento.setDateFormatString("dd/MM/yyyy");
 
         lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

@@ -102,7 +102,7 @@ public class PagamentoDaoJDBC implements PagamentoDao {
 
     private void InstaciatePST(PreparedStatement pst, Pagamentos obj) throws SQLException {
         pst.setDouble(1, obj.getPg_valor_pago());
-        pst.setDouble(2, obj.getEmprestimo().getCd_id());
+        pst.setDouble(2, obj.getEmprestimo().getEp_id());
         pst.setDate(3, new Date(obj.getData_pagamento().getTime()));
         if (obj.getPg_id() != null) {
             pst.setInt(4, obj.getPg_id());
@@ -133,9 +133,9 @@ public class PagamentoDaoJDBC implements PagamentoDao {
     private Pagamentos fetchData(ResultSet rs) throws SQLException {
         Pagamentos pagamento = new Pagamentos();
         Emprestimo emprestimo = new Emprestimo();
-        emprestimo.setPrazo_de_pagamento(rs.getDate("ep_prazo").toLocalDate());
-        emprestimo.setPrestacoes(rs.getInt("ep_prestacoes"));
-        emprestimo.setCd_id(rs.getInt("ep_id"));
+        emprestimo.setEp_prazo(rs.getString("ep_prazo"));
+        emprestimo.setEp_prestacoes(rs.getInt("ep_prestacoes"));
+        emprestimo.setEp_id(rs.getInt("ep_id"));
         Cliente cli = new Cliente();
         cli.setCli_nome(rs.getString("cli_nome"));
         emprestimo.setCliente(cli);
