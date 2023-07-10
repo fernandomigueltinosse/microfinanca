@@ -139,7 +139,7 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro, cli_local_nascimento  FROM clientes WHERE cli_id=?");
+            pst = conn.prepareStatement("SELECT ep_id, ep_montante, ep_juros, ep_prestacoes, ep_frequenciaPagamento, ep_total, ep_prazo, ep_data_emprestimo, ep_fk_clientes,cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro, cli_local_nascimento  FROM clientes WHERE cli_id=?");
             
             pst.setString(1, id);
             rs = pst.executeQuery();
@@ -224,8 +224,8 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         pst.setDouble(2, obj.getEp_juros());
         pst.setDouble(3, obj.getEp_total());
         pst.setInt(4, obj.getEp_prestacoes());
-        pst.setObject(5, obj.getEp_prazo());
-        pst.setObject(6, obj.getEp_data_emprestimo());
+        pst.setString(5, obj.getEp_prazo());
+        pst.setString(6, obj.getEp_data_emprestimo());
         pst.setInt(7, obj.getCliente().getCli_id());
         pst.setInt(8, obj.getEp_frequenciaPagamento());
         if (obj.getEp_id() != null) {
@@ -238,7 +238,7 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("UPDATE  emprestimo SET ep_prazo=? WHERE ep_id=?");
-            pst.setObject(1, obj.getEp_prazo());
+            pst.setString(1, obj.getEp_prazo());
             pst.setInt(2, obj.getEp_id());
             pst.executeUpdate();
             

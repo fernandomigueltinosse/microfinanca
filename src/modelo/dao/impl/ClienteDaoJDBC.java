@@ -12,17 +12,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.dao.ClienteDao;
 import modelo.entities.Cliente;
@@ -39,7 +35,7 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void insert(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("INSERT INTO clientes(cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_foto, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro,cli_local_nascimento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst = conn.prepareStatement("INSERT INTO clientes(cli_nome, cli_endereco, cli_telefone, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_foto, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro,cli_local_nascimento,con_numero,com_arquivo_identificacao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             //instatiatePst(pst, obj);
             pst.setString(1, obj.getCli_nome());
@@ -68,7 +64,9 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(18, obj.getCon_data_de_validade());
             pst.setString(19, obj.getCon_Ocupacao());
             pst.setString(20, obj.getCli_data_registro());
-
+            pst.setString(21, obj.getCli_local_nascimento());
+            pst.setString(22, obj.getCon_numero());
+            pst.setString(23, obj.getCom_arquivo_identificacao());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -88,7 +86,7 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void update(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_foto=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=? WHERE cli_id =?");
+            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_foto=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=?,con_numero=?,com_arquivo_identificacao=? WHERE cli_id =?");
             pst.setString(1, obj.getCli_nome());
             pst.setString(2, obj.getCli_endereco());
             pst.setInt(3, obj.getCli_telefone());
@@ -96,7 +94,6 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(5, obj.getCli_numero());
             pst.setString(6, obj.getCli_data_emissao());
             pst.setString(7, obj.getCli_data_validade());
-
             InputStream photo = new FileInputStream(new File(obj.getFoto()));
             pst.setBlob(8, photo);
             pst.setString(9, obj.getCli_estado_civil());
@@ -106,14 +103,15 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(13, obj.getCli_data_de_nascimento());
             pst.setString(14, obj.getCli_ocupacao());
             pst.setString(15, obj.getNome_conjugue());
-            JOptionPane.showMessageDialog(null, obj.getNome_conjugue());
             pst.setString(16, obj.getCon_tipo_documento());
             pst.setString(17, obj.getCon_data_de_emissao());
             pst.setString(18, obj.getCon_data_de_validade());
             pst.setString(19, obj.getCon_Ocupacao());
             pst.setString(20, obj.getCli_data_registro());
             pst.setString(21, obj.getCli_local_nascimento());
-            pst.setInt(22, obj.getCli_id());
+            pst.setString(22, obj.getCon_numero());
+            pst.setString(23, obj.getCom_arquivo_identificacao());
+            pst.setInt(24, obj.getCli_id());
 
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
@@ -134,7 +132,7 @@ public class ClienteDaoJDBC implements ClienteDao {
     public void update2(Cliente obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=? WHERE cli_id =?");
+            pst = conn.prepareStatement("UPDATE clientes SET cli_nome=?,cli_endereco=?,cli_telefone=?,cli_tipo_documento=?,cli_numero=?,cli_data_emissao=?,cli_data_validade=?,cli_estado_civil=?,cli_arquivo_identificacao=?,cli_quarteirao=?,cli_casa_numero=?,cli_data_de_nascimento=?,cli_ocupacao=?,nome_conjugue=?,con_tipo_documento=?,con_data_de_emissao=?,con_data_de_validade=?,con_Ocupacao=?,cli_data_registro=?,cli_local_nascimento=?,con_numero=?,com_arquivo_identificacao=? WHERE cli_id =?");
             pst.setString(1, obj.getCli_nome());
             pst.setString(2, obj.getCli_endereco());
             pst.setInt(3, obj.getCli_telefone());
@@ -142,8 +140,6 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(5, obj.getCli_numero());
             pst.setString(6, obj.getCli_data_emissao());
             pst.setString(7, obj.getCli_data_validade());
-
-          
             pst.setString(8, obj.getCli_estado_civil());
             pst.setString(9, obj.getCli_arquivo_identificacao());
             pst.setString(10, obj.getCli_quarteirao());
@@ -157,8 +153,9 @@ public class ClienteDaoJDBC implements ClienteDao {
             pst.setString(18, obj.getCon_Ocupacao());
             pst.setString(19, obj.getCli_data_registro());
             pst.setString(20, obj.getCli_local_nascimento());
-            pst.setInt(21, obj.getCli_id());
-
+            pst.setString(21, obj.getCon_numero());
+            pst.setString(22, obj.getCom_arquivo_identificacao());
+            pst.setInt(23, obj.getCli_id());
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
                 JOptionPane.showMessageDialog(null, "Actualizado com sucesso");
@@ -217,7 +214,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM clientes JOIN emprestimo on emprestimo.ep_fk_clientes=cli_id JOIN empresa");
+            pst = conn.prepareStatement("SELECT * FROM clientes");
             rs = pst.executeQuery();
             List<Cliente> list = new ArrayList<>();
             while (rs.next()) {
@@ -271,7 +268,8 @@ public class ClienteDaoJDBC implements ClienteDao {
         cliente.setCli_data_validade(rs.getString("cli_data_validade"));
         cliente.setCli_ocupacao(rs.getString("cli_ocupacao"));
         cliente.setCli_local_nascimento(rs.getString("cli_local_nascimento"));
-        
+        cliente.setCon_numero(rs.getString("con_numero"));
+        cliente.setCom_arquivo_identificacao(rs.getString("com_arquivo_identificacao"));
         cliente.setCli_data_de_nascimento(rs.getString("cli_data_de_nascimento"));
         cliente.setCon_data_de_emissao(rs.getString("con_data_de_emissao"));
         cliente.setCon_data_de_validade(rs.getString("con_data_de_validade"));

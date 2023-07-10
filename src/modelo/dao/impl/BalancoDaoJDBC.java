@@ -54,6 +54,33 @@ public class BalancoDaoJDBC implements balancoDao{
          
     }
 
+       @Override
+    public Balanco creditos2(String mes, String ano) {
+         
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conn.prepareStatement("SELECT SUM(pag_valor_pago) as receita from pagamentos WHERE  SUBSTRING(pag_data_registro, 4, 2) =? AND  SUBSTRING(pag_data_registro, 7, 4) = ?");
+            pst.setString(1,  mes );
+            pst.setString(2, ano);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+              Balanco bl = new Balanco();
+              bl.setTotal_credito(rs.getDouble("receita"));
+              
+              return bl;
+            }
+            
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+            DB.closeResultSet(rs);
+        }
+        return null;
+         
+    }
+    
     @Override
     public Balanco debitos(String dataInicio, String dataFinal) {
          PreparedStatement pst = null;

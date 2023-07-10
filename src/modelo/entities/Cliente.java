@@ -38,7 +38,8 @@ public class Cliente {
     private String con_data_de_emissao;
     private String con_data_de_validade;
     private String con_Ocupacao;
-    
+    private String con_numero;
+    private String com_arquivo_identificacao;
 
    
     
@@ -57,6 +58,13 @@ public class Cliente {
                 client.getCli_data_validade()
             });
         }
+    }
+
+    
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "cli_id=" + getCli_id() + ", cli_nome=" + getCli_nome() + ", cli_endereco=" + getCli_endereco() + ", cli_telefone=" + getCli_telefone() + ", cli_tipo_documento=" + getCli_tipo_documento() + ", cli_numero=" + getCli_numero() + ", cli_data_emissao=" + getCli_data_emissao() + ", cli_data_validade=" + getCli_data_validade() + ", cli_data_registro=" + getCli_data_registro() + ", cli_foto=" + getCli_foto() + ", foto=" + getFoto() + ", cli_estado_civil=" + getCli_estado_civil() + ", cli_arquivo_identificacao=" + getCli_arquivo_identificacao() + ", cli_quarteirao=" + getCli_quarteirao() + ", cli_casa_numero=" + getCli_casa_numero() + ", cli_data_de_nascimento=" + getCli_data_de_nascimento() + ", cli_ocupacao=" + getCli_ocupacao() + ", cli_local_nascimento=" + getCli_local_nascimento() + ", nome_conjugue=" + getNome_conjugue() + ", con_tipo_documento=" + getCon_tipo_documento() + ", con_data_de_emissao=" + getCon_data_de_emissao() + ", con_data_de_validade=" + getCon_data_de_validade() + ", con_Ocupacao=" + getCon_Ocupacao() + '}';
     }
 
     public Integer getCli_id() {
@@ -243,9 +251,20 @@ public class Cliente {
         this.con_Ocupacao = con_Ocupacao;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" + "cli_id=" + cli_id + ", cli_nome=" + cli_nome + ", cli_endereco=" + cli_endereco + ", cli_telefone=" + cli_telefone + ", cli_tipo_documento=" + cli_tipo_documento + ", cli_numero=" + cli_numero + ", cli_data_emissao=" + cli_data_emissao + ", cli_data_validade=" + cli_data_validade + ", cli_data_registro=" + cli_data_registro + ", cli_foto=" + cli_foto + ", foto=" + foto + ", cli_estado_civil=" + cli_estado_civil + ", cli_arquivo_identificacao=" + cli_arquivo_identificacao + ", cli_quarteirao=" + cli_quarteirao + ", cli_casa_numero=" + cli_casa_numero + ", cli_data_de_nascimento=" + cli_data_de_nascimento + ", cli_ocupacao=" + cli_ocupacao + ", cli_local_nascimento=" + cli_local_nascimento + ", nome_conjugue=" + nome_conjugue + ", con_tipo_documento=" + con_tipo_documento + ", con_data_de_emissao=" + con_data_de_emissao + ", con_data_de_validade=" + con_data_de_validade + ", con_Ocupacao=" + con_Ocupacao + '}';
+    public String getCon_numero() {
+        return con_numero;
+    }
+
+    public void setCon_numero(String con_numero) {
+        this.con_numero = con_numero;
+    }
+
+    public String getCom_arquivo_identificacao() {
+        return com_arquivo_identificacao;
+    }
+
+    public void setCom_arquivo_identificacao(String com_arquivo_identificacao) {
+        this.com_arquivo_identificacao = com_arquivo_identificacao;
     }
 
    

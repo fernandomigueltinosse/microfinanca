@@ -7,7 +7,7 @@
 	<parameter name="cli_nome" class="java.lang.String"/>
 	<parameter name="pg_valor_pago" class="java.lang.Double"/>
 	<parameter name="numero_prestacao" class="java.lang.Integer"/>
-	<parameter name="data_pagamento" class="java.util.Date"/>
+	<parameter name="data_pagamento" class="java.lang.String"/>
 	<parameter name="nuit" class="java.lang.Integer"/>
 	<parameter name="telefone" class="java.lang.Integer"/>
 	<parameter name="nomeEmpresa" class="java.lang.String"/>
@@ -35,7 +35,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="pag_fk_emprestimo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
 	</field>
-	<field name="pag_data_registro" class="java.sql.Date">
+	<field name="pag_data_registro" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="pag_data_registro"/>
 		<property name="com.jaspersoft.studio.field.label" value="pag_data_registro"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
@@ -115,23 +115,28 @@
 	<pageHeader>
 		<band height="77" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="44" width="100" height="19" uuid="d39ef1e1-05a0-4617-8fe1-2d89c092a688"/>
+				<reportElement x="0" y="50" width="80" height="19" uuid="d39ef1e1-05a0-4617-8fe1-2d89c092a688"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="44" width="100" height="19" uuid="0f194a9e-df72-4a91-a3bd-44afbdd4a5a9"/>
+				<reportElement x="80" y="50" width="130" height="19" uuid="0f194a9e-df72-4a91-a3bd-44afbdd4a5a9"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="46" width="100" height="18" uuid="21a9f4c2-a299-4ac1-b040-1f3a4bfc344e"/>
+				<reportElement x="210" y="50" width="110" height="19" uuid="21a9f4c2-a299-4ac1-b040-1f3a4bfc344e"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Valor pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="47" width="100" height="16" uuid="6987d9a8-9247-4b18-86dc-b34be1c8a1e3"/>
+				<reportElement x="321" y="50" width="110" height="19" uuid="6987d9a8-9247-4b18-86dc-b34be1c8a1e3"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Prestações]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="444" y="47" width="100" height="22" uuid="27d97d0c-3a02-4863-a95b-ea620e2d8e5d"/>
+				<reportElement x="431" y="50" width="100" height="19" uuid="27d97d0c-3a02-4863-a95b-ea620e2d8e5d"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<line>
@@ -142,24 +147,59 @@
 	<columnHeader>
 		<band height="166" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="111" height="30" uuid="d6a8f388-99bc-4b7c-a5da-a19ba2c94a7e"/>
-				<textFieldExpression><![CDATA[$P{pg_id}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="79" height="20" uuid="d6a8f388-99bc-4b7c-a5da-a19ba2c94a7e"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $P{pg_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="0" width="111" height="30" uuid="96ff3f90-1f5c-4864-8cc6-11be1f07036d"/>
-				<textFieldExpression><![CDATA[$P{cli_nome}]]></textFieldExpression>
+				<reportElement x="79" y="0" width="131" height="20" uuid="96ff3f90-1f5c-4864-8cc6-11be1f07036d"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $P{cli_nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="0" width="111" height="30" uuid="08d7047b-d790-4bd6-95eb-fb7c8d3fba51"/>
-				<textFieldExpression><![CDATA[$P{pg_valor_pago}]]></textFieldExpression>
+				<reportElement x="210" y="0" width="111" height="20" uuid="08d7047b-d790-4bd6-95eb-fb7c8d3fba51"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $P{pg_valor_pago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="333" y="0" width="111" height="30" uuid="7ae5a2a8-9034-4013-80cd-0facd21268d1"/>
-				<textFieldExpression><![CDATA[$P{numero_prestacao}]]></textFieldExpression>
+				<reportElement x="321" y="0" width="111" height="20" uuid="7ae5a2a8-9034-4013-80cd-0facd21268d1"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $P{numero_prestacao}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd-MM-yyyy">
-				<reportElement x="444" y="0" width="111" height="30" uuid="cc3f2ba3-c819-455d-89d5-50b73e8263d0"/>
-				<textFieldExpression><![CDATA[$P{data_pagamento}]]></textFieldExpression>
+			<textField>
+				<reportElement x="432" y="0" width="100" height="20" uuid="02b02b13-c643-4819-9911-47ff7f00f3f2"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $P{data_pagamento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12463dff-7a6f-484a-8e4f-2bccab5e0426">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<parameter name="emp_id" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao,con_numero, com_arquivo_identificacao, cli_data_registro, cli_local_nascimento ,ep_id,ep_montante,ep_frequenciaPagamento, ep_juros, ep_prestacoes, ep_total, ep_prazo, ep_data_emprestimo,logotipo FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id join empresa  WHERE ep_id= 7]]>
+	</queryString>
+	<field name="cli_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cli_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_telefone" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cli_telefone"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_telefone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_endereco" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_endereco"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_endereco"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_tipo_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_emissao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_emissao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_emissao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_validade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_validade"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_validade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_estado_civil" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_estado_civil"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_estado_civil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_arquivo_identificacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_quarteirao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_quarteirao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_quarteirao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_casa_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_casa_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_casa_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_de_nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_de_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_de_nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_ocupacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_ocupacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_ocupacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="nome_conjugue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome_conjugue"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome_conjugue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_tipo_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_data_de_emissao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_data_de_emissao"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_data_de_emissao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_data_de_validade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_data_de_validade"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_data_de_validade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_Ocupacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_Ocupacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_Ocupacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="con_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="con_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="con_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="com_arquivo_identificacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="com_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="com_arquivo_identificacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_data_registro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_data_registro"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_data_registro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cli_local_nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cli_local_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cli_local_nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="ep_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_montante" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_montante"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_montante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_frequenciaPagamento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_frequenciaPagamento"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_frequenciaPagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_juros" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_juros"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_juros"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_prestacoes" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ep_prestacoes"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_prestacoes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="ep_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_prazo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ep_prazo"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_prazo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="ep_data_emprestimo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ep_data_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.label" value="ep_data_emprestimo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
+	</field>
+	<field name="logotipo" class="java.awt.Image">
+		<property name="com.jaspersoft.studio.field.name" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="190" y="20" width="180" height="60" uuid="b723643a-b5a9-4b8e-a168-2ae704ec005e"/>
+				<imageExpression><![CDATA[$F{logotipo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="400" y="10" width="100" height="30" uuid="4436e92c-41e2-47a2-ad51-21b65018ea13"/>
+				<textFieldExpression><![CDATA["REF. " +$F{ep_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="20" width="182" height="20" uuid="e0fb236d-1078-409e-a678-3cffbc459514"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE MUTUARIO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="518" splitType="Stretch">
+			<textField>
+				<reportElement x="46" y="10" width="462" height="230" uuid="b413f275-095b-490a-a2f9-285565be5e9d"/>
+				<textFieldExpression><![CDATA["Nome do cliente : "+ $F{cli_nome}+ " "+$F{cli_tipo_documento}+ " n° "+$F{cli_numero}+
+", emitido em "+$F{cli_arquivo_identificacao}+" válido " +$F{cli_data_validade}+",ocupação "+$F{cli_ocupacao}+"\r"+
+"Nome do cônjuge: "+$F{nome_conjugue} +"  "+$F{con_tipo_documento}+ " n° "+$F{con_numero}+ ", emitido em "+$F{com_arquivo_identificacao}+  " Valido "+$F{con_data_de_validade}+ ", ocupação "+$F{con_Ocupacao}+
+", endereço "+$F{cli_endereco}+""+ ", próximo de ______________________"+
+"contactos __________________ ou _________________ email __________________"+ 
+"informações adicionais/detalhada, residência própria _______ ou arrendada _____"+
+"documentação vira em anexo."+
+"Tem viatura? _______ Marca ____________ Chapa de inscrição ____________ compra e venda vira em anexo."+
+"Estabelecimento comercial (loja/barraca/banca) _________________ próprio ________"+
+"Arrendado __________. Credito concedido ______________, 00 Mt, período_______ dias, taxa de juros a aplicar ______%, total a pagar"+ "______________, 00 Mt, até ao dia ____/_____/ _____."+
+"NB: O não cumprimento das prestações do pagamento, incorre a multas de _____% de juros de Mora sobre o valor cedido ao"+ "cliente, calculado consoante ao número de dias que cliente não cumprir com o pagamento."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="260" width="240" height="20" uuid="d7b051e7-e284-43f3-8d2d-08e4713941e8"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[ RELAÇÃO DOS BENS COMO GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="260" width="110" height="20" uuid="cbf3e6ca-3d7b-45a8-aa06-898496549385"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[ AVALIAÇÃO DO
+ESTADO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="260" width="117" height="20" uuid="a276c871-0518-4e0a-86ff-7bff4d815fd3"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[ ANO DA COMPRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="280" width="240" height="20" uuid="db35c47d-881d-4949-9d74-4cc604d73c88"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="280" width="110" height="20" uuid="f0c7d658-eb50-4b1f-acaa-f711e7b66629"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="280" width="117" height="20" uuid="222dd09e-60a8-4db1-ac5b-e24a705315b4"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="300" width="240" height="20" uuid="3e03b7f6-6a13-4c35-922d-f6ce5e244b2a"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="300" width="110" height="20" uuid="ee3f785a-1399-42da-9a6c-bafda3ffdfd5"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="300" width="117" height="20" uuid="cf9e621c-fcf9-46e6-b414-c02a91d34994"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="320" width="240" height="20" uuid="ccd08bd9-0dca-480f-bfa9-e497d699bafe"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="320" width="110" height="20" uuid="4554a727-3489-4b5a-8d8d-a81fbc6dc2c9"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="320" width="117" height="20" uuid="c4be6a6a-36fc-41e1-add6-eac304eb2569"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="340" width="240" height="20" uuid="ee2f9b02-36a0-461b-bf59-526c3a686c41"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="340" width="110" height="20" uuid="8529bc7d-dba2-4f5b-b3c5-4e97353f9244"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="340" width="117" height="20" uuid="64199888-0462-4fd6-b277-324054061b4d"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="370" width="467" height="60" uuid="d648e146-0396-464a-843d-374c201db455"/>
+				<textFieldExpression><![CDATA["Caro cliente qualquer litígio relativo ao presente contrato, será resolvido na regra de boa-fé e equidade, em caso de impasse entre"+ "as partes, recorremos ao fórum do Tribunal judicial da _________________,para resolução do conflito."+
+"Celebrado em _______________, aos ______ de ___________ de 20______"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="450" width="190" height="40" uuid="09ad91bd-7f2a-418c-a975-4cae3e3ee39e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Assinatura do Cliente (Avalista)
+_______________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="450" width="190" height="40" uuid="e91b0670-f5f7-4bd9-9a82-ad3cb537c3e6"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Assinatura do Gestor
+_______________________________]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

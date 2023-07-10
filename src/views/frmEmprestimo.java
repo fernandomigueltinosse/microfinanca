@@ -147,7 +147,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         credito.setEp_total(Double.valueOf(txtTotal.getText()));
         credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));       
        
-        credito.setEp_prazo(dataPrazo.getDate().toString());
+        credito.setEp_prazo(sd.format(dataPrazo.getDate()));
         credito.setEp_data_emprestimo(sd.format(data));
         credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
         Cliente cliente = new Cliente();

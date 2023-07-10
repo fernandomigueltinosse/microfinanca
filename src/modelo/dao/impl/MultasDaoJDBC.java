@@ -119,4 +119,21 @@ public class MultasDaoJDBC implements MultasDao {
         }
     }
 
+    @Override
+    public void pagarMulta(Multas obj) {
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("UPDATE multas SET multas_pagas=? WHERE m_id=?");
+            pst.setDouble(1, obj.getPagarMulta());
+            pst.setInt(2, obj.getM_id());
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+        }
+    }
+
 }

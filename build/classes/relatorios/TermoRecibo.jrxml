@@ -3,8 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TermoRecibo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b75d719-590f-4eab-b607-2d39f822a205">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<parameter name="emp_id" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro, cli_local_nascimento ,ep_id,ep_montante,ep_frequenciaPagamento, ep_juros, ep_prestacoes, ep_total, ep_prazo, ep_data_emprestimo FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id WHERE ep_id=7]]>
+		<![CDATA[SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao, cli_data_registro, cli_local_nascimento ,ep_id,ep_montante,ep_frequenciaPagamento, ep_juros, ep_prestacoes, ep_total, ep_prazo, ep_data_emprestimo,logotipo FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id JOIN empresa WHERE ep_id= $P{emp_id}]]>
 	</queryString>
 	<field name="cli_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="cli_id"/>
@@ -151,11 +152,25 @@
 		<property name="com.jaspersoft.studio.field.label" value="ep_data_emprestimo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="emprestimo"/>
 	</field>
+	<field name="logotipo" class="java.awt.Image">
+		<property name="com.jaspersoft.studio.field.name" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="logotipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="141" splitType="Stretch"/>
+		<band height="141" splitType="Stretch">
+			<textField>
+				<reportElement x="430" y="100" width="100" height="20" uuid="ea01518c-a6f7-44f4-b9e5-9984593a0999"/>
+				<textFieldExpression><![CDATA["Ref: "+ $F{ep_id}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="200" y="50" width="160" height="50" uuid="f9d2c69b-2f34-4b03-8f85-fc50e57fcdf5"/>
+				<imageExpression><![CDATA[$F{logotipo}]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
@@ -169,35 +184,25 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="47" splitType="Stretch"/>
+		<band height="24" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="178" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="40" y="11" width="493" height="99" uuid="a2b7b54a-8688-4b3b-b427-02585f329892"/>
 				<textElement textAlignment="Left">
 					<font fontName="Times New Roman" size="12"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Eu "+$F{cli_nome}+", Portador do "+$F{cli_tipo_documento}+" nᵒ "+$F{cli_numero}+", emitido em "+$F{cli_data_emissao}+" pelo arquivo de identificação de/a "+$F{cli_arquivo_identificacao}+", residente  no bairro "+$F{cli_endereco}+ ", Q nᵒ "+$F{cli_quarteirao}+" casa nᵒ "+$F{cli_casa_numero}+", após a celebração do presente contracto confirmo ter recebido no dia "+$F{cli_data_registro}+" na  FAMBA MICRO-CRÉDITO,  a quantia de "+$F{ep_total}+" MT em numerário……..electrónico…..……, referente a coincessão de crédito, que para todos os efeitos comprometo-me a liquidar a dívida até o dia ………..de ……de 20......"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="40" y="120" width="120" height="30" uuid="db30da2f-2ee1-40c0-8c54-1889afb2e25f"/>
-				<textFieldExpression><![CDATA[$F{ep_frequenciaPagamento}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="240" y="130" width="100" height="30" uuid="ea01518c-a6f7-44f4-b9e5-9984593a0999"/>
-				<textFieldExpression><![CDATA[$F{ep_prazo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Eu "+$F{cli_nome}+", Portador do "+$F{cli_tipo_documento}+" nᵒ "+$F{cli_numero}+", emitido em "+$F{cli_data_emissao}.replace("/"," de ")+" pelo arquivo de identificação de/a "+$F{cli_arquivo_identificacao}+", residente  no bairro "+$F{cli_endereco}+ ", Q nᵒ "+$F{cli_quarteirao}+" casa nᵒ "+$F{cli_casa_numero}+", após a celebração do presente contracto confirmo ter recebido no dia "+$F{cli_data_registro}.replace("/"," de ")+" na  FAMBA MICRO-CRÉDITO,  a quantia de "+$F{ep_total}+" MT em numerário……..electrónico…..……, referente a concessão de crédito, que para todos os efeitos comprometo-me a liquidar a dívida até o dia ………..de ……de 20......"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="80" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<staticText>
-				<reportElement x="11" y="10" width="550" height="70" uuid="ddf39680-e5e2-4aab-bad8-781fca505fee"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
+				<reportElement x="40" y="20" width="490" height="80" uuid="b6dcde85-e38e-43a2-9322-5949a45bf789"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Matola…..…..de……………………..de 20………
 
 Assinatura do Mutuário

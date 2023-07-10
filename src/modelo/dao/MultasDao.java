@@ -16,4 +16,5 @@ public interface MultasDao {
     void delete(Integer id);
     List<Multas> filter(String text);
     List<Multas> findAllMultas();
+    void pagarMulta(Multas obj);
 }

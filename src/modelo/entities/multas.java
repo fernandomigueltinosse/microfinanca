@@ -17,6 +17,7 @@ public class Multas {
     private Integer m_id;
     private Double multa;
     private Cliente cliente;
+    private Double pagarMulta;
 
     public Integer getM_id() {
         return m_id;
@@ -41,6 +42,16 @@ public class Multas {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public Double getPagarMulta() {
+        return pagarMulta;
+    }
+
+    public void setPagarMulta(Double pagarMulta) {
+        this.pagarMulta = pagarMulta;
+    }
+
+    
 
     
 }

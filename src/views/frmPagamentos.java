@@ -4,7 +4,9 @@
  */
 package views;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,6 +84,9 @@ public class frmPagamentos extends javax.swing.JFrame {
     }
 
     private void insert() {
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Date dataNow = new Date();
         Integer count0 = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
         Emprestimo emp = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
         if (emp.getEp_prestacoes() == count0) {
@@ -92,16 +97,20 @@ public class frmPagamentos extends javax.swing.JFrame {
             Emprestimo ep = new Emprestimo();
             ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             pagamento.setEmprestimo(ep);
-            pagamento.setData_pagamento(new Date());
+            pagamento.setData_pagamento(sd.format(dataNow));
             pagamentoDao.insert(pagamento);
             Integer count = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
             pagamento.setNumero_prestacao(count);
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-            LocalDate dataAtual = LocalDate.parse(ep.getEp_prazo());
+            
+            LocalDate dataAtual = LocalDate.parse(ep.getEp_prazo(), formato);
+            
             LocalDate novaData = dataAtual.plusDays(ep.getEp_frequenciaPagamento());
-            ep.setEp_prazo(novaData.toString());
+            
+            JOptionPane.showMessageDialog(null, novaData);
+            ep.setEp_prazo(formato.format(novaData));
             ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             emprestimoDao.updateData(ep);
             imprimirRecibo(pagamento, ep);

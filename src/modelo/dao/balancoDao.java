@@ -14,5 +14,6 @@ import modelo.entities.Balanco;
 public interface balancoDao {
     //Balanco debitos(Date dataInicio, Date dataFinal);
     Balanco creditos(String dataInicio, String dataFinal);
+    Balanco creditos2(String mes, String ano);
     Balanco debitos(String dataInicio, String dataFinal);
 }
