@@ -18,6 +18,7 @@ public class Multas {
     private Double multa;
     private Cliente cliente;
     private Double pagarMulta;
+    private String mdata;
 
     public Integer getM_id() {
         return m_id;
@@ -49,6 +50,14 @@ public class Multas {
 
     public void setPagarMulta(Double pagarMulta) {
         this.pagarMulta = pagarMulta;
+    }
+
+    public String getMdata() {
+        return mdata;
+    }
+
+    public void setMdata(String mdata) {
+        this.mdata = mdata;
     }
 
     

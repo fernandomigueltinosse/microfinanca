@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmEmprestimo.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/entities/Multas.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/dao/impl/MultasDaoJDBC.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmMultas.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/dao/impl/EmprestimoDaoJDBC.java</file>
+            <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/views/frmdashBoard.java</file>
             <file>file:/C:/Users/pc2/Documents/NetBeansProjects/microfinance/src/modelo/dao/MultasDao.java</file>
         </group>
     </open-files>

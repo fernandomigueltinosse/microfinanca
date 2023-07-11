@@ -55,6 +55,7 @@ public class frmdashBoard extends javax.swing.JFrame {
             model.addRow(new Object[]{
                   creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
+                creditos.getCliente().getCli_telefone(),
                 creditos.getEp_montante(),
                 creditos.getEp_juros(),
                 creditos.getEp_total(),

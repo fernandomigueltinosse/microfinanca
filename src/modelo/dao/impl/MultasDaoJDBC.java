@@ -38,9 +38,10 @@ public class MultasDaoJDBC implements MultasDao {
     public void insert(Multas obj) {
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("INSERT INTO multas(multas, m_fk_cliente) VALUES (?,?)");
+            pst = conn.prepareStatement("INSERT INTO multas(multas, m_fk_cliente,mData) VALUES (?,?,?)");
             pst.setDouble(1, obj.getMulta());
             pst.setInt(2, obj.getCliente().getCli_id());
+            pst.setString(3, obj.getMdata());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
         } catch (SQLException e) {
@@ -78,6 +79,7 @@ public class MultasDaoJDBC implements MultasDao {
                 Multas m = new Multas();
                 m.setM_id(rs.getInt("m_id"));
                 m.setMulta(rs.getDouble("multas"));
+                m.setMdata(rs.getString("mData"));
                 Cliente ep = new Cliente();
                 ep.setCli_nome(rs.getString("cli_nome"));
                 m.setCliente(ep);
@@ -104,6 +106,8 @@ public class MultasDaoJDBC implements MultasDao {
                 Multas m = new Multas();
                 m.setM_id(rs.getInt("m_id"));
                 m.setMulta(rs.getDouble("multas"));
+                m.setPagarMulta(rs.getDouble("multas_pagas"));
+                m.setMdata(rs.getString("mData"));
                 Cliente ep = new Cliente();
                 ep.setCli_id(rs.getInt("m_fk_cliente"));
                 ep.setCli_nome(rs.getString("cli_nome"));
@@ -134,6 +138,35 @@ public class MultasDaoJDBC implements MultasDao {
         } finally {
             DB.closeStatement(pst);
         }
+    }
+
+    @Override
+    public Multas findById(String id) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+         try {
+            pst = conn.prepareStatement("SELECT * FROM multas join clientes on m_fk_cliente=cli_id WHERE m_id=?");
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+             while(rs.next()) {
+                Multas m = new Multas();
+                m.setM_id(rs.getInt("m_id"));
+                m.setMulta(rs.getDouble("multas"));
+                m.setPagarMulta(rs.getDouble("multas_Pagas"));
+                m.setMdata(rs.getString("mData"));
+                Cliente ep = new Cliente();
+                ep.setCli_id(rs.getInt("m_fk_cliente"));
+                ep.setCli_nome(rs.getString("cli_nome"));
+                m.setCliente(ep);
+                return m;
+            }
+            
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+        }
+        return null;
     }
 
 }

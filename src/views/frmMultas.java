@@ -4,6 +4,8 @@
  */
 package views;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.ClienteDao;
@@ -60,11 +62,15 @@ public class frmMultas extends javax.swing.JFrame {
         int linha = tblClientes.getSelectedRow();
         String id = (tblClientes.getModel().getValueAt(linha, 0).toString());
         txtIdClinte.setText(id);
+        
     }
 
     private void insert() {
         Multas m = new Multas();
+        Date data = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         m.setMulta(Double.valueOf(txtMultas.getText()));
+        m.setMdata(sd.format(data));
         Cliente cliente = new Cliente();
         cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
         m.setCliente(cliente);
@@ -76,10 +82,7 @@ public class frmMultas extends javax.swing.JFrame {
        
         m.setPagarMulta(Double.valueOf(txtPagarMulta.getText()));
         m.setM_id(Integer.valueOf(txtId.getText()));
-        Cliente cliente = new Cliente();
-        cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
-        m.setCliente(cliente);
-        multasDao.insert(m);
+        multasDao.pagarMulta(m);
     }
 
     private void delete() {
@@ -96,6 +99,7 @@ public class frmMultas extends javax.swing.JFrame {
                 m.getM_id(),
                 m.getCliente().getCli_nome(),
                 m.getMulta(),
+                m.getMdata()
             });
         }
     }
@@ -110,6 +114,8 @@ public class frmMultas extends javax.swing.JFrame {
                 m.getM_id(),
                 m.getCliente().getCli_nome(),
                 m.getMulta(),
+                m.getPagarMulta(),
+                m.getMdata()
                 
             });
         }
@@ -117,8 +123,11 @@ public class frmMultas extends javax.swing.JFrame {
     private void preencherCampoMultas() {
         int linha = tblMultas.getSelectedRow();
         String id = (tblMultas.getModel().getValueAt(linha, 0).toString());
-        txtId.setText(id);
-        txtPagarMulta.setText(txtMultas.getText());
+        Multas multas = multasDao.findById(id);
+        txtId.setText(String.valueOf(multas.getM_id()));
+        txtMultas.setText(String.valueOf(multas.getMulta()));
+        txtIdClinte.setText(String.valueOf(multas.getCliente().getCli_id()));
+        txtPagarMulta.setText(String.valueOf(multas.getPagarMulta()));
     }
 
     @SuppressWarnings("unchecked")
@@ -143,6 +152,7 @@ public class frmMultas extends javax.swing.JFrame {
         txtSearchMultas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPagarMulta = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Multas");
@@ -199,13 +209,13 @@ public class frmMultas extends javax.swing.JFrame {
 
         tblMultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cod. multas", "Nome", "Multas", "multas pagas"
+                "Cod. multas", "Nome", "Multas", "multas pagas", "Data"
             }
         ));
         tblMultas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -226,7 +236,13 @@ public class frmMultas extends javax.swing.JFrame {
 
         jLabel6.setText("Pagar Multa");
 
-        txtPagarMulta.setEditable(false);
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-card-payment-24.png"))); // NOI18N
+        jButton3.setText("Pagar multa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,9 +284,11 @@ public class frmMultas extends javax.swing.JFrame {
                                     .addComponent(txtPagarMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
+                        .addGap(158, 158, 158)
                         .addComponent(jButton1)
-                        .addGap(36, 36, 36)
+                        .addGap(63, 63, 63)
+                        .addComponent(jButton3)
+                        .addGap(75, 75, 75)
                         .addComponent(jButton2)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -287,16 +305,17 @@ public class frmMultas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtIdClinte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(txtPagarMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPagarMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(txtIdClinte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -306,7 +325,8 @@ public class frmMultas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addGap(22, 22, 22))
         );
 
@@ -339,6 +359,11 @@ public class frmMultas extends javax.swing.JFrame {
     private void txtSearchMultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchMultasKeyReleased
        filter();
     }//GEN-LAST:event_txtSearchMultasKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        pagarMulta(); 
+        findAllMultas();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,6 +404,7 @@ public class frmMultas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -17,4 +17,5 @@ public interface MultasDao {
     List<Multas> filter(String text);
     List<Multas> findAllMultas();
     void pagarMulta(Multas obj);
+    Multas  findById(String id);
 }
