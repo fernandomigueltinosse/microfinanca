@@ -36,7 +36,7 @@ public class frmdashBoard extends javax.swing.JFrame {
 
     private void findAllCredito() {
 
-        List<Emprestimo> list = creditoDao.findAllCredito();
+        List<Emprestimo> list = creditoDao.findAllCreditoByStatus();
         DefaultTableModel model = (DefaultTableModel) tblEmprestimo.getModel();
          
         TableRowSorter sorter = new TableRowSorter<>(tblEmprestimo.getModel());
@@ -51,7 +51,7 @@ public class frmdashBoard extends javax.swing.JFrame {
         for (Emprestimo creditos : List) {
             LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato);
             long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
-
+           
             model.addRow(new Object[]{
                   creditos.getEp_id(),
                 creditos.getCliente().getCli_nome(),
@@ -59,10 +59,12 @@ public class frmdashBoard extends javax.swing.JFrame {
                 creditos.getEp_montante(),
                 creditos.getEp_juros(),
                 creditos.getEp_total(),
-                creditos.getEp_prestacoes(),
                 creditos.getEp_frequenciaPagamento(),
-                creditos.getEp_juros(),
-                diff
+                creditos.getEp_prazo(),
+                diff,
+                creditos.getEp_prestacoes(),
+                creditos.getStatus()
+                
             });
         }
     }
@@ -342,6 +344,11 @@ public class frmdashBoard extends javax.swing.JFrame {
         jMenu5.setText("Formularios");
 
         jMenuItem3.setText("Termo de recido");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem3);
 
         jMenuBar1.add(jMenu5);
@@ -465,6 +472,10 @@ public class frmdashBoard extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new frmMultas().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new frmRelDocumentos().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -29,8 +29,15 @@ public class frmMultas extends javax.swing.JFrame {
         initComponents();
         fillTable();
         findAllMultas();
+        ActivateButtons(false, false, false);
     }
 
+       private void ActivateButtons(boolean btnAdicionar, boolean btnPagarmulta, boolean btnApagar) {
+        this.btnAdicionar.setEnabled(btnAdicionar);
+        this.btnpagar.setEnabled(btnPagarmulta);
+        this.btnApagar.setEnabled(btnApagar);
+    }
+    
    private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setNumRows(0);
@@ -144,15 +151,15 @@ public class frmMultas extends javax.swing.JFrame {
         txtMultas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtIdClinte = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMultas = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         txtSearchMultas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPagarMulta = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnpagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Multas");
@@ -191,19 +198,19 @@ public class frmMultas extends javax.swing.JFrame {
 
         jLabel4.setText("Cod. cliente");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
+        btnAdicionar.setText("Cadastrar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdicionarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-delete-24.png"))); // NOI18N
-        jButton2.setText("Apagar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-delete-24.png"))); // NOI18N
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnApagarActionPerformed(evt);
             }
         });
 
@@ -236,11 +243,11 @@ public class frmMultas extends javax.swing.JFrame {
 
         jLabel6.setText("Pagar Multa");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-card-payment-24.png"))); // NOI18N
-        jButton3.setText("Pagar multa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnpagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-card-payment-24.png"))); // NOI18N
+        btnpagar.setText("Pagar multa");
+        btnpagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnpagarActionPerformed(evt);
             }
         });
 
@@ -284,16 +291,16 @@ public class frmMultas extends javax.swing.JFrame {
                                     .addComponent(txtPagarMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(jButton1)
+                        .addGap(155, 155, 155)
+                        .addComponent(btnAdicionar)
                         .addGap(63, 63, 63)
-                        .addComponent(jButton3)
+                        .addComponent(btnpagar)
                         .addGap(75, 75, 75)
-                        .addComponent(jButton2)))
+                        .addComponent(btnApagar)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdicionar, btnApagar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,9 +331,9 @@ public class frmMultas extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnApagar)
+                    .addComponent(btnpagar))
                 .addGap(22, 22, 22))
         );
 
@@ -340,30 +347,33 @@ public class frmMultas extends javax.swing.JFrame {
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         preencherCampo();
+        ActivateButtons(true, false, false);
     }//GEN-LAST:event_tblClientesMouseClicked
 
     private void tblMultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMultasMouseClicked
         preencherCampoMultas();
+        ActivateButtons(false, true, true);
     }//GEN-LAST:event_tblMultasMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         insert();
         findAllMultas();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ActivateButtons(false, false, false);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         delete();
         findAllMultas();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnApagarActionPerformed
 
     private void txtSearchMultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchMultasKeyReleased
        filter();
     }//GEN-LAST:event_txtSearchMultasKeyReleased
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnpagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagarActionPerformed
         pagarMulta(); 
         findAllMultas();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnpagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,9 +412,9 @@ public class frmMultas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnpagar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

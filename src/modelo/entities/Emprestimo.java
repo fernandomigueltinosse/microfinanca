@@ -21,6 +21,7 @@ public class Emprestimo  extends Cliente{
     private String ep_prazo;
     private Integer ep_frequenciaPagamento;
     private Cliente cliente;
+    private String status;
 
     public Integer getEp_id() {
         return ep_id;
@@ -94,9 +95,18 @@ public class Emprestimo  extends Cliente{
         this.cliente = cliente;
     }
 
+    
     @Override
     public String toString() {
         return "Emprestimo{" + "ep_id=" + ep_id + ", ep_montante=" + ep_montante + ", ep_data_emprestimo=" + ep_data_emprestimo + ", ep_juros=" + ep_juros + ", ep_total=" + ep_total + ", ep_prestacoes=" + ep_prestacoes + ", ep_prazo=" + ep_prazo + ", ep_frequenciaPagamento=" + ep_frequenciaPagamento + ", cliente=" + cliente + '}';
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     

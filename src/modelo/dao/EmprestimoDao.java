@@ -17,9 +17,11 @@ public interface EmprestimoDao {
     void delete(Emprestimo obj);
     void updateData(Emprestimo obj);
     void updatePrestacoes(Integer prestacoes);
+    void updateStatus(Emprestimo obj);
     Integer findByidFk(Integer id);
     Emprestimo findById(Integer id);
     List<Emprestimo> findAllCredito();
+    List<Emprestimo> findAllCreditoByStatus();
     List<Emprestimo> findAllCreditoById(String id);
     List<Emprestimo> findByName(String nome);
 }

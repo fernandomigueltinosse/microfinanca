@@ -4,6 +4,8 @@
  */
 package views;
 
+import db.DB;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -11,8 +13,13 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.ClienteDao;
 import modelo.dao.DaoFactory;
@@ -21,6 +28,14 @@ import modelo.entities.Cliente;
 import modelo.entities.Emprestimo;
 import modelo.entities.User;
 import modelo.dao.EmprestimoDao;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -32,11 +47,12 @@ public class frmEmprestimo extends javax.swing.JFrame {
     EmprestimoDao creditoDao = DaoFactory.createCreditoDao();
     Emprestimo ep = new Emprestimo();
     Cliente cli = new Cliente();
-
+    Connection conn;
     public frmEmprestimo() {
         initComponents();
         fillTable();
         findAllCredito();
+        conn = DB.getConnection();
     }
 
     private void fillTable() {
@@ -47,12 +63,65 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void insert() {
-        Emprestimo credito = instatiateCredito();
+        
+         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        Emprestimo credito = new Emprestimo();
+        credito.setEp_montante(Double.valueOf(txtMontante.getText()));
+        credito.setEp_juros(Double.valueOf(txtJuros.getText()));
+        credito.setEp_total(Double.valueOf(txtTotal.getText()));
+        credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));
+        
+        credito.setStatus("nao pago");
+        credito.setEp_prazo(sd.format(dataPrazo.getDate()));
+        credito.setEp_data_emprestimo(sd.format(data));
+        credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
+        Cliente cliente = new Cliente();
+        cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
+        credito.setCliente(cliente);
         creditoDao.insert(credito);
+        imprimirConfissaoDivida(credito.getEp_id());
+    }
+    
+       private void imprimirConfissaoDivida(int id) {
+        final frmAguarde spash = new frmAguarde();
+        spash.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Map<String, Object> parametros = new HashMap<>();
+                    parametros.put("emp_id", id);
+                    JasperDesign path = JRXmlLoader.load("src/relatorios/confissao_divida.jrxml");
+                    JasperReport report = JasperCompileManager.compileReport(path);
+                    JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
+                    JasperViewer.viewReport(print, false);
+                } catch (JRException ex) {
+                    Logger.getLogger(frmPagamentos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                spash.dispose();
+            }
+        };
+        t.start();
+
     }
 
     private void update() {
-        Emprestimo credito = instatiateCredito();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        Emprestimo credito = new Emprestimo();
+        credito.setEp_montante(Double.valueOf(txtMontante.getText()));
+        credito.setEp_juros(Double.valueOf(txtJuros.getText()));
+        credito.setEp_total(Double.valueOf(txtTotal.getText()));
+        credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));
+        credito.setEp_id(Integer.valueOf(txtIdCredito.getText()));
+        
+        credito.setEp_prazo(sd.format(dataPrazo.getDate()));
+        credito.setEp_data_emprestimo(sd.format(data));
+        credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
+        Cliente cliente = new Cliente();
+        cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
+        credito.setCliente(cliente);
         creditoDao.update(credito);
     }
 
@@ -62,8 +131,17 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void findById() {
-        Emprestimo ep = creditoDao.findById(Integer.valueOf(txtsearchCredito.getText()));
-
+         int linha = tblCredito.getSelectedRow();
+         tblCredito.getModel().getValueAt(linha, 0).toString();
+        Emprestimo emp = creditoDao.findById(Integer.valueOf(tblCredito.getModel().getValueAt(linha, 0).toString()));
+        txtIdCredito.setText(String.valueOf(emp.getEp_id()));
+        txtMontante.setText(String.valueOf(emp.getEp_montante()));
+        txtJuros.setText(String.valueOf(emp.getEp_juros()));
+        txtTotal.setText(String.valueOf(emp.getEp_total()));
+        txtPrestacoes.setText(String.valueOf(emp.getEp_prestacoes()));
+        txtFrequenciaPagamento.setText(String.valueOf(emp.getEp_frequenciaPagamento()));
+        ((JTextField)dataPrazo.getDateEditor().getUiComponent()).setText(emp.getEp_prazo());
+        txtIdClinte.setText(String.valueOf(emp.getCliente().getCli_id()));
     }
 
     private void findByName() {
@@ -132,7 +210,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 creditos.getEp_total(),
                 creditos.getEp_prestacoes(),
                 creditos.getEp_frequenciaPagamento(),
-                creditos.getEp_juros(),
+                creditos.getEp_prazo(),
                 diff
             });
         }
@@ -145,8 +223,9 @@ public class frmEmprestimo extends javax.swing.JFrame {
         credito.setEp_montante(Double.valueOf(txtMontante.getText()));
         credito.setEp_juros(Double.valueOf(txtJuros.getText()));
         credito.setEp_total(Double.valueOf(txtTotal.getText()));
-        credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));       
-       
+        credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));
+        credito.setEp_id(Integer.valueOf(txtIdCredito.getText()));
+        credito.setStatus("nao pago");
         credito.setEp_prazo(sd.format(dataPrazo.getDate()));
         credito.setEp_data_emprestimo(sd.format(data));
         credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
@@ -186,6 +265,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         txtTotal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtFrequenciaPagamento = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCredito = new javax.swing.JTable();
@@ -269,6 +349,14 @@ public class frmEmprestimo extends javax.swing.JFrame {
 
         jLabel10.setText("Frequencia de Pagamento(Nº de dias)");
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-pencil-24.png"))); // NOI18N
+        jButton4.setText("Actualizar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -288,9 +376,14 @@ public class frmEmprestimo extends javax.swing.JFrame {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtIdClinte, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtJuros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                                        .addComponent(txtJuros, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(jLabel8))
-                                .addGap(28, 28, 28)
+                                .addGap(28, 28, 28))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(78, 78, 78)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,10 +401,10 @@ public class frmEmprestimo extends javax.swing.JFrame {
                                     .addComponent(txtMontante)
                                     .addComponent(jButton3)
                                     .addComponent(txtFrequenciaPagamento)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(121, 121, 121)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton5)))
                         .addGap(105, 105, 105))
@@ -370,7 +463,8 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton4))
                 .addGap(43, 43, 43))
         );
 
@@ -387,6 +481,11 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 "Nº. Processo", "Nome", "Montante aprovado", "Juros", "Total", "Prestações", "Frequencia de pagamento", "Prazo de pagamento", "Dias remanescentes"
             }
         ));
+        tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCreditoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblCredito);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-search-24.png"))); // NOI18N
@@ -468,6 +567,15 @@ public class frmEmprestimo extends javax.swing.JFrame {
         searchByName();
     }//GEN-LAST:event_txtSearchKeyReleased
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        update();
+        findAllCredito();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tblCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCreditoMouseClicked
+        findById();
+    }//GEN-LAST:event_tblCreditoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -509,6 +617,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

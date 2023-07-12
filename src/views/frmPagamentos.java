@@ -100,16 +100,22 @@ public class frmPagamentos extends javax.swing.JFrame {
             pagamento.setData_pagamento(sd.format(dataNow));
             pagamentoDao.insert(pagamento);
             Integer count = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
+            
             pagamento.setNumero_prestacao(count);
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-            
+            if(Objects.equals(ep.getEp_prestacoes(), count)){
+                ep.setStatus("Pago");
+                ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
+                emprestimoDao.updateStatus(ep);
+            }
+                    
             LocalDate dataAtual = LocalDate.parse(ep.getEp_prazo(), formato);
             
             LocalDate novaData = dataAtual.plusDays(ep.getEp_frequenciaPagamento());
             
-            JOptionPane.showMessageDialog(null, novaData);
+            
             ep.setEp_prazo(formato.format(novaData));
             ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             emprestimoDao.updateData(ep);
