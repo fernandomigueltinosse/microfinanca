@@ -94,7 +94,8 @@ public class frmRelatorioVendas extends javax.swing.JFrame {
         txtAnoRelatorio = new com.toedter.calendar.JYearChooser();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatorio de venda");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Relatório de vendas");
@@ -166,6 +167,7 @@ public class frmRelatorioVendas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -4,19 +4,7 @@
  */
 package views;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import modelo.dao.DaoFactory;
-import modelo.dao.EmprestimoDao;
-import modelo.entities.Emprestimo;
 import modelo.entities.UserSession;
 
 /**
@@ -25,48 +13,13 @@ import modelo.entities.UserSession;
  */
 public class frmdashBoard extends javax.swing.JFrame {
 
-    EmprestimoDao creditoDao = DaoFactory.createCreditoDao();
+    
 
     public frmdashBoard() {
         initComponents();
         this.setExtendedState(6);
-        findAllCredito();
+        
         lblUser.setText(UserSession.primeiroNome);
-    }
-
-    private void findAllCredito() {
-
-        List<Emprestimo> list = creditoDao.findAllCreditoByStatus();
-        DefaultTableModel model = (DefaultTableModel) tblEmprestimo.getModel();
-         
-        TableRowSorter sorter = new TableRowSorter<>(tblEmprestimo.getModel());
-        tblEmprestimo.setRowSorter(sorter);
-        model.setNumRows(0);
-        creditoModel(list, model);
-    }
-
-    private void creditoModel(List<Emprestimo> List, DefaultTableModel model) {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate datactual = LocalDate.now();
-        for (Emprestimo creditos : List) {
-            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato);
-            long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
-           
-            model.addRow(new Object[]{
-                  creditos.getEp_id(),
-                creditos.getCliente().getCli_nome(),
-                creditos.getCliente().getCli_telefone(),
-                creditos.getEp_montante(),
-                creditos.getEp_juros(),
-                creditos.getEp_total(),
-                creditos.getEp_frequenciaPagamento(),
-                creditos.getEp_prazo(),
-                diff,
-                creditos.getEp_prestacoes(),
-                creditos.getStatus()
-                
-            });
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -81,9 +34,9 @@ public class frmdashBoard extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmprestimo = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
         lblUser = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -95,15 +48,15 @@ public class frmdashBoard extends javax.swing.JFrame {
         balanco = new javax.swing.JMenuItem();
         pagamentos = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         sair = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Dash Board");
+        setTitle("DashBoard");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 153, 0), null));
 
@@ -155,6 +108,14 @@ public class frmdashBoard extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-detail-24.png"))); // NOI18N
+        jButton7.setText("Emprestimos não pagos ");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -169,7 +130,9 @@ public class frmdashBoard extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,27 +149,19 @@ public class frmdashBoard extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
 
-        tblEmprestimo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nº. Processo", "Nome ", "Telefone", "Montante ", "Juros", "Total", "Ciclo de pagamento", "Prazo de pagamento", "Dias remanescentes", "Prestações"
-            }
-        ));
-        jScrollPane1.setViewportView(tblEmprestimo);
-
         lblUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-account-skin-type-5-24.png"))); // NOI18N
         lblUser.setText("jLabel2");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logofamba.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,13 +171,13 @@ public class frmdashBoard extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
-                        .addGap(15, 15, 15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104))))
+                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,9 +185,9 @@ public class frmdashBoard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(137, 137, 137)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(192, 192, 192))
         );
 
         jMenu1.setText("Empresa");
@@ -312,6 +267,18 @@ public class frmdashBoard extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu5.setText("Relatorios");
+
+        jMenuItem3.setText("Relatorio de vendas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu5);
+
         jMenu4.setText("Configurações");
 
         jMenuItem6.setText("Banco de dados");
@@ -340,18 +307,6 @@ public class frmdashBoard extends javax.swing.JFrame {
         jMenu3.add(sair);
 
         jMenuBar1.add(jMenu3);
-
-        jMenu5.setText("Formularios");
-
-        jMenuItem3.setText("Termo de recido");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -477,6 +432,10 @@ public class frmdashBoard extends javax.swing.JFrame {
         new frmRelDocumentos().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        new frmListaEmprestimo().setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -523,6 +482,8 @@ public class frmdashBoard extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -535,11 +496,9 @@ public class frmdashBoard extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblUser;
     private javax.swing.JMenuItem pagamentos;
     private javax.swing.JMenuItem sair;
-    private javax.swing.JTable tblEmprestimo;
     private javax.swing.JMenuItem usuarios;
     // End of variables declaration//GEN-END:variables
 }

@@ -214,7 +214,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM clientes");
+            pst = conn.prepareStatement("SELECT * FROM clientes ORDER BY cli_id  DESC LIMIT 50");
             rs = pst.executeQuery();
             List<Cliente> list = new ArrayList<>();
             while (rs.next()) {
@@ -235,7 +235,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            pst = conn.prepareStatement("SELECT * FROM clientes  where cli_nome like ?");
+            pst = conn.prepareStatement("SELECT * FROM clientes  where cli_nome like ? ORDER BY cli_id DESC LIMIT 50");
             pst.setString(1, nome + "%");
             rs = pst.executeQuery();
             List<Cliente> list = new ArrayList<>();
@@ -284,26 +284,7 @@ public class ClienteDaoJDBC implements ClienteDao {
         return cliente;
     }
 
-    private void instatiatePst(PreparedStatement pst, Cliente obj) throws SQLException, IOException {
-        pst.setString(1, obj.getCli_nome());
-        pst.setString(2, obj.getCli_endereco());
-        pst.setInt(3, obj.getCli_telefone());
-        pst.setString(4, obj.getCli_tipo_documento());
-        pst.setString(5, obj.getCli_numero());
-        pst.setString(6, obj.getCli_data_emissao());
-        pst.setString(7, obj.getCli_data_validade());
-        if (obj.getFoto() != null) {
-            InputStream photo = new FileInputStream(new File(obj.getFoto()));
-            pst.setBlob(8, photo);
-        } else {
-            pst.setString(8, "");
-        }
 
-        pst.setString(9, obj.getCli_data_registro());
-        if (obj.getCli_id() != null) {
-            pst.setInt(10, obj.getCli_id());
-        }
-    }
 
     @Override
     public boolean ifClientExist(String text) {
