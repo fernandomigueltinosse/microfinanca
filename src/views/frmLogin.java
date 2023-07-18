@@ -29,7 +29,9 @@ public class frmLogin extends javax.swing.JFrame {
    private void validarUsuario(){
        User user = new User();
        user.setUserName(txtUsuario.getText());
-       user.setUser_password(txtSenha.getText());
+       char[] password = txtSenha.getPassword();
+       String passwordString = new String(password);
+       user.setUser_password(passwordString);
        
        if(userdao.login(user) !=null){
             user = userdao.login(user);

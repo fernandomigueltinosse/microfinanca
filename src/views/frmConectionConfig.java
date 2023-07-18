@@ -18,65 +18,76 @@ import javax.swing.JOptionPane;
  */
 public class frmConectionConfig extends javax.swing.JFrame {
 
-    Properties p = new Properties ();
-    
+    Properties p = new Properties();
+
     public frmConectionConfig() {
         initComponents();
         ler();
     }
 ////////////////////////////////////////////////////////////////////////////////    
-    private void ler(){
+
+    private void ler() {
         try {
-           
-            FileInputStream fis=new FileInputStream("src/db/config.properties"); 
-            p.load (fis);
-            
-            txtDatabase.setText((String) p.get ("database"));
-            txtHost.setText((String) p.get ("host"));
-            txtPort.setText((String) p.get ("port"));
-            txtUsername.setText((String) p.get ("user"));
-            txtPassword.setText((String) p.get ("password"));
-           
-            
-        } catch (IOException e) { JOptionPane.showMessageDialog(null, "erro de conexao " + e.getMessage()); }
-     
+
+            FileInputStream fis = new FileInputStream("src/db/config.properties");
+            p.load(fis);
+
+            txtDatabase.setText((String) p.get("database"));
+            txtHost.setText((String) p.get("host"));
+            txtPort.setText((String) p.get("port"));
+            txtUsername.setText((String) p.get("user"));
+            txtPassword.setText((String) p.get("password"));
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "erro de conexao " + e.getMessage());
+        }
+
     }
 ////////////////////////////////////////////testar conexao///////////////////////
-   public static Connection conector(){
-    Connection conn;
+
+    public static Connection conector() {
+        Connection conn;
         try {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://"+txtHost.getText()+":"+txtPort.getText()+"/"+txtDatabase.getText();
+            String url = "jdbc:mysql://" + txtHost.getText() + ":" + txtPort.getText() + "/" + txtDatabase.getText();
             Class.forName(driver);
-            conn = DriverManager.getConnection(url, txtUsername.getText(), txtPassword.getText());
-             JOptionPane.showMessageDialog(null, "Conexao realizada sucesso!!!");
+
+            String passwordString = new String(txtPassword.getPassword());
+
+            conn = DriverManager.getConnection(url, txtUsername.getText(), passwordString);
+            JOptionPane.showMessageDialog(null, "Conexao realizada sucesso!!!");
             return conn;
-          
-        } catch (Exception e) { JOptionPane.showMessageDialog(null, "Erro de conexao"); }
-            return null;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro de conexao");
+        }
+        return null;
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
-    private void salvarConexao(){
+    private void salvarConexao() {
         try {
             Properties props;
-            try (FileInputStream in = new FileInputStream("src/db/config.properties")) {
+            try ( FileInputStream in = new FileInputStream("src/db/config.properties")) {
                 props = new Properties();
-                props.load (in);
+                props.load(in);
             }
-              
-            try (FileOutputStream out = new FileOutputStream("src/db/config.properties")) {
-                props.setProperty("host",txtHost.getText());
-                props.setProperty("database",txtDatabase.getText());
-                props.setProperty("port",txtPort.getText());
-                props.setProperty("user",txtUsername.getText());
-                props.setProperty("password",txtPassword.getText());
+
+            try ( FileOutputStream out = new FileOutputStream("src/db/config.properties")) {
+                props.setProperty("host", txtHost.getText());
+                props.setProperty("database", txtDatabase.getText());
+                props.setProperty("port", txtPort.getText());
+                props.setProperty("user", txtUsername.getText());
+                props.setProperty("password", txtPassword.getText());
                 props.store(out, null);
             }
-          JOptionPane.showMessageDialog(null, "conexao salva com sucesso");
-        } catch (IOException e) { JOptionPane.showMessageDialog(null, "erro de conexao" + e.getMessage()); }
-   
+            JOptionPane.showMessageDialog(null, "conexao salva com sucesso");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "erro de conexao" + e.getMessage());
+        }
+
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -92,9 +103,9 @@ public class frmConectionConfig extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         btnTestar = new javax.swing.JButton();
         BtnSalvar = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -127,6 +138,8 @@ public class frmConectionConfig extends javax.swing.JFrame {
                 BtnSalvarActionPerformed(evt);
             }
         });
+
+        txtPassword.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -295,7 +308,7 @@ public class frmConectionConfig extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private static javax.swing.JTextField txtDatabase;
     private static javax.swing.JTextField txtHost;
-    private static javax.swing.JTextField txtPassword;
+    private static javax.swing.JPasswordField txtPassword;
     private static javax.swing.JTextField txtPort;
     private static javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

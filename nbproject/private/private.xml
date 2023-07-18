@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/views/frmEmprestimo.java</file>
             <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/views/frmdashBoard.java</file>
+            <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/views/frmConectionConfig.java</file>
+            <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/modelo/entities/Multas.java</file>
             <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/views/frmListaEmprestimo.java</file>
             <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/db/DB.java</file>
+            <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/modelo/dao/impl/EmprestimoDaoJDBC.java</file>
+            <file>file:/C:/Users/fernando/Documents/NetBeansProjects/microfinanca/src/views/frmLogin.java</file>
         </group>
     </open-files>
 </project-private>
