@@ -32,7 +32,7 @@ public class frmListaEmprestimo extends javax.swing.JFrame {
         List<Emprestimo> list = creditoDao.findAllCreditoByStatus();
         DefaultTableModel model = (DefaultTableModel) tblEmprestimo.getModel();
          
-        TableRowSorter sorter = new TableRowSorter<>(tblEmprestimo.getModel());
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         tblEmprestimo.setRowSorter(sorter);
         model.setNumRows(0);
         creditoModel(list, model);
