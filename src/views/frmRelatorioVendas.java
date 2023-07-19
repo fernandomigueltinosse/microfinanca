@@ -5,6 +5,7 @@
 package views;
 
 import db.DB;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +42,7 @@ public class frmRelatorioVendas extends javax.swing.JFrame {
      balancoDao BalancoDao = DaoFactory.createBalanco();
     public frmRelatorioVendas() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         conn = DB.getConnection();
     }
 

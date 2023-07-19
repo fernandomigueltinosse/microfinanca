@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ public class frmMultas extends javax.swing.JFrame {
 
     public frmMultas() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         fillTable();
         findAllMultas();
         ActivateButtons(false, false, false);

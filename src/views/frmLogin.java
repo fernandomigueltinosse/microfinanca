@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package views;
-
+import db.DB;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.dao.DaoFactory;
@@ -24,6 +25,7 @@ public class frmLogin extends javax.swing.JFrame {
     
     public frmLogin() {
         initComponents();
+       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));  
     }
 
    private void validarUsuario(){

@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class frmCliente extends javax.swing.JFrame {
 
     public frmCliente() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         fillTable();
         ActivateButtons(false, false, false);
     }

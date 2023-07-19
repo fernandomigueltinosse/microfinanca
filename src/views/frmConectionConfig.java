@@ -4,6 +4,8 @@
  */
 package views;
 
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +24,7 @@ public class frmConectionConfig extends javax.swing.JFrame {
 
     public frmConectionConfig() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         ler();
     }
 ////////////////////////////////////////////////////////////////////////////////    
@@ -78,10 +81,18 @@ public class frmConectionConfig extends javax.swing.JFrame {
                 props.setProperty("database", txtDatabase.getText());
                 props.setProperty("port", txtPort.getText());
                 props.setProperty("user", txtUsername.getText());
-                props.setProperty("password", txtPassword.getText());
+                props.setProperty("password", new String(txtPassword.getPassword()));
                 props.store(out, null);
             }
+            for (Window window : Window.getWindows()) {
+            if (window != this) {
+                window.dispose();
+            }
+        }
+
             JOptionPane.showMessageDialog(null, "conexao salva com sucesso");
+            
+           System.exit(0);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "erro de conexao" + e.getMessage());
         }
@@ -258,6 +269,7 @@ public class frmConectionConfig extends javax.swing.JFrame {
 
     private void BtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarActionPerformed
         salvarConexao();
+        
     }//GEN-LAST:event_BtnSalvarActionPerformed
 
     /**

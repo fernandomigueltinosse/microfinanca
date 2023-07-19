@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,7 @@ public class frmUser extends javax.swing.JFrame {
 
     public frmUser() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         fillTable();
         ActivateButtons(false, false, false);
     }

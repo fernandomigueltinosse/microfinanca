@@ -4,6 +4,8 @@
  */
 package views;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author pc2
@@ -15,6 +17,7 @@ public class frmAguarde extends javax.swing.JFrame {
      */
     public frmAguarde() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         jProgressBar1.setIndeterminate(true);
     }
 

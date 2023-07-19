@@ -5,6 +5,7 @@
 package views;
 
 import db.DB;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -45,6 +46,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
     Connection conn;
     public frmEmprestimo() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         preencherTabelaClientes();
         findAllCredito();
         conn = DB.getConnection();
@@ -330,13 +332,13 @@ public class frmEmprestimo extends javax.swing.JFrame {
 
         tblCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nº. Processo", "Nome", "Montante aprovado", "Juros", "Total", "Prestações", "Frequencia de pagamento", "Prazo de pagamento", "Dias remanescentes"
+                "Nº. Processo", "Nome", "Montante aprovado", "Juros", "Total", "Prestações", "Frequencia de pagamento", "Prazo de pagamento"
             }
         ));
         tblCredito.addMouseListener(new java.awt.event.MouseAdapter() {

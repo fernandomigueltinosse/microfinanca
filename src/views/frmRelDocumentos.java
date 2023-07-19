@@ -5,6 +5,7 @@
 package views;
 
 import db.DB;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,22 +15,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DaoFactory;
-import modelo.dao.EmpresaDao;
 import modelo.dao.EmprestimoDao;
-import modelo.entities.Cliente;
-import modelo.entities.Empresa;
 import modelo.entities.Emprestimo;
-import modelo.entities.Pagamentos;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -47,6 +41,7 @@ public class frmRelDocumentos extends javax.swing.JFrame {
     public frmRelDocumentos() {
         initComponents();
         findAllCredito();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         conn = DB.getConnection();
     }
 

@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DaoFactory;
@@ -20,6 +21,7 @@ public class frmBalanco extends javax.swing.JFrame {
     SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd");
     public frmBalanco() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
     }
 
     private void preecherDebitos(){

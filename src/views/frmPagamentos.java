@@ -4,12 +4,10 @@
  */
 package views;
 
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +46,7 @@ public class frmPagamentos extends javax.swing.JFrame {
 
     public frmPagamentos() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         findAllCredito();
         findAllPagamentos();
     }

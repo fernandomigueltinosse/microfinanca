@@ -11,6 +11,7 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 
 
 public class DB {
@@ -19,23 +20,32 @@ public class DB {
     
     public static Connection getConnection(){
         
-        if(conn==null){
-            try{
+      if (conn == null) {
+            try {
                 Properties props = loadProperties();
-                String port= (String) props.get ("port");
-                String database= (String) props.get ("database"); 
-                String host = (String) props.get ("host");
-                String user = (String) props.get ("user");
-                String password = (String) props.get ("password");
-                String url = "jdbc:mysql://"+host+":"+port+"/"+database;
+                String port = (String) props.get("port");
+                String database = (String) props.get("database");
+                String host = (String) props.get("host");
+                String user = (String) props.get("user");
+                String password = (String) props.get("password");
+                String url = "jdbc:mysql://" + host + ":" + port + "/" + database;
                 conn = DriverManager.getConnection(url, user, password);
-            }
-            catch(SQLException e){
-                throw new DbException(e.getMessage());
+
+                // Verificar se a conexão foi estabelecida com sucesso
+                if (conn != null) {
+                    System.out.println("Conexão com o banco de dados realizada com sucesso!");
+                } else {
+                    System.out.println("Erro ao conectar-se ao banco de dados.");
+                    return null; // Retorna null caso a conexão falhe
+                }
+            } catch (SQLException e) {
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+                return null; // Retorna null caso a conexão falhe
             }
         }
-    return conn;
+        return conn;
     }
+
     ////////////////////////////////////////////////////////////////////////////
     private static Properties loadProperties(){
         try(FileInputStream fis=new FileInputStream("src/db/config.properties")) {

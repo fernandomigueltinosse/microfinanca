@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class frmEmpresa extends javax.swing.JFrame {
 
     public frmEmpresa() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         findall();
     }
 

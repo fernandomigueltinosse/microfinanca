@@ -5,7 +5,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<parameter name="emp_id" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao,con_numero, com_arquivo_identificacao, cli_data_registro, cli_local_nascimento ,ep_id,ep_montante,ep_frequenciaPagamento, ep_juros, ep_prestacoes, ep_total, ep_prazo, ep_data_emprestimo,logotipo FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id join empresa  WHERE ep_id= 7]]>
+		<![CDATA[SELECT cli_id,cli_telefone,cli_nome, cli_endereco, cli_tipo_documento, cli_numero, cli_data_emissao, cli_data_validade, cli_estado_civil, cli_arquivo_identificacao, cli_quarteirao, cli_casa_numero, cli_data_de_nascimento, cli_ocupacao, nome_conjugue, con_tipo_documento, con_data_de_emissao, con_data_de_validade, con_Ocupacao,con_numero, com_arquivo_identificacao, cli_data_registro, cli_local_nascimento ,ep_id,ep_montante,ep_frequenciaPagamento, ep_juros, ep_prestacoes, ep_total, ep_prazo, ep_data_emprestimo,logotipo FROM clientes JOIN emprestimo on ep_fk_clientes=cli_id join empresa  WHERE ep_id= $P{emp_id}  ]]>
 	</queryString>
 	<field name="cli_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="cli_id"/>

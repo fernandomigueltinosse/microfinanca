@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -24,6 +25,7 @@ public class frmListaEmprestimo extends javax.swing.JFrame {
     
     public frmListaEmprestimo() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         findAllCredito();
     }
 

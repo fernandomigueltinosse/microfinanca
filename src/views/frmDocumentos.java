@@ -6,6 +6,7 @@ package views;
 
 import java.awt.Desktop;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,6 +41,7 @@ public class frmDocumentos extends javax.swing.JFrame {
 
     public frmDocumentos() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         findAllCredito();
         findAllDoc(tblDocumentos);
     }
