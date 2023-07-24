@@ -28,8 +28,8 @@ public class DB {
                 String host = (String) props.get("host");
                 String user = (String) props.get("user");
                 String password = (String) props.get("password");
-                String url = "jdbc:mysql://" + host + ":" + port + "/" + database;
-                conn = DriverManager.getConnection(url, user, password);
+                String url = "jdbc:mysql://" + host + ":" + port + "/" + database+"?autoReconnect=true&useSSL=false";
+                conn = DriverManager.getConnection(url,props);
 
                 // Verificar se a conexão foi estabelecida com sucesso
                 if (conn != null) {
