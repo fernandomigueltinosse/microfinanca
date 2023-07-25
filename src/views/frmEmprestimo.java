@@ -6,6 +6,7 @@ package views;
 
 import db.DB;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -89,7 +90,9 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/confissao_divida.jrxml");
+                    //JasperDesign path = JRXmlLoader.load("src/relatorios/confissao_divida.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/confissao_divida.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);

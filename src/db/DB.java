@@ -6,6 +6,7 @@ package db;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.DriverManager;
@@ -48,13 +49,15 @@ public class DB {
 
     ////////////////////////////////////////////////////////////////////////////
     private static Properties loadProperties(){
-        try(FileInputStream fis=new FileInputStream("src/db/config.properties")) {
+         try (InputStream fis = DB.class.getClassLoader().getResourceAsStream("db/config.properties")) {
              Properties props =new Properties ();
              props.load (fis);
             return  props;
         } catch (IOException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            
         }
+        return null;
     }
 ////////////////////////////////////////////////////////////////////////////////
     public static void closeStatement(Statement st){

@@ -4,7 +4,9 @@
  */
 package views;
 
+import db.DB;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -146,7 +148,9 @@ public class frmPagamentos extends javax.swing.JFrame {
                     parametros.put("data_pagamento", pg.getData_pagamento());
                     parametros.put("cli_nome", ep.getCliente().getCli_nome());
                     parametros.put("idEmprestimo", ep.getEp_id());
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/recibo.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
+                   // JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
                     JasperViewer.viewReport(print, false);
