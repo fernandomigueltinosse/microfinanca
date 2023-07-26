@@ -6,6 +6,7 @@ package views;
 
 import db.DB;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,8 +68,8 @@ public class frmRelatorioVendas extends javax.swing.JFrame {
                     parametros.put("mesExtenso", mesExtenso);
                     parametros.put("ano",ano);
                     parametros.put("Totalcredtor", bl.getTotal_credito());
-                   
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/planilha_de_venda.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/planilha_de_venda.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);

@@ -6,6 +6,7 @@ package views;
 
 import db.DB;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -95,7 +96,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/TermoRecibo.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/TermoRecibo.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -118,7 +120,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/declaracao_cliente.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/declaracao_cliente.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -141,7 +144,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/declaracao_responsabilidade.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/declaracao_responsabilidade.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -164,7 +168,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/declaracao_divida.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/declaracao_divida.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -187,7 +192,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/Declaracao_garantia.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/Declaracao_garantia.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -210,7 +216,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/Declaração_De_Divida_De_Pagamento.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/Declaração_De_Divida_De_Pagamento.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -234,7 +241,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/contrato.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/contrato.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);
@@ -257,7 +265,8 @@ public class frmRelDocumentos extends javax.swing.JFrame {
                 try {
                     Map<String, Object> parametros = new HashMap<>();
                     parametros.put("emp_id", id);
-                    JasperDesign path = JRXmlLoader.load("src/relatorios/confissao_divida.jrxml");
+                    InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/confissao_divida.jrxml");
+                    JasperDesign path = JRXmlLoader.load(jrxmlStream);
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, conn);
                     JasperViewer.viewReport(print, false);

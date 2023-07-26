@@ -4,13 +4,17 @@
  */
 package views;
 
+import db.DB;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -32,7 +36,7 @@ public class frmConectionConfig extends javax.swing.JFrame {
     private void ler() {
         try {
 
-            FileInputStream fis = new FileInputStream("src/db/config.properties");
+            InputStream fis = DB.class.getClassLoader().getResourceAsStream("db/config.properties");
             p.load(fis);
 
             txtDatabase.setText((String) p.get("database"));
@@ -61,43 +65,42 @@ public class frmConectionConfig extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Conexao realizada sucesso!!!");
             return conn;
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro de conexao");
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro de conexao "+e);
         }
         return null;
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
     private void salvarConexao() {
-        try {
-            Properties props;
-            try ( FileInputStream in = new FileInputStream("src/db/config.properties")) {
-                props = new Properties();
-                props.load(in);
-            }
+    try {
+        Properties props;
+        try (InputStream fis = DB.class.getClassLoader().getResourceAsStream("db/config.properties")) {
+            props = new Properties();
+            props.load(fis);
+        }
 
-            try ( FileOutputStream out = new FileOutputStream("src/db/config.properties")) {
-                props.setProperty("host", txtHost.getText());
-                props.setProperty("database", txtDatabase.getText());
-                props.setProperty("port", txtPort.getText());
-                props.setProperty("user", txtUsername.getText());
-                props.setProperty("password", new String(txtPassword.getPassword()));
-                props.store(out, null);
-            }
-            for (Window window : Window.getWindows()) {
+        try (FileOutputStream out = new FileOutputStream(DB.class.getClassLoader().getResource("db/config.properties").getFile())) {
+            props.setProperty("host", txtHost.getText());
+            props.setProperty("database", txtDatabase.getText());
+            props.setProperty("port", txtPort.getText());
+            props.setProperty("user", txtUsername.getText());
+            props.setProperty("password", new String(txtPassword.getPassword()));
+            props.store(out, null);
+        }
+        for (Window window : Window.getWindows()) {
             if (window != this) {
                 window.dispose();
             }
         }
 
-            JOptionPane.showMessageDialog(null, "conexao salva com sucesso");
-            
-           System.exit(0);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "erro de conexao" + e.getMessage());
-        }
+        JOptionPane.showMessageDialog(null, "conexao salva com sucesso");
 
+        System.exit(0);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "erro de conexao" + e.getMessage());
     }
+}
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
     @SuppressWarnings("unchecked")

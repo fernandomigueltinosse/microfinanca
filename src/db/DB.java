@@ -40,7 +40,7 @@ public class DB {
                     return null; // Retorna null caso a conexão falhe
                 }
             } catch (SQLException e) {
-                //JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
                 return null; // Retorna null caso a conexão falhe
             }
         }
@@ -66,7 +66,7 @@ public class DB {
                 st.close();
             }
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
      /////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ public class DB {
                 rs.close();
             }
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
@@ -87,7 +87,7 @@ public class DB {
                 conn.close();
             }
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }

@@ -154,13 +154,15 @@ public class frmDocumentos extends javax.swing.JFrame {
     }
 
     private void findAllDoc(JTable tabla) {
-        ImageIcon icono = null;
+        
         tabla.setDefaultRenderer(Object.class, new tableRenderer());
         DefaultTableModel model = (DefaultTableModel) tblDocumentos.getModel();
         tabla.setRowHeight(32);
         model.setNumRows(0);
-        if (get_Image("/icons/img/pdf.png") != null) {
+        ImageIcon icono = null;
+        if (get_Image("icons/img/pdf.png") != null) {
             icono = new ImageIcon(get_Image("/icons/img/pdf.png"));
+            JOptionPane.showMessageDialog(null, icono);
         }
         Documentos doc;
         ArrayList<Documentos> list = docDao.findAll();
@@ -172,10 +174,10 @@ public class frmDocumentos extends javax.swing.JFrame {
                 fila[1] = doc.getTitulo();
                 fila[2] = doc.getIdEmprestimo();
                 if (doc.getPath() != null) {
-                    fila[3] = new JButton(icono);
+                    fila[3] = new JButton("Ver documento");
 
                 } else {
-                    fila[3] = new JButton("Vacio");
+                    fila[3] = new JButton("Vazio");
                 }
                 model.addRow(fila);
             }
@@ -211,9 +213,10 @@ public class frmDocumentos extends javax.swing.JFrame {
                     docDao.findById(idDocumentos);
                     try {
                         Desktop.getDesktop().open(new File("new.pdf"));
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex);
+                    }
                 }
-
             } else {
                 preecherCampos();
             }
@@ -221,13 +224,14 @@ public class frmDocumentos extends javax.swing.JFrame {
     }
     
     private void filterByIdEmprestimo(JTable tabla){
-         ImageIcon icono = null;
         tabla.setDefaultRenderer(Object.class, new tableRenderer());
         DefaultTableModel model = (DefaultTableModel) tblDocumentos.getModel();
         tabla.setRowHeight(32);
         model.setNumRows(0);
+        ImageIcon icono = null;
         if (get_Image("/icons/img/pdf.png") != null) {
             icono = new ImageIcon(get_Image("/icons/img/pdf.png"));
+            //JOptionPane.showMessageDialog(null, icono);
         }
         Documentos doc;
         ArrayList<Documentos> list = docDao.filtrar(txtSearchDoc.getText());
@@ -239,7 +243,7 @@ public class frmDocumentos extends javax.swing.JFrame {
                 fila[1] = doc.getTitulo();
                 fila[2] = doc.getIdEmprestimo();
                 if (doc.getPath() != null) {
-                    fila[3] = new JButton(icono);
+                    fila[3] = new JButton("Ver documento");
 
                 } else {
                     fila[3] = new JButton("Vacio");
@@ -545,11 +549,11 @@ public class frmDocumentos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void tblDocumentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentosMouseClicked
-        // TODO add your handling code here:
+        tblDocumentosMouse(evt);
     }//GEN-LAST:event_tblDocumentosMouseClicked
 
     private void txtSearchDocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDocKeyReleased
-        // TODO add your handling code here:
+        filterByIdEmprestimo(tblCredito);
     }//GEN-LAST:event_txtSearchDocKeyReleased
 
     /**
