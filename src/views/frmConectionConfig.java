@@ -56,7 +56,7 @@ public class frmConectionConfig extends javax.swing.JFrame {
         Connection conn;
         try {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://" + txtHost.getText() + ":" + txtPort.getText() + "/" + txtDatabase.getText();
+            String url = "jdbc:mysql://" + txtHost.getText() + ":" + txtPort.getText() + "/" + txtDatabase.getText()+"?autoReconnect=true&useSSL=false";
             Class.forName(driver);
 
             String passwordString = new String(txtPassword.getPassword());
