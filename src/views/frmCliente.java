@@ -94,19 +94,19 @@ public class frmCliente extends javax.swing.JFrame {
         txtNome.setText(client.getCli_nome());
         txtEndereco.setText(client.getCli_endereco());
         txtTelefone.setText(String.valueOf(client.getCli_telefone()));
-        ((JTextField)DataEmissaoConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_emissao());
-        ((JTextField)DataValidadeConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_validade());
+        ((JTextField) DataEmissaoConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_emissao());
+        ((JTextField) DataValidadeConjugue.getDateEditor().getUiComponent()).setText(client.getCon_data_de_validade());
         txtNumero.setText(client.getCli_numero());
         comoDocumento.setSelectedItem(client.getCli_tipo_documento());
         txtQuarteirao.setText(client.getCli_quarteirao());
         txtCasa.setText(client.getCli_casa_numero());
         txtConArquivoIdentificacao.setText(client.getCom_arquivo_identificacao());
         txtConNumeroDoc.setText(client.getCon_numero());
-        ((JTextField)txtCliDataEmissao.getDateEditor().getUiComponent()).setText(client.getCli_data_emissao());
-        ((JTextField)txtCliDataValidade.getDateEditor().getUiComponent()).setText(client.getCli_data_validade());
+        ((JTextField) txtCliDataEmissao.getDateEditor().getUiComponent()).setText(client.getCli_data_emissao());
+        ((JTextField) txtCliDataValidade.getDateEditor().getUiComponent()).setText(client.getCli_data_validade());
         txtArquivoIdentificacao.setText(client.getCli_arquivo_identificacao());
-        
-        ((JTextField)txtDataNascimento.getDateEditor().getUiComponent()).setText(client.getCli_data_de_nascimento());
+
+        ((JTextField) txtDataNascimento.getDateEditor().getUiComponent()).setText(client.getCli_data_de_nascimento());
         txtEstadoCivil.setText(client.getCli_estado_civil());
         TxtOcupacao.setText(client.getCli_ocupacao());
         txtNomeConjugue.setText(client.getNome_conjugue());
@@ -148,9 +148,15 @@ public class frmCliente extends javax.swing.JFrame {
     }
 
     private void delete() {
-        Cliente client = new Cliente();
-        client.setCli_id(Integer.valueOf(txtId.getText()));
-        clienteDao.delete(client);
+
+        int confirmar = JOptionPane.showConfirmDialog(null, "tem certeza que deseja "
+                + "apagar?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirmar == JOptionPane.YES_OPTION) {
+            Cliente client = new Cliente();
+            client.setCli_id(Integer.valueOf(txtId.getText()));
+            clienteDao.delete(client);
+
+        }
     }
 
     private Cliente instatiateClient() {
@@ -445,24 +451,26 @@ public class frmCliente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtArquivoIdentificacao)
-                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(txtLocalNascimento)
-                    .addComponent(txtEstadoCivil)
-                    .addComponent(TxtOcupacao)
-                    .addComponent(txtCliDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCliDataEmissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtArquivoIdentificacao)
+                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(txtLocalNascimento)
+                            .addComponent(txtEstadoCivil)
+                            .addComponent(TxtOcupacao)
+                            .addComponent(txtCliDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCliDataEmissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel21)
                             .addComponent(jLabel16)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel20))
-                        .addGap(46, 46, 46)))
-                .addGap(25, 25, 25))
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,12 +743,12 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       
-            update();
-            cleanField();
-            fillTable();
-            ActivateButtons(false, false, false);
-       
+
+        update();
+        cleanField();
+        fillTable();
+        ActivateButtons(false, false, false);
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
@@ -751,8 +759,8 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void tblClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientsMouseClicked
-       ClickedTable();
-       ActivateButtons(false, true, true);
+        ClickedTable();
+        ActivateButtons(false, true, true);
     }//GEN-LAST:event_tblClientsMouseClicked
 
     private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked

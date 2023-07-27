@@ -55,11 +55,11 @@ public class frmdashBoard extends javax.swing.JFrame {
         usuarios = new javax.swing.JMenuItem();
         Emprestimo = new javax.swing.JMenuItem();
         Documentos = new javax.swing.JMenuItem();
-        balanco = new javax.swing.JMenuItem();
         pagamentos = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         RelatorioDeVendas = new javax.swing.JMenuItem();
+        balanco = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -354,14 +354,6 @@ public class frmdashBoard extends javax.swing.JFrame {
         });
         jMenu2.add(Documentos);
 
-        balanco.setText("Balanço");
-        balanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                balancoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(balanco);
-
         pagamentos.setText("Pagamentos");
         pagamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,6 +381,14 @@ public class frmdashBoard extends javax.swing.JFrame {
             }
         });
         jMenu5.add(RelatorioDeVendas);
+
+        balanco.setText("Balanço");
+        balanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                balancoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(balanco);
 
         jMenuBar1.add(jMenu5);
 
@@ -518,7 +518,12 @@ public class frmdashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void RelatorioDeVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioDeVendasActionPerformed
-        new frmRelatorioVendas().setVisible(true);
+        
+         if (UserSession.funcao.equals("Administrador")) {
+           new frmRelatorioVendas().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Voce não tem permissão");
+         }
     }//GEN-LAST:event_RelatorioDeVendasActionPerformed
 
     private void GerarDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarDocumentosActionPerformed

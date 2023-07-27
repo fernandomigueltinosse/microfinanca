@@ -50,7 +50,7 @@ public class PagamentoDaoJDBC implements PagamentoDao {
                 throw new DbException("erro inesperado! nenhuma linha foi afectada");
             }
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
         }
@@ -62,48 +62,50 @@ public class PagamentoDaoJDBC implements PagamentoDao {
         ResultSet rs = null;
         try {
             pst = conn.prepareStatement("SELECT * FROM pagamentos join emprestimo on ep_id=pag_fk_emprestimo JOIN clientes on clientes.cli_id=ep_fk_clientes");
-            
+
             rs = pst.executeQuery();
             List<Pagamentos> list = new ArrayList<>();
             while (rs.next()) {
-               Pagamentos  pg = fetchData(rs);
+                Pagamentos pg = fetchData(rs);
                 list.add(pg);
             }
             return list;
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
             DB.closeResultSet(rs);
         }
+        return null;
     }
-    
-      @Override
+
+    @Override
     public List<Pagamentos> findByEpId(String id) {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
             pst = conn.prepareStatement("SELECT * FROM pagamentos join emprestimo on ep_id=pag_fk_emprestimo JOIN clientes on clientes.cli_id=ep_fk_clientes where ep_id like ?");
-            pst.setString(1, id +"%");
+            pst.setString(1, id + "%");
             rs = pst.executeQuery();
             List<Pagamentos> list = new ArrayList<>();
             while (rs.next()) {
-               Pagamentos  pg = fetchData(rs);
+                Pagamentos pg = fetchData(rs);
                 list.add(pg);
             }
             return list;
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
             DB.closeResultSet(rs);
         }
+        return null;
     }
 
     private void InstaciatePST(PreparedStatement pst, Pagamentos obj) throws SQLException {
         pst.setDouble(1, obj.getPg_valor_pago());
         pst.setDouble(2, obj.getEmprestimo().getEp_id());
-        pst.setString(3 ,obj.getData_pagamento());
+        pst.setString(3, obj.getData_pagamento());
         if (obj.getPg_id() != null) {
             pst.setInt(4, obj.getPg_id());
         }
@@ -123,11 +125,13 @@ public class PagamentoDaoJDBC implements PagamentoDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
             DB.closeResultSet(rs);
         }
+        return null;
     }
 
     private Pagamentos fetchData(ResultSet rs) throws SQLException {
@@ -144,8 +148,7 @@ public class PagamentoDaoJDBC implements PagamentoDao {
         pagamento.setPg_valor_pago(rs.getDouble("pag_valor_pago"));
         pagamento.setNumero_prestacao(rs.getInt("numero_prestacao"));
         pagamento.setData_pagamento(rs.getString("pag_data_registro"));
-        
-        
+
         return pagamento;
 
     }
@@ -165,7 +168,7 @@ public class PagamentoDaoJDBC implements PagamentoDao {
             }
 
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
             DB.closeResultSet(rs);
@@ -181,9 +184,30 @@ public class PagamentoDaoJDBC implements PagamentoDao {
             pst.setInt(1, obj.getNumero_prestacao());
             pst.setInt(2, obj.getPg_id());
             pst.executeUpdate();
-            
+
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            DB.closeStatement(pst);
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("DELETE from pagamentos where pag_id=?");
+            pst.setInt(1, id);
+            int rowsSffected = pst.executeUpdate();
+            if (rowsSffected > 0) {
+                JOptionPane.showMessageDialog(null, "Apagado com sucesso");
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "erro inesperado! nenhuma linha foi afectadao");
+            }
+        } catch (SQLException e) {
+           
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
         }

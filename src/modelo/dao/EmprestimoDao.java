@@ -14,7 +14,7 @@ import modelo.entities.Emprestimo;
 public interface EmprestimoDao {
     void insert(Emprestimo obj);
     void update (Emprestimo obj);
-    void delete(Emprestimo obj);
+    void delete(Integer id);
     void updateData(Emprestimo obj);
     void updatePrestacoes(Integer prestacoes);
     void updateStatus(Emprestimo obj);

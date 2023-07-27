@@ -401,27 +401,31 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtArquivoIdentificacao" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtDataNascimento" pref="203" max="32767" attributes="0"/>
-                                  <Component id="txtLocalNascimento" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtEstadoCivil" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="TxtOcupacao" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtCliDataValidade" max="32767" attributes="0"/>
-                                  <Component id="txtCliDataEmissao" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel15" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <Component id="txtArquivoIdentificacao" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtDataNascimento" pref="203" max="32767" attributes="0"/>
+                                          <Component id="txtLocalNascimento" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtEstadoCivil" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="TxtOcupacao" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtCliDataValidade" max="32767" attributes="0"/>
+                                          <Component id="txtCliDataEmissao" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

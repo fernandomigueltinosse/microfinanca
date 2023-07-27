@@ -96,20 +96,21 @@ public class EmprestimoDaoJDBC implements EmprestimoDao {
     }
 
     @Override
-    public void delete(Emprestimo obj) {
+    public void delete(Integer id) {
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("DELETE from emprestimo where ep_id=?");
-
-            pst.setInt(1, obj.getEp_id());
+            pst.setInt(1, id);
             int rowsSffected = pst.executeUpdate();
             if (rowsSffected > 0) {
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                JOptionPane.showMessageDialog(null, "Apagado com sucesso");
             } else {
-                throw new DbException("erro inesperado! nenhuma linha foi afectada");
+                
+                JOptionPane.showMessageDialog(null, "erro inesperado! nenhuma linha foi afectadao");
             }
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+           
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             DB.closeStatement(pst);
         }

@@ -51,8 +51,14 @@ public class frmPagamentos extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         findAllCredito();
         findAllPagamentos();
+        ActivateButtons(false, false);
     }
 
+       private void ActivateButtons(boolean btnAdicionar, boolean btnApagar) {
+        this.btnAdicionar.setEnabled(btnAdicionar);
+        this.btnApagar.setEnabled(btnApagar);
+    }
+    
     private void findAllPagamentos() {
         List<Pagamentos> list = pagamentoDao.finfAll();
         DefaultTableModel model = (DefaultTableModel) tblPagamentos.getModel();
@@ -75,6 +81,7 @@ public class frmPagamentos extends javax.swing.JFrame {
         txtId.setText("");
         txtRefEmprestimo.setText("");
         txtValorApagar.setText("");
+        ActivateButtons(false, false);
     }
 
     private void findAllCredito() {
@@ -101,28 +108,35 @@ public class frmPagamentos extends javax.swing.JFrame {
             pagamento.setData_pagamento(sd.format(dataNow));
             pagamentoDao.insert(pagamento);
             Integer count = pagamentoDao.count(Integer.valueOf(txtRefEmprestimo.getText()));
-            
+
             pagamento.setNumero_prestacao(count);
             pagamento.setPg_id(pagamento.getPg_id());
             pagamentoDao.updatePrestcoes(pagamento);
             ep = emprestimoDao.findById(Integer.valueOf(txtRefEmprestimo.getText()));
-            if(Objects.equals(ep.getEp_prestacoes(), count)){
+            if (Objects.equals(ep.getEp_prestacoes(), count)) {
                 ep.setStatus("Pago");
                 ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
                 emprestimoDao.updateStatus(ep);
             }
-                    
+
             LocalDate dataAtual = LocalDate.parse(ep.getEp_prazo(), formato);
-            
+
             LocalDate novaData = dataAtual.plusDays(ep.getEp_frequenciaPagamento());
-            
-            
+
             ep.setEp_prazo(formato.format(novaData));
             ep.setEp_id(Integer.valueOf(txtRefEmprestimo.getText()));
             emprestimoDao.updateData(ep);
             imprimirRecibo(pagamento, ep);
         }
 
+    }
+
+    private void delete() {
+        int confirmar = JOptionPane.showConfirmDialog(null, "tem certeza que deseja "
+                + "apagar?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirmar == JOptionPane.YES_OPTION) {
+            pagamentoDao.delete(Integer.valueOf(txtId.getText()));
+        }
     }
 
     private void imprimirRecibo(Pagamentos pg, Emprestimo ep) {
@@ -150,7 +164,7 @@ public class frmPagamentos extends javax.swing.JFrame {
                     parametros.put("idEmprestimo", ep.getEp_id());
                     InputStream jrxmlStream = DB.class.getClassLoader().getResourceAsStream("relatorios/recibo.jrxml");
                     JasperDesign path = JRXmlLoader.load(jrxmlStream);
-                   // JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
+                    // JasperDesign path = JRXmlLoader.load("src/relatorios/recibo.jrxml");
                     JasperReport report = JasperCompileManager.compileReport(path);
                     JasperPrint print = JasperFillManager.fillReport(report, parametros, new JREmptyDataSource());
                     JasperViewer.viewReport(print, false);
@@ -194,6 +208,11 @@ public class frmPagamentos extends javax.swing.JFrame {
         Double montante = (Double) tblCredito.getModel().getValueAt(linha, 4);
         Integer prestacoes = (Integer) tblCredito.getModel().getValueAt(linha, 5);
         txtValorApagar.setText(String.valueOf(montante / prestacoes));
+    }
+    
+    private void preencherCampoPagamento(){
+        int linha = tblPagamentos.getSelectedRow();
+        txtId.setText(tblPagamentos.getModel().getValueAt(linha, 0).toString());
     }
 
     private void imprimir() throws JRException {
@@ -259,8 +278,10 @@ public class frmPagamentos extends javax.swing.JFrame {
         txtRefEmprestimo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtValorApagar = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -339,6 +360,11 @@ public class frmPagamentos extends javax.swing.JFrame {
                 "id", "Nome", "Valor pago", "Prestacao paga", "Data", "Nº do emprestimo"
             }
         ));
+        tblPagamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPagamentosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPagamentos);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -412,11 +438,11 @@ public class frmPagamentos extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-add-24.png"))); // NOI18N
+        btnAdicionar.setText("Salvar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAdicionarActionPerformed(evt);
             }
         });
 
@@ -428,6 +454,22 @@ public class frmPagamentos extends javax.swing.JFrame {
             }
         });
 
+        btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-delete-24.png"))); // NOI18N
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/24x24/icons8-new-copy-24.png"))); // NOI18N
+        jButton1.setText("Novo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -436,9 +478,13 @@ public class frmPagamentos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(jButton2)
-                        .addGap(71, 71, 71)
+                        .addGap(144, 144, 144)
+                        .addComponent(jButton1)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnAdicionar)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
                         .addComponent(jButton3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
@@ -453,8 +499,10 @@ public class frmPagamentos extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnAdicionar)
+                    .addComponent(jButton3)
+                    .addComponent(btnApagar)
+                    .addComponent(jButton1))
                 .addGap(43, 43, 43))
         );
 
@@ -481,13 +529,13 @@ public class frmPagamentos extends javax.swing.JFrame {
         preencherCampo();
     }//GEN-LAST:event_tblCreditoMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         insert();
         findAllCredito();
         findAllPagamentos();
         limpar();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         limpar();
@@ -496,6 +544,20 @@ public class frmPagamentos extends javax.swing.JFrame {
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         searchById();
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        delete();
+        findAllPagamentos();
+    }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void tblPagamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPagamentosMouseClicked
+        preencherCampoPagamento();
+        ActivateButtons(false, true);
+    }//GEN-LAST:event_tblPagamentosMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ActivateButtons(true, false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,7 +595,9 @@ public class frmPagamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

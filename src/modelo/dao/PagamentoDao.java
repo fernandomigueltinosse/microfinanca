@@ -18,4 +18,5 @@ public interface PagamentoDao {
     List<Pagamentos> findByEpId(String id);
     Pagamentos findById(Pagamentos obj);
     Integer count(Integer id);
+    void delete(Integer id);
 }
