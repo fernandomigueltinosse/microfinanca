@@ -46,6 +46,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
     Emprestimo ep = new Emprestimo();
     Cliente cli = new Cliente();
     Connection conn;
+
     public frmEmprestimo() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
@@ -54,7 +55,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         conn = DB.getConnection();
         ActivateButtons(false, false, false);
     }
-    
+
     private void ActivateButtons(boolean btnAdicionar, boolean btnActualizar, boolean btnApagar) {
         this.btnAdicionar.setEnabled(btnAdicionar);
         this.btnActualizar.setEnabled(btnActualizar);
@@ -68,16 +69,29 @@ public class frmEmprestimo extends javax.swing.JFrame {
         ep.instatiateModel(list, model);
     }
 
+    private boolean validarCampos() {
+        if (txtMontante.getText().isEmpty()
+                || txtJuros.getText().isEmpty()
+                || txtPrestacoes.getText().isEmpty()
+                || dataPrazo.getDate() == null
+                || txtFrequenciaPagamento.getText().isEmpty()
+                || txtIdClinte.getText().isEmpty()) {
+            return true; // Há campos vazios, retorna true indicando falha na validação
+        }
+
+        return false; // Todos os campos estão preenchidos, retorna false indicando sucesso na validação
+    }
+
     private void insert() {
-        
-         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         Date data = new Date();
         Emprestimo credito = new Emprestimo();
         credito.setEp_montante(Double.valueOf(txtMontante.getText()));
         credito.setEp_juros(Double.valueOf(txtJuros.getText()));
         credito.setEp_total(Double.valueOf(txtTotal.getText()));
         credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));
-        
+
         credito.setStatus("nao pago");
         credito.setEp_prazo(sd.format(dataPrazo.getDate()));
         credito.setEp_data_emprestimo(sd.format(data));
@@ -87,9 +101,10 @@ public class frmEmprestimo extends javax.swing.JFrame {
         credito.setCliente(cliente);
         creditoDao.insert(credito);
         imprimirConfissaoDivida(credito.getEp_id());
+
     }
-    
-       private void imprimirConfissaoDivida(int id) {
+
+    private void imprimirConfissaoDivida(int id) {
         final frmAguarde spash = new frmAguarde();
         spash.setVisible(true);
         Thread t = new Thread() {
@@ -123,7 +138,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         credito.setEp_total(Double.valueOf(txtTotal.getText()));
         credito.setEp_prestacoes(Integer.valueOf(txtPrestacoes.getText()));
         credito.setEp_id(Integer.valueOf(txtIdCredito.getText()));
-        
+
         credito.setEp_prazo(sd.format(dataPrazo.getDate()));
         credito.setEp_data_emprestimo(sd.format(data));
         credito.setEp_frequenciaPagamento(Integer.valueOf(txtFrequenciaPagamento.getText()));
@@ -134,7 +149,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void delete() {
-         int confirmar = JOptionPane.showConfirmDialog(null, "tem certeza que deseja "
+        int confirmar = JOptionPane.showConfirmDialog(null, "tem certeza que deseja "
                 + "apagar?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirmar == JOptionPane.YES_OPTION) {
             creditoDao.delete(Integer.parseInt(txtIdCredito.getText()));
@@ -142,8 +157,8 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }
 
     private void findCreditoById() {
-         int linha = tblCredito.getSelectedRow();
-         tblCredito.getModel().getValueAt(linha, 0).toString();
+        int linha = tblCredito.getSelectedRow();
+        tblCredito.getModel().getValueAt(linha, 0).toString();
         Emprestimo emp = creditoDao.findById(Integer.valueOf(tblCredito.getModel().getValueAt(linha, 0).toString()));
         txtIdCredito.setText(String.valueOf(emp.getEp_id()));
         txtMontante.setText(String.valueOf(emp.getEp_montante()));
@@ -151,7 +166,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
         txtTotal.setText(String.valueOf(emp.getEp_total()));
         txtPrestacoes.setText(String.valueOf(emp.getEp_prestacoes()));
         txtFrequenciaPagamento.setText(String.valueOf(emp.getEp_frequenciaPagamento()));
-        ((JTextField)dataPrazo.getDateEditor().getUiComponent()).setText(emp.getEp_prazo());
+        ((JTextField) dataPrazo.getDateEditor().getUiComponent()).setText(emp.getEp_prazo());
         txtIdClinte.setText(String.valueOf(emp.getCliente().getCli_id()));
     }
 
@@ -202,7 +217,6 @@ public class frmEmprestimo extends javax.swing.JFrame {
             percentual = (montante * juros) / 100;
             total = percentual + montante;
             txtTotal.setText(String.valueOf(total));
-            
 
         } else {
         }
@@ -212,8 +226,8 @@ public class frmEmprestimo extends javax.swing.JFrame {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate datactual = LocalDate.now();
         for (Emprestimo creditos : List) {
-            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato); 
-            
+            LocalDate dataAnterior = LocalDate.parse(creditos.getEp_prazo(), formato);
+
             long diff = ChronoUnit.DAYS.between(datactual, dataAnterior);
             model.addRow(new Object[]{
                 creditos.getEp_id(),
@@ -412,7 +426,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
 
         txtIdCredito.setEnabled(false);
 
-        jLabel4.setText("Montante ");
+        jLabel4.setText("Montante *");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -450,7 +464,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel5.setText("Juros");
+        jLabel5.setText("Juros *");
 
         txtJuros.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -460,7 +474,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
 
         jLabel6.setText("Total");
 
-        jLabel8.setText("Prazo de pagamento");
+        jLabel8.setText("Prazo de pagamento *");
 
         dataPrazo.setDateFormatString("dd/MM/yyyy");
 
@@ -500,7 +514,7 @@ public class frmEmprestimo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Prestações");
+        jLabel7.setText("Prestações *");
 
         jLabel10.setText("Frequencia de Pagamento(Nº de dias)");
 
@@ -651,9 +665,13 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        insert();
-        findAllCredito();
-        ActivateButtons(false, false, false);
+        if (validarCampos()) {
+            JOptionPane.showMessageDialog(null, "preencha os campos obrigatorios *");
+        } else {
+            insert();
+            findAllCredito();
+            ActivateButtons(false, false, false);
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
@@ -680,9 +698,9 @@ public class frmEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsearchCreditoKeyReleased
 
     private void txtJurosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJurosKeyReleased
-        if(!txtJuros.getText().isEmpty()){
-        calcular_total();
-        }else{
+        if (!txtJuros.getText().isEmpty()) {
+            calcular_total();
+        } else {
             txtTotal.setText("");
         }
     }//GEN-LAST:event_txtJurosKeyReleased
@@ -691,10 +709,11 @@ public class frmEmprestimo extends javax.swing.JFrame {
         delete();
         findAllCredito();
         ActivateButtons(false, false, false);
+        cancelar();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       ActivateButtons(true, false, false);
+        ActivateButtons(true, false, false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

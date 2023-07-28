@@ -71,6 +71,26 @@ public class frmCliente extends javax.swing.JFrame {
         txtConNumeroDoc.setText("");
         txtConArquivoIdentificacao.setText("");
     }
+    
+    private boolean validarCampos(){
+        if(txtNome.getText().isEmpty()
+                || txtEndereco.getText().isEmpty()
+                || txtQuarteirao.getText().isEmpty()
+                || txtCasa.getText().isEmpty()
+                || txtTelefone.getText().isEmpty()
+                || txtNumero.getText().isEmpty()
+                || txtCliDataEmissao.getDate()==null
+                || txtCliDataValidade.getDate()==null
+                || txtArquivoIdentificacao.getText().isEmpty()
+                || txtDataNascimento.getDate()==null
+                || txtLocalNascimento.getText().isEmpty()
+                || txtEstadoCivil.getText().isEmpty()
+                || TxtOcupacao.getText().isEmpty()){
+        return true;
+        }
+        return false;
+    
+    }
 
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblClients.getModel();
@@ -183,8 +203,16 @@ public class frmCliente extends javax.swing.JFrame {
         client.setCli_local_nascimento(txtLocalNascimento.getText());
         client.setNome_conjugue(txtNomeConjugue.getText());
         client.setCon_tipo_documento(comboTipoDocumento.getSelectedItem().toString());
-        client.setCon_data_de_emissao(sd.format(DataEmissaoConjugue.getDate()));
-        client.setCon_data_de_validade(sd.format(DataValidadeConjugue.getDate()));
+        if(DataEmissaoConjugue.getDate()==null){
+            client.setCon_data_de_validade(null);
+        }else{
+            client.setCon_data_de_emissao(sd.format(DataEmissaoConjugue.getDate()));
+        }
+        if(DataValidadeConjugue.getDate()==null){
+            client.setCon_data_de_validade(null);
+        }else{
+            client.setCon_data_de_validade(sd.format(DataValidadeConjugue.getDate()));
+        }
         client.setCon_Ocupacao(OcupacaoConjugue.getText());
         client.setCom_arquivo_identificacao(txtConArquivoIdentificacao.getText());
         client.setCon_numero(txtConNumeroDoc.getText());
@@ -312,15 +340,15 @@ public class frmCliente extends javax.swing.JFrame {
 
         lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setText("Bairro");
+        jLabel4.setText("Bairro *");
 
-        jLabel3.setText("Nome");
+        jLabel3.setText("Nome *");
 
         txtId.setEnabled(false);
         txtId.setMinimumSize(new java.awt.Dimension(100, 22));
         txtId.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        jLabel5.setText("Telefone");
+        jLabel5.setText("Telefone*");
 
         txtCasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,15 +356,15 @@ public class frmCliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Quarteirão");
+        jLabel10.setText("Quarteirão *");
 
         jLabel6.setText("Tipo de documento");
 
         comoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BI", "Passaporte", "Carta de condução", "Outros" }));
 
-        jLabel11.setText("Casa");
+        jLabel11.setText("Casa*");
 
-        jLabel7.setText("Numero  do documento");
+        jLabel7.setText("Numero  do documento*");
 
         jLabel2.setText("Nº.  Cliente");
 
@@ -423,26 +451,26 @@ public class frmCliente extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {comoDocumento, txtCasa, txtEndereco, txtId, txtNome, txtNumero, txtQuarteirao, txtTelefone});
 
-        jLabel19.setText("Data de emissao");
+        jLabel19.setText("Data de emissao*");
 
         txtCliDataEmissao.setDateFormatString("dd/MM/yyyy");
         txtCliDataEmissao.setMinimumSize(new java.awt.Dimension(100, 22));
 
-        jLabel20.setText("Data de validade");
+        jLabel20.setText("Data de validade*");
 
         txtCliDataValidade.setDateFormatString("dd/MM/yyyy");
 
-        jLabel15.setText("Arquivo de identificação");
+        jLabel15.setText("Arquivo de identificação*");
 
-        jLabel17.setText("Data de nascimento");
+        jLabel17.setText("Data de nascimento*");
 
         txtDataNascimento.setDateFormatString("dd/MM/yyyy");
 
         jLabel21.setText("Local de nascimento");
 
-        jLabel16.setText("Estado Civil");
+        jLabel16.setText("Estado Civil*");
 
-        jLabel18.setText("Ocupação");
+        jLabel18.setText("Ocupação*");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -732,7 +760,10 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        if (clienteDao.ifClientExist(txtNome.getText())) {
+      if(validarCampos()){
+          JOptionPane.showMessageDialog(null, "preencha dos campos obrigatorios *");
+      }else{
+            if (clienteDao.ifClientExist(txtNome.getText())) {
             JOptionPane.showMessageDialog(null, "Cliente ja existe");
         } else {
             insert();
@@ -740,6 +771,7 @@ public class frmCliente extends javax.swing.JFrame {
             fillTable();
             ActivateButtons(false, false, false);
         }
+      }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed

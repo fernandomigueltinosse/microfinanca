@@ -375,7 +375,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Montante "/>
+            <Property name="text" type="java.lang.String" value="Montante *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMontante">
@@ -429,7 +429,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Juros"/>
+            <Property name="text" type="java.lang.String" value="Juros *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtJuros">
@@ -446,7 +446,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Prazo de pagamento"/>
+            <Property name="text" type="java.lang.String" value="Prazo de pagamento *"/>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dataPrazo">
@@ -497,7 +497,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Presta&#xe7;&#xf5;es"/>
+            <Property name="text" type="java.lang.String" value="Presta&#xe7;&#xf5;es *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrestacoes">

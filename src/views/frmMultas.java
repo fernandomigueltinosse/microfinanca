@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.ClienteDao;
 import modelo.dao.DaoFactory;
@@ -22,7 +23,8 @@ import modelo.entities.Multas;
  * @author pc2
  */
 public class frmMultas extends javax.swing.JFrame {
- Cliente cli = new Cliente();
+
+    Cliente cli = new Cliente();
     ClienteDao clienteDao = DaoFactory.createClienteDao();
     MultasDao multasDao = DaoFactory.createMultas();
 
@@ -34,17 +36,17 @@ public class frmMultas extends javax.swing.JFrame {
         ActivateButtons(false, false, false);
     }
 
-       private void ActivateButtons(boolean btnAdicionar, boolean btnPagarmulta, boolean btnApagar) {
+    private void ActivateButtons(boolean btnAdicionar, boolean btnPagarmulta, boolean btnApagar) {
         this.btnAdicionar.setEnabled(btnAdicionar);
         this.btnpagar.setEnabled(btnPagarmulta);
         this.btnApagar.setEnabled(btnApagar);
     }
-    
-   private void fillTable() {
+
+    private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setNumRows(0);
         List<Cliente> list = clienteDao.findAllCliente();
-         for (Cliente client : list) {
+        for (Cliente client : list) {
             model.addRow(new Object[]{
                 client.getCli_id(),
                 client.getCli_nome(),
@@ -58,9 +60,7 @@ public class frmMultas extends javax.swing.JFrame {
         }
     }
 
-  
-
-   private void searchByName() {
+    private void searchByName() {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setNumRows(0);
         List<Cliente> list = clienteDao.findByName(txtSearchClientes.getText());
@@ -71,24 +71,30 @@ public class frmMultas extends javax.swing.JFrame {
         int linha = tblClientes.getSelectedRow();
         String id = (tblClientes.getModel().getValueAt(linha, 0).toString());
         txtIdClinte.setText(id);
-        
+
     }
 
     private void insert() {
-        Multas m = new Multas();
-        Date data = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        m.setMulta(Double.valueOf(txtMultas.getText()));
-        m.setMdata(sd.format(data));
-        Cliente cliente = new Cliente();
-        cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
-        m.setCliente(cliente);
-        multasDao.insert(m);
+        if (!txtMultas.getText().isEmpty()) {
+            Multas m = new Multas();
+            Date data = new Date();
+            SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+            m.setMulta(Double.valueOf(txtMultas.getText()));
+            m.setMdata(sd.format(data));
+            Cliente cliente = new Cliente();
+            cliente.setCli_id(Integer.valueOf(txtIdClinte.getText()));
+            m.setCliente(cliente);
+            multasDao.insert(m);
+        }else{
+            JOptionPane.showMessageDialog(null, "Digite o valor da multa");
+            txtMultas.requestFocus();
+        }
+
     }
-    
-     private void pagarMulta() {
+
+    private void pagarMulta() {
         Multas m = new Multas();
-       
+
         m.setPagarMulta(Double.valueOf(txtPagarMulta.getText()));
         m.setM_id(Integer.valueOf(txtId.getText()));
         multasDao.pagarMulta(m);
@@ -103,7 +109,7 @@ public class frmMultas extends javax.swing.JFrame {
         List<Multas> list = multasDao.filter(txtSearchMultas.getText());
         DefaultTableModel model = (DefaultTableModel) tblMultas.getModel();
         model.setNumRows(0);
-        for(Multas m :list){
+        for (Multas m : list) {
             model.addRow(new Object[]{
                 m.getM_id(),
                 m.getCliente().getCli_nome(),
@@ -112,23 +118,24 @@ public class frmMultas extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void findAllMultas() {
 
         List<Multas> list = multasDao.findAllMultas();
         DefaultTableModel model = (DefaultTableModel) tblMultas.getModel();
         model.setNumRows(0);
-        for(Multas m :list){
+        for (Multas m : list) {
             model.addRow(new Object[]{
                 m.getM_id(),
                 m.getCliente().getCli_nome(),
                 m.getMulta(),
                 m.getPagarMulta(),
                 m.getMdata()
-                
+
             });
         }
     }
+
     private void preencherCampoMultas() {
         int linha = tblMultas.getSelectedRow();
         String id = (tblMultas.getModel().getValueAt(linha, 0).toString());
@@ -369,11 +376,11 @@ public class frmMultas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void txtSearchMultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchMultasKeyReleased
-       filter();
+        filter();
     }//GEN-LAST:event_txtSearchMultasKeyReleased
 
     private void btnpagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagarActionPerformed
-        pagarMulta(); 
+        pagarMulta();
         findAllMultas();
     }//GEN-LAST:event_btnpagarActionPerformed
 
